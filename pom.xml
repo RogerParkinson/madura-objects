@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>nz.co.senanque</groupId>
-  <artifactId>madura-objects</artifactId>
+  <artifactId>madura-objects-parent</artifactId>
   <version>3.0.0-SNAPSHOT</version>
 	<name>MaduraObjects</name>
 	<url>www.madurasoftware.com/home/madura-objects</url>
@@ -43,13 +43,13 @@ But to any Java code the objects still look like ordinary Java beans. The surrou
 		</developer>
 	</developers>
 	<scm>
-		<connection>scm:git:git@github.com:RogerParkinson/madura-objects.git</connection>
-		<url>scm:git:git@github.com:RogerParkinson/madura-objects.git</url>
-		<developerConnection>scm:git:git@github.com:RogerParkinson/madura-objects.git</developerConnection>
+		<connection>scm:git:git@github.com:RogerParkinson/madura-objects-parent.git</connection>
+		<url>scm:git:git@github.com:RogerParkinson/madura-objects-parent.git</url>
+		<developerConnection>scm:git:git@github.com:RogerParkinson/madura-objects-parent.git</developerConnection>
 	</scm>
   <issueManagement>
   	<system>GitHub</system>
-  	<url>https://github.com/RogerParkinson/madura-objects/issues</url>
+  	<url>https://github.com/RogerParkinson/madura-objects-parent/issues</url>
   </issueManagement>
   <packaging>pom</packaging>
 </project>
