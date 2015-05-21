@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>nz.co.senanque</groupId>
+  <artifactId>madura-objects</artifactId>
+  <version>3.0.0-SNAPSHOT</version>
+	<name>MaduraObjects</name>
+	<url>www.madurasoftware.com/home/madura-objects</url>
+	<description>This is essentially a JAXB/XJC plugin that adds automatic validation to the generated Java classes. 
+ You define business objects in an XSD file, pass it through XJC and the plugin will add the validation code. 
+It uses information in the XSD to pick up validation, and you can specify extensions to that in the XSD. The resulting 
+Java classes check for validity when the setter is called and they reject attempts to set invalid values (this is a difference from other validation frameworks). The Java classes also expose a metadata interface to make it easy for UIs to generate, say, lists of options for a select box.
+The validation framework handles single field validation but you can inject a rule engine (or several) to handle cross field validation.
+But to any Java code the objects still look like ordinary Java beans. The surrounding application is unaware that they are anything different until they throw an exception. This makes it easy to use with frameworks that expect Java beans, and most of them do.</description>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<pdf>target/${project.artifactId}-${project.version}.pdf</pdf>
+		<spring.framework.version>3.2.6.RELEASE</spring.framework.version>
+		<jaxb22.version>2.2.4-1</jaxb22.version>
+		<choices.schema>src/main/resources/choices.xsd</choices.schema>
+		<messages.schema>src/main/resources/messages.xsd</messages.schema>
+		<hibernate-version>4.2.19.Final</hibernate-version>
+		<jaxb2_commons.version>0.6.2</jaxb2_commons.version>
+		<deltaspike.version>1.2.1</deltaspike.version>
+		<madura-rules.version>${project.version}</madura-rules.version>
+	</properties>
+  <parent>
+  	<groupId>org.sonatype.oss</groupId>
+  	<artifactId>oss-parent</artifactId>
+  	<version>7</version>
+  </parent>
+  <organization>
+  	<name>Prometheus Consulting</name>
+  	<url>www.madurasoftware.com</url>
+  </organization>
+	<developers>
+		<developer>
+			<id>roger</id>
+			<name>Roger J Parkinson</name>
+			<email>roger.parkinson35 at gmail.com</email>
+			<timezone>GMT+12</timezone>
+			<roles>
+			</roles>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git@github.com:RogerParkinson/madura-objects.git</connection>
+		<url>scm:git:git@github.com:RogerParkinson/madura-objects.git</url>
+		<developerConnection>scm:git:git@github.com:RogerParkinson/madura-objects.git</developerConnection>
+	</scm>
+  <issueManagement>
+  	<system>GitHub</system>
+  	<url>https://github.com/RogerParkinson/madura-objects/issues</url>
+  </issueManagement>
+  <packaging>pom</packaging>
+</project>
