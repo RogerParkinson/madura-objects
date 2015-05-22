@@ -3,7 +3,7 @@
   <groupId>nz.co.senanque</groupId>
   <artifactId>madura-objects-parent</artifactId>
   <version>3.0.0-SNAPSHOT</version>
-	<name>MaduraObjects</name>
+	<name>Madura Objects Parent Project</name>
 	<url>www.madurasoftware.com/home/madura-objects</url>
 	<description>This is essentially a JAXB/XJC plugin that adds automatic validation to the generated Java classes. 
  You define business objects in an XSD file, pass it through XJC and the plugin will add the validation code. 
@@ -22,13 +22,24 @@ But to any Java code the objects still look like ordinary Java beans. The surrou
 		<jaxb2_commons.version>0.6.2</jaxb2_commons.version>
 		<deltaspike.version>1.2.1</deltaspike.version>
 		<madura-rules.version>${project.version}</madura-rules.version>
+		<junit.version>4.5</junit.version>
+		<logback-classic.version>1.0.1</logback-classic.version>
+		<slf4j-api.version>1.7.5</slf4j-api.version>
 	</properties>
   <parent>
   	<groupId>org.sonatype.oss</groupId>
   	<artifactId>oss-parent</artifactId>
   	<version>7</version>
   </parent>
-  <organization>
+    <licenses>
+      <license>
+        <name>Apache License, Version 2.0</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        <distribution>repo</distribution>
+        <comments>A business-friendly OSS license</comments>
+      </license>
+    </licenses>
+    <organization>
   	<name>Prometheus Consulting</name>
   	<url>www.madurasoftware.com</url>
   </organization>
@@ -52,4 +63,8 @@ But to any Java code the objects still look like ordinary Java beans. The surrou
   	<url>https://github.com/RogerParkinson/madura-objects-parent/issues</url>
   </issueManagement>
   <packaging>pom</packaging>
+  <modules>
+  	<module>madura-objects</module>
+  	<module>madura-objects-tests</module>
+  </modules>
 </project>
