@@ -106,5 +106,13 @@ formula: Customer "Weight pounds"
 {
 	weight = weightPounds * 0.453D;
 }
+rule: Customer "try out external functions"
+{
+	if (name+${xyz} == "fredCC")
+	{
+		password = regex("abc","def");
+		weight = combine(5,7);
+	}
+}
 
 

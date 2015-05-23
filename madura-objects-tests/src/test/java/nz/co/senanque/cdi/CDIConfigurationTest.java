@@ -1,11 +1,16 @@
 package nz.co.senanque.cdi;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import javax.enterprise.inject.spi.Bean;
 
+import nz.co.senanque.pizzaorder.generated.Customer;
+import nz.co.senanque.pizzaorder.generated.Pizza;
 import nz.co.senanque.validationengine.ValidationEngine;
 import nz.co.senanque.validationengine.ValidationEngineImpl;
+import nz.co.senanque.validationengine.ValidationException;
+import nz.co.senanque.validationengine.ValidationSession;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -16,12 +21,36 @@ public class CDIConfigurationTest {
 	private final static Logger log = LoggerFactory.getLogger(CDIConfigurationTest.class);
 
 	@Test
-	public void testApplication() {
+	public void testPizza() {
 	    final ValidationEngine validationEngine = WeldContext.INSTANCE.getBean(ValidationEngine.class);
 	    assertEquals("my-identifier",validationEngine.getIdentifier());
-	    for (Bean<?> bean:WeldContext.INSTANCE.getContainer().getBeanManager().getBeans("*")) {
-	    	log.debug("{} {}",bean.getName(),bean.getBeanClass());
-	    }
+        ValidationSession validationSession = validationEngine.createSession();
+        Pizza pizza = new Pizza();
+        validationSession.bind(pizza);
+        boolean exceptionFound = false;
+        try 
+        {
+            pizza.setTestDouble(50D);
+        } 
+        catch (ValidationException e) 
+        {
+            exceptionFound = true;
+        }
+        assertTrue(exceptionFound);
+        pizza.setTestDouble(500D);
+        validationSession.close();
+    }
+	@Test
+	public void testCustomer() {
+	    final ValidationEngine validationEngine = WeldContext.INSTANCE.getBean(ValidationEngine.class);
+        assertEquals(validationEngine.getIdentifier(),"my-identifier");
+        ValidationSession validationSession = validationEngine.createSession();
+        Customer customer = new Customer();
+        validationSession.bind(customer);
+        customer.setName("fred");
+        assertEquals("yes, that's okay",customer.getPassword());
+        assertEquals(12D,customer.getWeight(),0);
+        validationSession.close();
     }
 
 }

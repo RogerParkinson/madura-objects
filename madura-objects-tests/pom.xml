@@ -16,6 +16,11 @@
 		</dependency>
 		<dependency>
 			<groupId>nz.co.senanque</groupId>
+			<artifactId>madura-objects-test-factories</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>nz.co.senanque</groupId>
 			<artifactId>madura-rules</artifactId>
 			<version>${madura-rules.version}</version>
 		</dependency>
@@ -56,6 +61,18 @@
 				</exclusion>
 			</exclusions>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.framework.version}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
   </dependencies>
   	<build>
@@ -233,7 +250,7 @@
 			<plugin>
 				<groupId>nz.co.senanque</groupId>
 				<artifactId>madura-rules-maven-plugin</artifactId>
-				<version>1.2.0</version>
+				<version>1.2.3-SNAPSHOT</version>
 				<executions>
 					<execution>
 						<goals>
@@ -245,13 +262,61 @@
 							<bufferSize>2000</bufferSize>
 							<packageName>nz.co.senanque.pizzaorder.generated</packageName>
 							<xsdpackageName>nz.co.senanque.pizzaorder.generated</xsdpackageName>
+							<externalFunctionClasses>
+								<param>nz.co.senanque.pizzaorder.externals.MyExternalFunctions</param>
+							</externalFunctionClasses>
 						</configuration>
 					</execution>
 				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>nz.co.senanque</groupId>
+						<artifactId>madura-objects-test-factories</artifactId>
+						<version>${project.version}</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>2.4.1</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.4.3</version>
+				<executions>
+					<execution>
+						<id>default-resources</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>resources</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-testResources</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>testResources</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-testResources2</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/generated-sources/xjc</directory>
+								    <excludes>
+								        <exclude>**/*.java</exclude>
+								    </excludes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.kuali.maven.plugins</groupId>

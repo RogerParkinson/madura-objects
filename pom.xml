@@ -66,5 +66,6 @@ But to any Java code the objects still look like ordinary Java beans. The surrou
   <modules>
   	<module>madura-objects</module>
   	<module>madura-objects-tests</module>
+  	<module>madura-objects-test-factories</module>
   </modules>
 </project>

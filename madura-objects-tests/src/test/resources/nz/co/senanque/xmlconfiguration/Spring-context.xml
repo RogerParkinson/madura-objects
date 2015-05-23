@@ -6,7 +6,11 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	
-	<context:component-scan base-package="nz.co.senanque.validationengine,nz.co.senanque.validationengine.annotations,nz.co.senanque.rules,nz.co.senanque.pizzaorder.factories" />
+	<context:component-scan base-package="nz.co.senanque.validationengine,
+		nz.co.senanque.validationengine.annotations,
+		nz.co.senanque.rules,
+		nz.co.senanque.pizzaorder.generated,
+		nz.co.senanque.pizzaorder.factories" />
  
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" >
@@ -18,6 +22,14 @@
 <!-- 	        <prop key="nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.fieldValidators">nz.co.senanque.madura.validators</prop> -->
 	      </props>
 	    </property>
+	</bean>
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>Messages</value>
+				<value>nz/co/senanque/pizzaorder/generated/messages</value>
+			</list>
+		</property>
 	</bean>
 
 </beans>

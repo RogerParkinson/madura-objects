@@ -37,6 +37,7 @@ import org.springframework.core.io.ClassPathResource;
 		"nz.co.senanque.validationengine",
 		"nz.co.senanque.validationengine.annotations",
 		"nz.co.senanque.rules",
+		"nz.co.senanque.pizzaorder.generated",
 		"nz.co.senanque.pizzaorder.factories"})
 public class SpringConfiguration {
 	
@@ -56,7 +57,7 @@ public class SpringConfiguration {
 	@Bean
     public MessageSource messageSource() { 
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("messages","Messages");
+        messageSource.setBasenames("Messages","nz/co/senanque/pizzaorder/generated/messages");
         return messageSource;
     }
 	@Bean
