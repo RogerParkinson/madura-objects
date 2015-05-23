@@ -22,9 +22,9 @@ public class MyCustomerTypeChoiceList implements ChoiceListFactory {
 	public List<ChoiceBase> getChoiceList(
 			MessageSourceAccessor messageSourceAccessor) {
 		List<ChoiceBase> ret = new ArrayList<ChoiceBase>();
-		ret.add(new ChoiceBase("A","A",messageSourceAccessor));
-		ret.add(new ChoiceBase("B","B",messageSourceAccessor));
-		ret.add(new ChoiceBase("C","C",messageSourceAccessor));
+		ret.add(new ChoiceBase("1","1",messageSourceAccessor));
+		ret.add(new ChoiceBase("2","2",messageSourceAccessor));
+		ret.add(new ChoiceBase("3","3",messageSourceAccessor));
 		return ret;
 	}
 
