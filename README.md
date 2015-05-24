@@ -24,6 +24,8 @@ Dynamic metadata might cover the following:
 *Sometimes a field is available/applicable, sometimes not. It depends on other data.
 *Sometimes it is read-only.
 *There might be a list of valid values. This might be static, in which case it is just an enum, but sometimes it changes, then it is dynamic metadata.
+
+Madura Objects gives you a way to consistently generate and manage this area, including adding I18n support.
 		
 		
 ##Validation Engine
@@ -35,7 +37,7 @@ It can handle a number of validation requirements based on static metadata:
 *Range: min/max inclusive/exclusive.
 *Matching a Regex expression
 		
-These are loosely based on [JSR-303](http://blog.jteam.nl/2009/08/04/bean-validation-integrating-jsr-303-with-spring/) but not the same. Why not? There are good reasons.
+These are loosely based on [JSR-303](http://blog.jteam.nl/2009/08/04/bean-validation-integrating-jsr-303-with-spring/) but not quite the same. Why not? There are good reasons.
 
 *The JSR-303 definitions, especially as implemented in Hibernate Validation, is designed to be called explicitly to validate some objects you have already loaded with data. Madura Objects works differently. The data is actively and transparently validated behind the setters. So at no time is there ever invalid data in the objects.
 *The Madura Objects validators have a more obvious way to specify the error messages.
@@ -53,13 +55,14 @@ The advantages of all this should be obvious but let's spell them out:
 
 *The business rules end up below the domain objects rather than implemented above them, which means you do not get them creeping into DAOs and UI layers, and that means for example, when you need to implement a different UI technology you don't find the old UI is riddled with business rules that need to be re-implemented.
 *There is no API to learn. It is just ordinary Java. Not quite true, as we shall see, but the API is smaller than JPA. Almost all the time you are just operating simple Java objects.
+*The domain objects are all annotated to be persisted JPA (thanks to HyperJAXB3).
 *Serialising to XML and back for web service messages etc is easily handled by standard JAXB. The other main use for this is generating XSL/FO reports.
-*Database is handled by JPA (thanks to HyperJAXB3).
 *Objects are defined outside of Java, in an XSD file. This means they get generated and they cannot be messed about with by people adding code to them when they shouldn't.
 *Simple objects means simple DAOs and simple UI code.
 
-
 This looks like an Anemic Data model but it is not quite. We call this a *Delegating* Anemic Data Model
+
+![Delegating Anemic Data Model](https://github.com/RogerParkinson/MaduraRules/blob/master/docs/images/Architecture.png)
 		
 		
 
