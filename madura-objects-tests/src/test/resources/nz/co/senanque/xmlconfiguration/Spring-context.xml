@@ -14,15 +14,7 @@
  
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" >
-	    <property name="properties">
-	      <props>
-  	        <prop key="nz.co.senanque.validationengine.ValidationEngineImpl.identifier">my-identifier</prop>
-	        <prop key="nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.packages">nz.co.senanque.pizzaorder.generated</prop>
-<!-- 	        <prop key="nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.choicesDocument">classpath:choices.xml</prop> -->
-<!-- 	        <prop key="nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.fieldValidators">nz.co.senanque.madura.validators</prop> -->
-	        <prop key="nz.co.senanque.rules.RulesPlugin.today">2015-08-22</prop>
-	      </props>
-	    </property>
+		<property name="location" value="classpath:config.properties"/>
 	</bean>
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">

@@ -38,6 +38,18 @@ public class CDIConfigurationTest {
         }
         assertTrue(exceptionFound);
         pizza.setTestDouble(500D);
+        pizza.setTopping("Turkish");
+        exceptionFound = false;
+        try 
+        {
+            pizza.setSize("Large");
+        } 
+        catch (ValidationException e) 
+        {
+            exceptionFound = true;
+        }
+        assertTrue(exceptionFound);
+        pizza.setSize("TrulyVast");
         validationSession.close();
     }
 	@Test

@@ -350,17 +350,6 @@ limitations under the License.
 		<complexContent>
 			<extension base="tns:OrderItem">
 				<sequence>
-				<!-- 
-					<element name="id" type="long">
-						<xsd:annotation>
-							<xsd:appinfo>
-								<annox:annotate>
-									<md:Label labelName="id" />
-								</annox:annotate>
-							</xsd:appinfo>
-						</xsd:annotation>
-					</element>
-					 -->
 					<element name="size">
 						<xsd:annotation>
 							<xsd:appinfo>
