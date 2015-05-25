@@ -28,7 +28,7 @@ public class ValidationEngineProducer {
     @ConfigProperty(name = "nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.packages")
     private String rulePackages;
     @Inject
-    @ConfigProperty(name = "nz.co.senanque.validationengine.cdi.ValidationEngineProducer.messages")
+    @ConfigProperty(name = "nz.co.senanque.validationengine.cdi.ValidationEngineProducer.messages:ValidationMessages")
     private String messages;
 
 	AnnotationConfigApplicationContext context;
