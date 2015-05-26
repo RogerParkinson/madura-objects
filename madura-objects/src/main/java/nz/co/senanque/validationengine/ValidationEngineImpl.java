@@ -333,6 +333,14 @@ public final class ValidationEngineImpl implements ValidationEngine,
     {
         return m_plugins;
     }
+    public <T> T getPlugin(Class<T> clazz) {
+    	for (Plugin plugin: m_plugins) {
+    		if (plugin.getClass().equals(clazz)) {
+    			return (T)plugin;
+    		}
+    	}
+    	return null;
+    }
     public void setPlugins(List<Plugin> plugins)
     {
         m_plugins = plugins;

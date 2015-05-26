@@ -29,7 +29,7 @@ import nz.co.senanque.validationengine.metadata.ClassMetadata;
  * @author Roger Parkinson
  * @version $Revision: 1.12 $
  */
-public interface ValidationEngine 
+public interface ValidationEngine
 {
 	boolean clean(ValidationObject object);
 	void set(ValidationObject object, String name, Object newValue, Object currentValue, ValidationSession validationSession) throws ValidationException;
@@ -48,4 +48,5 @@ public interface ValidationEngine
     String getStats(ValidationSession session);
     String getIdentifier();
 	long getCurrentTime();
+	<T> T getPlugin(Class<T> clazz);
 }
