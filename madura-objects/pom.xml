@@ -384,7 +384,7 @@
 			<plugin>
 				<groupId>nz.co.senanque</groupId>
 				<artifactId>maduradocs</artifactId>
-				<version>6.1.0</version>
+				<version>6.2.0</version>
 				<executions>
 					<execution>
 						<goals>
@@ -538,5 +538,5 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	<description>Implements POJOs that self validate automatically with an optional rule based complex validation and dynamic metadata.</description>
+	<description>Implements POJOs that self validate automatically with an optional rule based complex validation and dynamic metadata. </description>
 </project>
