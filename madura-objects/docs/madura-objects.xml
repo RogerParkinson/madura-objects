@@ -1020,6 +1020,9 @@ public class MyChoiceListFactory implements ChoiceListFactory {
 		<tr>
 			<th>3.0.0</th>
 		</tr>
+		<tr>
+            <td>Documentation revisions.</td>
+        </tr>
         <tr>
             <td>Reworked project structure.</td>
         </tr>
