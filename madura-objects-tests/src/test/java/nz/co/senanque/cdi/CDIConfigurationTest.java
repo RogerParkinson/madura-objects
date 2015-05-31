@@ -2,13 +2,10 @@ package nz.co.senanque.cdi;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
-import javax.enterprise.inject.spi.Bean;
-
 import nz.co.senanque.pizzaorder.generated.Customer;
 import nz.co.senanque.pizzaorder.generated.Pizza;
+import nz.co.senanque.rules.RulesPlugin;
 import nz.co.senanque.validationengine.ValidationEngine;
-import nz.co.senanque.validationengine.ValidationEngineImpl;
 import nz.co.senanque.validationengine.ValidationException;
 import nz.co.senanque.validationengine.ValidationSession;
 
@@ -50,6 +47,7 @@ public class CDIConfigurationTest {
         }
         assertTrue(exceptionFound);
         pizza.setSize("TrulyVast");
+        RulesPlugin rulesPlugin = validationEngine.getPlugin(RulesPlugin.class);
         validationSession.close();
     }
 	@Test

@@ -28,7 +28,7 @@ public class ValidationEngineProducer {
     @ConfigProperty(name = "nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.packages")
     private String rulePackages;
     @Inject
-    @ConfigProperty(name = "nz.co.senanque.validationengine.cdi.ValidationEngineProducer.messages:ValidationMessages")
+    @ConfigProperty(name = "nz.co.senanque.validationengine.cdi.ValidationEngineProducer.messages")
     private String messages;
 
 	AnnotationConfigApplicationContext context;
@@ -69,7 +69,7 @@ public class ValidationEngineProducer {
 		beanDefinition.setBeanClass(ResourceBundleMessageSource.class);
 		beanDefinition.setPropertyValues(
 				new MutablePropertyValues()
-					.add("basenames", StringUtils.split(messages, ',')));
+					.add("basenames", StringUtils.split((messages!=null)?messages:"ValidationMessages", ',')));
 		return beanDefinition;
 	}
 	
