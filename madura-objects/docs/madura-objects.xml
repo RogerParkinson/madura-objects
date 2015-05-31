@@ -79,7 +79,7 @@
 		<h2 t="Plugins">
 		<p>Madura Objects can be injected with plugins which are used to do more than simple field validation. The obvious example
 		is cross-field validation but they might be used to integrate specialised engines, perhaps to derive a price for an order
-		described by the bound objects, or perhaps to assess risk. The plugins must implement the <courier>nz.co.senanque.validationengine.Plugin</courier>.</p>
+		described by the bound objects, or perhaps to assess risk. The plugins must implement the <courier>nz.co.senanque.validationengine.Plugin</courier> interface.</p>
 		<p>Do not confuse these plugins with the JAXB plugins which are used to assist in generating the Business Object classes. Those are used at generation
 		time, the MaduraObjects plugin is used at run time. There is a JAXB plugin that is part of Madura Objects, but that is not what is being discussed in this
 		section.</p>
@@ -102,6 +102,9 @@
 		<le>Simple objects means simple DAOs and simple UI code.</le>
 		</list>
 		<p>This looks like an Anemic Data model but it is not quite. We call this a <emph>Delegating</emph> Anemic Data Model</p>
+		<img width="12cm" href="images/Architecture.png">Anemic Data Model</img>
+		<p>Everything centres around the business objects. Multiple applications may use the same business objects, and all of them will automatically implement the same
+		validation and business rules.</p>
 		<p>In addition we support configuring the application with Spring<referenceLink t="Spring Framework"/> XML, Spring annotations and CDI<referenceLink t="CDI"/>.</p>
 		</h2>
 		<h2 t="Examples">
@@ -119,13 +122,11 @@ invoice.setDescription("test invoice");
 // Attached objects are automatically added to the session
 customer.getInvoices().add(invoice);
 boolean exceptionFound = false;
-try 
-{
+try {
 	// Setting an invalid value...
 	customer.setName("ttt");
 } 
-catch (ValidationException e) 
-{
+catch (ValidationException e) {
 	// ...results in an exception
 	exceptionFound = true;
 }
@@ -139,28 +140,24 @@ long id = m_customerDAO.save(customer);
 		<p>The code in the DAO is not very complicated, but it is tidier to keep it together.
 		The following leaves out the imports and getters and setters for brevity.</p>
 		<code>
-public class CustomerJPAImpl implements CustomerDAO 
-{
+public class CustomerJPAImpl implements CustomerDAO {
     @PersistenceContext
     private EntityManager m_entityManager;
     private transient ObjectFactory m_objectFactory;
 
-    public Customer createCustomer()
-    {
+    public Customer createCustomer() {
         return getObjectFactory().createCustomer();
     }
 
     @Transactional
-    public long save(final Customer customer)
-    {
+    public long save(final Customer customer) {
     	m_entityManager.merge(customer);
     	m_entityManager.flush();
         return customer.getId();
     }
 
 	@Transactional(readOnly=true)
-    public Customer getCustomer(long id)
-    {
+    public Customer getCustomer(long id) {
 		Customer ret = null;
 		try {
 			ret = m_entityManager.find(Customer.class, id, LockModeType.PESSIMISTIC_WRITE);
@@ -694,6 +691,124 @@ List<History> history = customer.getMetadata().getProxyField(Customer.AMOUNTWITH
 		if you serialise the object to and back from a database or XML.</p>
 		</h2>
 		</h1>
+		<h1 t="Configuring Your Application">
+		<p>You can wire all the objects together using Spring XML, we did that for our unit tests and you can use those as examples. But
+		there is more XML in there than you will probably like so we have made it simpler. There are three choices for configuration:</p>
+		<list>
+		<le>Spring XML, but simplified from the unit test examples.</le>
+		<le>Spring Configuration, using annotations instead of XML.</le>
+		<le>CDI, the JEE standard.</le>
+		</list>
+		<p>There are good examples of these in the madura-objects-tests<referenceLink t="madura-objects-tests"/> project but we will
+		go through them here. Each is as good as the other, it is really what you prefer.</p>
+		<p>First, there are some common settings for each:</p>
+		<code><![CDATA[
+nz.co.senanque.validationengine.ValidationEngineImpl.identifier=not-set
+nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.packages
+nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.choicesDocument=classpath:choices.xml
+		]]></code>
+		<p>These are all defined in a properties file or similar, depending on your configuration choice. Where there is a value shown
+		that is the default, so if you want you can leave those out of your configuration and let it use the default.</p>
+		<list>
+		<le><courier>nz.co.senanque.validationengine.ValidationEngineImpl.identifier</courier> is mostly used for debugging when you have multiple validation engines at
+		the same time, which is fairly rare.</le>
+		<le><courier>nz.co.senanque.validationengine.AnnotationsMetadataFactory.packages</courier> specifies the packages (use a comma-separated list if there is 
+		more than one) that hold the generated domain objects. It should be the same as the <courier>jaxb:package</courier> entry in your xsd file.</le>
+		<le><courier>nz.co.senanque.validationengine.AnnotationsMetadataFactory.choicesDocument</courier> specifies the location of your choices.xml file described in <sectionLink t="Choice Lists"/></le>
+		</list>
+		<p>You also need a resource file that specifies various translation strings. Add translation files of these for each language you want to support. The usual base name for this is ValidationMessages.properties
+		and it should contain this:</p>
+		<code><![CDATA[
+nz.co.senanque.validationengine.regex=Failed Regex parse: label={0} attempted={1}
+nz.co.senanque.validationengine.length=Failed length: label={0} minlength value={1} maxlength value={2} attempted={3}
+nz.co.senanque.validationengine.digits=Failed Digits: label={0} integerDigits value={1} fractionalDigits value={2} attempted={3}
+nz.co.senanque.validationengine.email=Failed email: label={0} not a valid email address, attempted={1}
+nz.co.senanque.validationengine.choicelist=Failed choicelist validation: label={0} attempted={1}
+nz.co.senanque.validationengine.derivedValue=Cannot set derived field. label={0} attempted={1}
+nz.co.senanque.validationengine.range.maxExclusive=Failed range: label={0} must be less than {1} attempted={2}
+nz.co.senanque.validationengine.range.maxInclusive=Failed range: label={0} must be less than or equal to {1} attempted={2}
+nz.co.senanque.validationengine.range.minExclusive=Failed range: label={0} must be greater than {1} attempted={2}
+nz.co.senanque.validationengine.range.minInclusive=Failed range: label={0} must be greater than or equal to {1} attempted={2}
+nz.co.senanque.newrules.decisiontable.business-customerType=Failed constraint business-customerType for label={0} value={1}
+nz.co.senanque.validationengine.conversion.failure=Cannot convert from {0} to {1}
+nz.co.senanque.validationengine.class.not.recognised=Bind failed. Class not recognised: {0}
+		]]></code>
+		<h2 t="Spring XML">
+		<p>If you want to use SpringFrameworks to pull all this together with XML this is the basic XML configuration you need:</p>
+		<code><![CDATA[
+<context:component-scan base-package="nz.co.senanque.validationengine,
+	nz.co.senanque.validationengine.annotations" />
+
+<bean id="propertyConfigurer"
+	class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" >
+    <property name="location" value="classpath:config.properties"/>
+</bean>
+<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	<property name="basenames">
+		<list>
+			<value>ValidationMessages</value>
+		</list>
+	</property>
+</bean>
+		]]></code>
+		<p>The XML only has to specify three things: the packages to scan, the configuration properties file and the messages properties file.
+		If you decide to implement a choice list factory (see <sectionLink t="Choice List Factories"/>) you need to make sure it is in a scanned package.</p>
+		</h2>
+		<h2 t="Spring Annotations">
+		<p>The classes are annotated with Spring annotations so you can put together an annotated configuration like this:</p>
+		<code><![CDATA[
+@Configuration
+@ComponentScan(basePackages = {
+		"nz.co.senanque.validationengine",
+		"nz.co.senanque.validationengine.annotations"})
+public class ApplicationConfiguration1 {
+	
+	@Autowired
+    Environment env;
+
+	@Autowired ValidationEngine m_engine;
+	public ApplicationConfiguration1() {
+		
+	}
+	@Bean
+    public MessageSource messageSource() { 
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("ValidationMessages");
+        return messageSource;
+    }
+	@Bean
+	public PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
+		PropertyPlaceholderConfigurer ret = new PropertyPlaceholderConfigurer();
+		ret.setLocation(new ClassPathResource("config.properties"));
+		return ret;
+	}
+	public ValidationEngine getEngine() {
+		return m_engine;
+	}
+	public void setEngine(ValidationEngine engine) {
+		m_engine = engine;
+	}
+}
+		]]></code>
+		<p>This is just using the configuration facility in Spring to do the same thing as the XML. If you decide to implement a choice list factory (see <sectionLink t="Choice List Factories"/>) 
+		you need to make sure it is in a scanned package.</p>
+		</h2>
+		<h2 t="CDI">
+		<p>Not everyone likes working with Spring. For those who prefer CDI this is supported. The purists will dislike this because itis basically a jacket around the Spring implementation. 
+		But this approach hides the Spring stuff away and all you see is CDI. We also rely on DeltaSpike<referenceLink t="Apache DeltaSpike"/>.</p>
+		<p>So what do you need? Nothing much. Just @inject the ValidationEngine into your application and add the configuration properties you want to your
+		<courier>apache-deltaspike.properties</courier> file. You may need one extra property for CDI:</p>
+		<code><![CDATA[
+nz.co.senanque.validationengine.cdi.ValidationEngineProducer.messages=ValidationMessages
+		]]></code>
+		<p>This specifies the ValidationMessages.properties file. If you have multiple messages file then use a comma-separated list. Of course
+		if your file is just ValidationMessages.properties then you can leave it out.</p>
+		<p>The property <courier>nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.packages</courier> behaves a little differently here. As with the other configurations
+		it contains the package that holds your domain objects, but it also holds any other packages you need Spring to scan. The CDI module already scans 
+		<courier>nz.co.senanque.validationengine, nz.co.senanque.validationengine.annotations, nz.co.senanque.rules</courier> so you probably only need to add your domain objects package.
+		If you decide to implement a choice list factory (see <sectionLink t="Choice List Factories"/>) you need to make sure it is in a scanned package.</p>
+		</h2>
+		</h1>
 		<h1 t="Validation Plugins">
 		<p>The term <emph>plugins</emph> gets used a lot. MaduraObjects itself is a plugin to JAXB and JAXB itself has a plugin to
 		maven. But MaduraObjects has plugins as well, which is what we are talking about here, but the nesting here is getting quite deep.</p>
@@ -729,132 +844,6 @@ List<History> history = customer.getMetadata().getProxyField(Customer.AMOUNTWITH
 		<p>This interface gives enough access to the validation engine to allow the plugin to alter the dynamic metadata, including restricting the
 		list of available values on choice lists based on other values in the session.</p> 
 		</h1>
-		<h1 t="Spring XML">
-		<p>Use SpringFrameworks to pull all this together. This is the basic XML configuration you need:</p>
-		<code><![CDATA[
-		
-<bean id="validationEngine" 
-	class="nz.co.senanque.validationengine.ValidationEngineImpl">
-	<property name="metadata" ref="metadata"/>
-	<property name="plugins">
-		<list>
-			<!-- Optional list of rules engines for cross-field validation -->
-		</list>
-	</property>
-</bean>
-
-<bean id="metadata" 
-	class="nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory">
-	<!-- 
-	package name where business objects are found
-	You can specify a comma-separated list of packages
-	-->
-	<property name="package" value="nz.co.senanque.madura.sandbox"/>
-	
-</bean>
-<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-	<property name="basenames">
-		<list>
-			<value>ValidationMessages</value>
-		</list>
-	</property>
-</bean>
-		]]></code>
-		<p>There is not much to this, although you will want to do more if you are using JPA etc, and you probably are. See the source
-		for a complete example and runnable test. The messageSource bean needs to be loaded with some specific messages (in this case held in
-		the file ValidationMessages.properties). These are the required contents:</p>
-		<code>
-nz.co.senanque.validationengine.regex=Failed Regex parse: label={0} attempted={1}
-nz.co.senanque.validationengine.length=Failed length: label={0} minlength value={1} maxlength value={2} attempted={3}
-nz.co.senanque.validationengine.digits=Failed Digits: label={0} integerDigits value={1} fractionalDigits value={2} attempted={3}
-nz.co.senanque.validationengine.email=Failed email: label={0} not a valid email address, attempted={1}
-nz.co.senanque.validationengine.choicelist=Failed choicelist validation: label={0} attempted={1}
-nz.co.senanque.validationengine.derivedValue=Cannot set derived field. label={0} attempted={1}
-nz.co.senanque.validationengine.range.maxExclusive=Failed range: label={0} must be less than {1} attempted={2}
-nz.co.senanque.validationengine.range.maxInclusive=Failed range: label={0} must be less than or equal to {1} attempted={2}
-nz.co.senanque.validationengine.range.minExclusive=Failed range: label={0} must be greater than {1} attempted={2}
-nz.co.senanque.validationengine.range.minInclusive=Failed range: label={0} must be greater than or equal to {1} attempted={2}
-nz.co.senanque.newrules.decisiontable.business-customerType=Failed constraint business-customerType for label={0} value={1}
-nz.co.senanque.validationengine.conversion.failure=Cannot convert from {0} to {1}
-nz.co.senanque.validationengine.class.not.recognised=Bind failed. Class not recognised: {0}
-		</code>
-		<p>Where you need alternate languages for these you just need to add your translated properties file to your application in
-		the usual Java-supported manner.</p>
-		</h1>
-		<h1 t="Other Configuration Options">
-		<p>Not everyone likes Spring XML for configuration. We prefer to use it to illustrate the configuration here but if you prefer to use
-		Spring annotations for configuration or CDI this is how:</p>
-		<h2 t="Spring Annotations">
-		<p>The classes are annotated with Spring annotations so you can put together a simpler configuration like this:</p>
-		<code><![CDATA[
-@Configuration
-@ComponentScan(basePackages = {
-		"nz.co.senanque.validationengine",
-		"nz.co.senanque.validationengine.annotations",
-		"nz.co.senanque.myplugin"})
-public class ApplicationConfiguration1 {
-	
-	@Autowired
-    Environment env;
-
-	@Autowired ValidationEngine m_engine;
-	public ApplicationConfiguration1() {
-		
-	}
-	@Bean
-    public MessageSource messageSource() { 
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("ValidationMessages");
-        return messageSource;
-    }
-	@Bean
-	public PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
-		PropertyPlaceholderConfigurer ret = new PropertyPlaceholderConfigurer();
-		ret.setLocation(new ClassPathResource("config.properties"));
-		return ret;
-	}
-	public ValidationEngine getEngine() {
-		return m_engine;
-	}
-	public void setEngine(ValidationEngine engine) {
-		m_engine = engine;
-	}
-}
-		]]></code>
-		<p>This is using the configuration facility in Spring to scan the packages for components to make into beans and autowire them together.
-		You only need to supply two packages to scan but you can see we've added a third to include a plugin which will also be autowired. We have defined
-		the message source to look for <courier>ValidationMessages.properties</courier> (or whatever locale equivalent you are using). We are
-		assuming you have a properties file called <courier>config.properties</courier> and in there you need the following properties:</p>
-		<code><![CDATA[
-#nz.co.senanque.validationengine.ValidationEngineImpl.identifier=my-identifier
-nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.packages=nz.co.senanque.madura.sandbox
-#nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.choicesDocument=classpath:choices.xml
-#nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.fieldValidators=nz.co.senanque.madura.validators
-		]]></code>
-		<p>The commented out entries are optional and the default is shown here. The first is an identifier used (rarely) for debugging when you have configured
-		multiple sessions. The next is the package that holds the generated domain objects. It should match the <courier>jaxb:package name</courier>
-		specified in the XSD file in <sectionLink t="XSD File"/>. If you have multiple packages use a comma-separated list.</p>
-		<p>The choicesDocument is described in <sectionLink t="Choice Lists"/></p>
-		<p>The fieldValidators is a package which contains the field validator classes. The default holds the standard validators but you can add more
-		of your own and if you use your own package for them you should add it here. Use a single package or a comma-separated list.</p>
-		</h2>
-		<h2 t="CDI">
-		<p>Not everyone likes working with Spring. For those who prefer CDI this is supported. The purists will dislike this because itis basically a jacket around the Spring implementation. 
-		But this approach hides the Spring stuff away and all you see is CDI. We also rely on DeltaSpike<referenceLink t="Apache DeltaSpike"/>.</p>
-		<p>So what do you need? Nothing much. Just inject the ValidationEngine into your application. You will want to add some entries to the <courier>apache-deltaspike.properties</courier> file:</p>
-		<code><![CDATA[
-#nz.co.senanque.validationengine.ValidationEngineImpl.identifier=my-identifier
-nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.packages=nz.co.senanque.madura.sandbox
-#nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.choicesDocument=classpath:choices.xml
-#nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.fieldValidators=nz.co.senanque.madura.validators
-nz.co.senanque.validationengine.ValidationEngineProducer.messages=ValidationMessages
-#nz.co.senanque.validationengine.ValidationEngineProducer.packages=
-		]]></code>
-		<p>This is the same list as earlier, the only addition are the last two lines. The messages entry specifies how to find the resource bundle,
-		it can be a comma-separated list. The last entry, packages, is used to add extra packages to scan for Spring beans. Again, it can be a
-		comma-separated list.</p>
-		</h2>
-		</h1>
 		<h1 t="Implementing new Validators">
 		<p>To implement a new validator you need to first write an annotation. It ought to look something like this:</p>
 		<code><![CDATA[
@@ -884,38 +873,28 @@ xmlns:my="http://annox.dev.java.net/org.my.annotations"
 		<p>You are not done yet. You still have to write the validation code. Create a class like this:</p>
 		<code><![CDATA[
 ...
-public class NewValidation implements FieldValidator<NewValidation>
-{
+public class NewValidation implements FieldValidator<NewValidation> {
     private int m_minLength;
     private int m_maxLength;
     private String m_message;
     private PropertyMetadata m_propertyMetadata;
-    /* (non-Javadoc)
-     * @see nz.co.senanque.validationengine.annotations1.FieldValidator#init(java.lang.annotation.Annotation)
-     */
-    public void init(NewValidation annotation, PropertyMetadata propertyMetadata)
-    {
+    public void init(NewValidation annotation, 
+    	PropertyMetadata propertyMetadata) {
         m_minLength = annotation.minLength()==null?-1:Integer.valueOf(annotation.minLength());
         m_maxLength = annotation.maxLength()==null?-1:Integer.valueOf(annotation.maxLength());
         m_propertyMetadata = propertyMetadata;
         m_message = annotation.message();
     }
 
-    /* (non-Javadoc)
-     * @see nz.co.senanque.validationengine.annotations1.FieldValidator#validate(java.lang.Object)
-     */
-    public void validate(Object o, Locale locale)
-    {
-        if (o != null && o instanceof String) // ensure you handle the null case
-        {
+    public void validate(Object o, Locale locale) {
+    	// ensure you handle the null case
+        if (o != null && o instanceof String) {
             int l = ((String)o).length();
-            if (m_minLength != -1 && l < m_minLength)
-            {
+            if (m_minLength != -1 && l < m_minLength) {
                 String message = m_propertyMetadata.getMessageSource().getMessage(m_message, new Object[]{ m_propertyMetadata.getLabelName(locale), m_minLength,m_maxLength,String.valueOf(o) },locale);
                 throw new ValidationException(message);                
             }
-            if (m_maxLength != -1 && l > m_maxLength)
-            {
+            if (m_maxLength != -1 && l > m_maxLength) {
                 String message = m_propertyMetadata.getMessageSource().getMessage(m_message, new Object[]{ m_propertyMetadata.getLabelName(locale),m_minLength,m_maxLength, String.valueOf(o) },locale);
                 throw new ValidationException(message);                
             }
@@ -924,8 +903,8 @@ public class NewValidation implements FieldValidator<NewValidation>
 }
 		]]></code>
 		<p>This is just a copy of the existing length validator and the logic is all fairly obvious.</p>
-		<p>Make sure it is in package <courier>nz.co.senanque.validationengine.fieldvalidators</courier> or add your package into 
-		the <courier>nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.fieldValidators</courier> in the configuration.</p>
+		<p>Make sure it is in package <courier>nz.co.senanque.validationengine.fieldvalidators</courier> or specify your package using the
+		configuration property <courier>nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.fieldValidators</courier>.</p>
 		</h1>
 		<h1 t="Extending the Choice Lists">
 		<h2 t="Choice List Factories">
@@ -984,10 +963,10 @@ public class MyChoiceListFactory implements ChoiceListFactory {
 		<p>If you are using Spring XML just declare your factory as a bean. The bean name should match the <courier>ChoiceList</courier> name eg
 		<courier>myFactoryList</courier>. You might want to inject a different message source into your factory using XML.</p>
 		<p>If you are using Spring annotations to configure your factory then you will have noticed the use of <courier>@Component("myFactoryList")</courier>
-		at the class declaration. As long as this class is in a scanned package Spring will find it and load it for you. You can
-		use the same package as you put your domain objects eg <courier>nz.co.senanque.madura.sandbox</courier></p>
+		at the class declaration. As long as this class is in a scanned package Spring will find it and load it for you.</p>
 		<p>If you are using CDI then, sorry, you are stuck with one of the other two options. Probably the second one is the one
-		you are most comfortable with, but either will work just fine.</p>
+		you are most comfortable with, but either will work just fine. Make sure you put your factory in a package referred to in your 
+		<courier>nz.co.senanque.validationengine.AnnotationsMetadataFactory.packages</courier> property.</p>
 		<p>If you want you can use <emph>both</emph> XML and the factory. If the factory is found then it will be used otherwise the
 		choice list mapper will fall back on the XML. This can be useful in some testing scenarios.</p>
 		<p>These factories are only called when the application starts up, they are not updated until a restart.</p>
@@ -1038,6 +1017,15 @@ public class MyChoiceListFactory implements ChoiceListFactory {
 		<note>You need Java 1.7 to compile this project.</note>
 		<table width="12cm">
 			<tw>12cm</tw>
+		<tr>
+			<th>3.0.0</th>
+		</tr>
+        <tr>
+            <td>Reworked project structure.</td>
+        </tr>
+        <tr>
+            <td>Simplified Spring XML and added capability for CDI and Spring annotations.</td>
+        </tr>
 		<tr>
 			<th>2.2.5</th>
 		</tr>

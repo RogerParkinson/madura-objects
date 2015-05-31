@@ -7,7 +7,7 @@
   </parent>
   <artifactId>madura-objects-test-factories</artifactId>
   <name>Madura Objects Test Factories</name>
-  <description>Implements test factoriy objects used by the Madura Objects Tests project.</description>
+  <description>Implements tests for adding external functions to Madura Rules.</description>
   <dependencies>
 		<dependency>
 			<groupId>nz.co.senanque</groupId>
