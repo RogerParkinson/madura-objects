@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2011 Prometheus Consulting
+
+Licensed under either the GNU Affero General Public License, Version 3.0 
+OR the Madura Rules Licence Version 1.0 (the "Licenses");
+you may not use this file except in compliance with ONE of these Licenses.
+You may obtain a copy of the Licenses at
+
+  http://www.gnu.org/licenses/agpl-3.0.html
+  http://sites.google.com/site/madurasoftware/home/madura-rules/commercially-licensed-version-of-madura-rules
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+Licenses for more details.
+-->
+<MaduraValidator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://repo1.maven.org/maven2/nz/co/senanque/madura-objects/2.2.4/madura-objects-2.2.4-choices.xsd">
+	<ChoiceList name="customerType">
+		<Choice name="a">A</Choice>
+		<Choice name="b">B</Choice>
+		<Choice name="c">C</Choice>
+		<Choice name="d">D</Choice>
+		<Choice name="e">E</Choice>
+		<Choice name="f">F</Choice>
+	</ChoiceList>
+	<ChoiceList name="Bases">
+		<Choice name="Puff">Puff</Choice>
+		<Choice name="Flat">Flat</Choice>
+		<Choice name="GlutenFree">GlutenFree</Choice>
+	</ChoiceList>
+	<ChoiceList name="topping">
+		<Choice name="Seafood">Seafood</Choice>
+		<Choice name="Italian">Italian</Choice>
+		<Choice name="Spanish">Spanish</Choice>
+		<Choice name="Hawaiian">Hawaiian</Choice>
+		<Choice name="Greek">Greek</Choice>
+	</ChoiceList>
+	<ChoiceList name="size">
+		<Choice name="Small">Small</Choice>
+		<Choice name="Medium">Medium</Choice>
+		<Choice name="Large">Large</Choice>
+	</ChoiceList>
+	<ChoiceList name="xyz">
+		<Choice name="a">A</Choice>
+	</ChoiceList>
+	<DecisionTable name="decisionTable" scope="Pizza" message="nz.co.senanque.pizzaorder.rules.decisionTable">
+		<ColumnNames>
+			<ColumnName autoAssign="false">topping</ColumnName>
+			<ColumnName>size</ColumnName>
+		</ColumnNames>
+		<Rows>
+			<Row>
+				<Column>Seafood</Column><Column>Small</Column>
+			</Row>
+			<Row>
+				<Column>Italian</Column><Column>Medium</Column>
+			</Row>
+			<Row>
+				<Column>Spanish</Column><Column>Medium</Column>
+			</Row>
+			<Row>
+				<Column>Hawaiian</Column><Column>Large</Column>
+			</Row>
+			<Row>
+				<Column>Greek</Column><Column>Large</Column>
+			</Row>
+		</Rows>
+	</DecisionTable>
+	<Constants>
+		<Constant name="xyz">aaaab</Constant>
+	</Constants>
+</MaduraValidator>
+	

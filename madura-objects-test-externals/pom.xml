@@ -17,7 +17,7 @@
 		<dependency>
 			<groupId>nz.co.senanque</groupId>
 			<artifactId>madura-rules</artifactId>
-			<version>${madura-rules.version}</version>
+			<version>${project.version}</version>
 		</dependency>
  
 		<dependency>

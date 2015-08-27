@@ -1021,6 +1021,9 @@ public class MyChoiceListFactory implements ChoiceListFactory {
 			<th>3.0.0</th>
 		</tr>
 		<tr>
+            <td>Moved rules project into the madura objects development tree.</td>
+        </tr>
+		<tr>
             <td>Documentation revisions.</td>
         </tr>
         <tr>

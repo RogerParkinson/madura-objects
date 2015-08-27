@@ -16,7 +16,6 @@
 		<hibernate-version>4.2.19.Final</hibernate-version>
 		<jaxb2_commons.version>0.6.2</jaxb2_commons.version>
 		<deltaspike.version>1.2.1</deltaspike.version>
-		<madura-rules.version>${project.version}</madura-rules.version>
 		<junit.version>4.5</junit.version>
 		<logback-classic.version>1.0.1</logback-classic.version>
 		<slf4j-api.version>1.7.5</slf4j-api.version>
@@ -60,6 +59,7 @@
   <packaging>pom</packaging>
   <modules>
   	<module>madura-objects</module>
+  	<module>madura-rules</module>
   	<module>madura-objects-tests</module>
   	<module>madura-objects-test-externals</module>
   </modules>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2011 Prometheus Consulting
+
+Licensed under either the GNU Affero General Public License, Version 3.0 
+OR the Madura Rules Licence Version 1.0 (the "Licenses");
+you may not use this file except in compliance with ONE of these Licenses.
+You may obtain a copy of the Licenses at
+
+  http://www.gnu.org/licenses/agpl-3.0.html
+  http://sites.google.com/site/madurasoftware/home/madura-rules/commercially-licensed-version-of-madura-rules
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+Licenses for more details.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation=" 
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+	>
+		
+	<description>Object Spring Configuration</description>
+	
+	<bean id="decisionTableResource" class="org.springframework.core.io.ClassPathResource">
+		<constructor-arg value="/nz/co/senanque/decisiontable/choices.xml"/>
+	</bean>
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>nz/co/senanque/decisiontable/Messages</value>
+				<value>nz/co/senanque/decisiontable/messages</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>

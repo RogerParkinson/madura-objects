@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2011 Prometheus Consulting
+
+Licensed under either the GNU Affero General Public License, Version 3.0 
+OR the Madura Rules Licence Version 1.0 (the "Licenses");
+you may not use this file except in compliance with ONE of these Licenses.
+You may obtain a copy of the Licenses at
+
+  http://www.gnu.org/licenses/agpl-3.0.html
+  http://sites.google.com/site/madurasoftware/home/madura-rules/commercially-licensed-version-of-madura-rules
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+Licenses for more details.
+-->
+<MaduraValidator>
+	<ChoiceList name="customerType">
+		<Choice name="a">A</Choice>
+		<Choice name="b">B</Choice>
+		<Choice name="c">C</Choice>
+		<Choice name="d">D</Choice>
+		<Choice name="e">E</Choice>
+		<Choice name="f">F</Choice>
+	</ChoiceList>
+	<ChoiceList name="xyz">
+		<Choice name="a">A</Choice>
+	</ChoiceList>
+	<DecisionTable name="business-customerType" scope="Customer" message="nz.co.senanque.newrules.decisiontable.business-customerType">
+		<ColumnNames>
+			<ColumnName autoAssign="true">business</ColumnName>
+			<ColumnName>customerType</ColumnName>
+		</ColumnNames>
+		<Rows>
+			<Row>
+				<Column>AG</Column><Column>a</Column>
+			</Row>
+			<Row>
+				<Column>AG</Column><Column>f</Column>
+			</Row>
+			<Row>
+				<Column>FISH</Column><Column>b</Column>
+			</Row>
+			<Row>
+				<Column>FINANCE</Column><Column>c</Column>
+			</Row>
+			<Row>
+				<Column>FINANCE</Column><Column>d</Column>
+			</Row>
+			<Row>
+				<Column>FINANCE</Column><Column>e</Column>
+			</Row>
+			<Row>
+				<Column>FINANCE</Column><Column>f</Column>
+			</Row>
+		</Rows>
+	</DecisionTable>
+	<Constants>
+		<Constant name="xyz">aaaab</Constant>
+	</Constants>
+</MaduraValidator>
+	

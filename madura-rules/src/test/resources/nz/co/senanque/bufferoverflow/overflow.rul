@@ -1,0 +1,82 @@
+//*******************************************************************************
+// * Madura Rules
+// *******************************************************************************/
+formula: Order "sample formula"
+{
+	decisionField = amount > 30F;
+}
+rule: Pizza "sample rule 1"
+{
+	if (size == "Small")
+	{
+		readonly(testing);activate(testing); 
+		amount = 10; 
+	}
+}
+constraint: OrderItem "sample constraint"
+{
+	amount > 100D;
+}
+
+rule: Pizza "sample rule 2"
+{
+	if (size == "Small")
+	{
+		readonly(testing);activate(testing);
+		amount = 10; 
+	}
+}
+
+rule: Pizza "sample rule 3"
+{
+	if (size == "Small")
+	{
+		readonly(testing);activate(testing);
+		amount = 10; 
+	}
+}
+
+rule: Pizza "sample rule 4"
+{
+	if (size == "Small")
+	{
+		readonly(testing);activate(testing);
+		amount = 10; 
+	}
+}
+
+rule: Pizza "sample rule"
+{
+	if (size == "Small")
+	{
+		readonly(testing);activate(testing);
+		amount = 10; 
+	}
+}
+
+rule: Pizza "sample rule 5"
+{
+	if (size == "Small")
+	{
+		readonly(testing);activate(testing);
+		amount = 10; 
+	}
+}
+rule: Pizza "sample rule 6"
+{
+	if (size == "Small")
+	{
+		readonly(testing);activate(testing);
+		amount = 10; 
+	}
+}
+rule: Pizza "sample rule 7"
+{
+	if (size == "Small")
+	{
+		readonly(testing);activate(testing);
+		amount = 10; 
+	}
+}
+
+
