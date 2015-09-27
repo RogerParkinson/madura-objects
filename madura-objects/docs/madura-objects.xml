@@ -708,7 +708,8 @@ nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.packages
 nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.choicesDocument=classpath:choices.xml
 		]]></code>
 		<p>These are all defined in a properties file or similar, depending on your configuration choice. Where there is a value shown
-		that is the default, so if you want you can leave those out of your configuration and let it use the default.</p>
+		that is the default, so if you want you can leave those out of your configuration and let it use the default. In the examples below we assume
+		this is in a file called <courier>config.properties</courier> in the top of the classpath.</p>
 		<list>
 		<le><courier>nz.co.senanque.validationengine.ValidationEngineImpl.identifier</courier> is mostly used for debugging when you have multiple validation engines at
 		the same time, which is fairly rare.</le>
@@ -761,6 +762,7 @@ nz.co.senanque.validationengine.class.not.recognised=Bind failed. Class not reco
 @ComponentScan(basePackages = {
 		"nz.co.senanque.validationengine",
 		"nz.co.senanque.validationengine.annotations"})
+@PropertySource("classpath:config.properties")
 public class ApplicationConfiguration1 {
 	
 	@Autowired
@@ -776,12 +778,10 @@ public class ApplicationConfiguration1 {
         messageSource.setBasename("ValidationMessages");
         return messageSource;
     }
-	@Bean
-	public PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
-		PropertyPlaceholderConfigurer ret = new PropertyPlaceholderConfigurer();
-		ret.setLocation(new ClassPathResource("config.properties"));
-		return ret;
-	}
+   	@Bean // need this to make @PropertySource work
+   	public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
+   		return new PropertySourcesPlaceholderConfigurer();
+   	}
 	public ValidationEngine getEngine() {
 		return m_engine;
 	}
