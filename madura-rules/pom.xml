@@ -45,15 +45,6 @@ That means you can change rules without having to go back to your Java code, and
 			</roles>
 		</developer>
 	</developers>
-	<scm>
-		<connection>scm:git:git@github.com:RogerParkinson/MaduraRules.git</connection>
-		<url>scm:git:git@github.com:RogerParkinson/MaduraRules.git</url>
-		<developerConnection>scm:git:git@github.com:RogerParkinson/MaduraRules.git</developerConnection>
-	</scm>
-	<issueManagement>
-		<system>GitHub</system>
-		<url>https://github.com/RogerParkinson/MaduraRules/issues</url>
-	</issueManagement>
 	<dependencies>
 		<dependency>
 			<groupId>nz.co.senanque</groupId>
