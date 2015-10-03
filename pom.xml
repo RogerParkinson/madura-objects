@@ -1,10 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>nz.co.senanque</groupId>
-  <artifactId>madura-objects-parent</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>nz.co.senanque</groupId>
+	<artifactId>madura-objects-parent</artifactId>
+	<version>3.0.0-SNAPSHOT</version>
 	<name>Madura Objects Parent Project</name>
-	<url>www.madurasoftware.com/home/madura-objects</url>
+	<packaging>pom</packaging>
+	<url>www.madurasoftware.com</url>
 	<description>Implements POJOs that self validate automatically with an optional rule based complex validation and dynamic metadata.</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -14,29 +16,30 @@
 		<choices.schema>src/main/resources/choices.xsd</choices.schema>
 		<messages.schema>src/main/resources/messages.xsd</messages.schema>
 		<hibernate-version>4.2.19.Final</hibernate-version>
+		<maven-jaxb2-plugin.version>0.8.0</maven-jaxb2-plugin.version>
 		<jaxb2_commons.version>0.6.2</jaxb2_commons.version>
 		<deltaspike.version>1.2.1</deltaspike.version>
-		<junit.version>4.5</junit.version>
 		<logback-classic.version>1.0.1</logback-classic.version>
 		<slf4j-api.version>1.7.5</slf4j-api.version>
+		<hyperjaxb3-ejb-runtime.version>0.5.6</hyperjaxb3-ejb-runtime.version>
 	</properties>
-  <parent>
-  	<groupId>org.sonatype.oss</groupId>
-  	<artifactId>oss-parent</artifactId>
-  	<version>7</version>
-  </parent>
-    <licenses>
-      <license>
-        <name>Apache License, Version 2.0</name>
-        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        <distribution>repo</distribution>
-        <comments>A business-friendly OSS license</comments>
-      </license>
-    </licenses>
-    <organization>
-  	<name>Prometheus Consulting</name>
-  	<url>www.madurasoftware.com</url>
-  </organization>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
+	<organization>
+		<name>Prometheus Consulting</name>
+		<url>www.madurasoftware.com</url>
+	</organization>
 	<developers>
 		<developer>
 			<id>roger</id>
@@ -52,15 +55,96 @@
 		<url>scm:git:git@github.com:RogerParkinson/madura-objects-parent.git</url>
 		<developerConnection>scm:git:git@github.com:RogerParkinson/madura-objects-parent.git</developerConnection>
 	</scm>
-  <issueManagement>
-  	<system>GitHub</system>
-  	<url>https://github.com/RogerParkinson/madura-objects-parent/issues</url>
-  </issueManagement>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>madura-objects</module>
-  	<module>madura-rules</module>
-  	<module>madura-objects-tests</module>
-  	<module>madura-objects-test-externals</module>
-  </modules>
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/RogerParkinson/madura-objects-parent/issues</url>
+	</issueManagement>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.5</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback-classic.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j-api.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j-api.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.xml.bind</groupId>
+				<artifactId>jaxb-xjc</artifactId>
+				<version>2.2.4-1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.framework.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${spring.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-oxm</artifactId>
+				<version>${spring.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${spring.framework.version}</version>
+			</dependency>
+		<dependency>
+			<groupId>org.apache.deltaspike.core</groupId>
+			<artifactId>deltaspike-core-api</artifactId>
+			<version>${deltaspike.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.deltaspike.core</groupId>
+			<artifactId>deltaspike-core-impl</artifactId>
+			<version>${deltaspike.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jvnet.jaxb2_commons</groupId>
+			<artifactId>jaxb2-basics</artifactId>
+			<version>0.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jvnet.hyperjaxb3</groupId>
+			<artifactId>hyperjaxb3-ejb-plugin</artifactId>
+			<version>0.5.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jvnet.hyperjaxb3</groupId>
+			<artifactId>hyperjaxb3-ejb-runtime</artifactId>
+			<version>0.5.6</version>
+		</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<modules>
+		<module>madura-objects</module>
+		<module>madura-objects-maven-plugin</module>
+		<module>madura-rules</module>
+		<module>madura-rules-maven-plugin</module>
+		<module>madura-objects-test-externals</module>
+		<module>madura-objects-tests</module>
+	</modules>
 </project>

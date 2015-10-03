@@ -57,13 +57,11 @@ Like most of the JSR-303 frameworks you can add your own annotations/validators 
 
 Madura Objects can be injected with plugins which are used to do more than simple field validation. The obvious example is cross-field validation but they might be used to integrate specialised engines, perhaps to derive a price for an order described by the bound objects, or perhaps to assess risk. The plugins must implement the `nz.co.senanque.validationengine.Plugin` interface.
 
-Do not confuse these plugins with the JAXB plugins which are used to assist in generating the Business Object classes. Those are used at generation time, the MaduraObjects plugin is used at run time. There is a JAXB plugin that is part of Madura Objects, but that is not what is being discussed in this section.
-
-Different plugins may be active at the same time, but they must not intersect. That is: they must not overwrite each others' data.
+See [madura-rules](./madura-rules/READ.me) for details of a rules based plugin.
 
 Like the validation engine the operation of the plugins is completely invisible to the code driving the business objects.
 
-The rules engines are all optional. You can have none if you want.
+The plugins are optional. You can have none if you want.
 ##Advantages##
 		
 

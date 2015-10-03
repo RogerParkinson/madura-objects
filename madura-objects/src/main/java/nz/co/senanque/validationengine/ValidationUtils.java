@@ -135,6 +135,9 @@ public final class ValidationUtils
     }
     private static boolean hasText(String value)
     {
+    	if ("".equals(value)) {
+    		return true;
+    	}
     	if (!StringUtils.hasText(value))
     	{
     		// this means no default was set
