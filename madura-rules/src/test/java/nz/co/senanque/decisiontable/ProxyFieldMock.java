@@ -26,6 +26,7 @@ import nz.co.senanque.validationengine.History;
 import nz.co.senanque.validationengine.ObjectMetadata;
 import nz.co.senanque.validationengine.ProxyField;
 import nz.co.senanque.validationengine.ProxyObject;
+import nz.co.senanque.validationengine.SetterListener;
 import nz.co.senanque.validationengine.ValidationObject;
 import nz.co.senanque.validationengine.ValidationUtils;
 import nz.co.senanque.validationengine.choicelists.ChoiceBase;
@@ -352,6 +353,18 @@ public class ProxyFieldMock implements ProxyField
 	public boolean expire() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<SetterListener> getListeners() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addListener(SetterListener listener) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

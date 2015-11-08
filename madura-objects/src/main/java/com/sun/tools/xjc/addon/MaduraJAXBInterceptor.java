@@ -171,11 +171,17 @@ public class MaduraJAXBInterceptor extends Plugin {
                     {
                         continue;
                     }
+                    JVar[] params = jMethod.listParams();
+                    JConditional ifBlock = jBlock._if(validationSession.ne(JExpr._null()));
+                    ifBlock._then().block().invoke(validationSession, "invokeListeners")
+	                	.arg(JExpr._this())
+	                    .arg(fieldName)
+	                    .arg(params[0])
+	                    .arg(fieldVar);                   	
                     jBlock.pos(0);
 //                    jBlock.invoke(metadataGetter).invoke(ObjectMetadataClass.).arg(fieldName);
                     jBlock.directStatement("getMetadata().removeUnknown(\""+fieldName+"\");");
-                    JConditional ifBlock = jBlock._if(validationSession.ne(JExpr._null()));
-                    JVar[] params = jMethod.listParams();
+                    ifBlock = jBlock._if(validationSession.ne(JExpr._null()));
                     ifBlock._then().block().invoke(validationSession, "set")
                         .arg(JExpr._this())
                         .arg(fieldName)

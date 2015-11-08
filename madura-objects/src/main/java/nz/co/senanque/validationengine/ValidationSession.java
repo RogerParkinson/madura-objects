@@ -87,6 +87,30 @@ public class ValidationSession implements Serializable
             m_validationEngine.set(object, fieldName, newValue, currentValue, this);
         }
     }
+	/**
+	 * This is called after a successful setter call on one of the fields. If any listeners are attached to the field they are invoked
+	 * from here.
+	 * 
+	 * @param object
+	 * @param fieldName
+	 * @param newValue
+	 * @param currentValue
+	 */
+	public void invokeListeners(final ValidationObject object, final String fieldName, final Object newValue, final Object currentValue) {
+        m_validationEngine.invokeListeners(object, fieldName, newValue, currentValue, this);
+	}
+	
+	/**
+	 * Add a setter listener to a field.
+	 * 
+	 * @param object
+	 * @param name
+	 * @param listener
+	 */
+	public void addListener(ValidationObject object, String name, SetterListener listener) {
+		m_validationEngine.addListener(object, name, this, listener);
+	}
+	
 
     /**
      * The clean method ensures that the object and its attached objects are up to date
@@ -249,5 +273,5 @@ public class ValidationSession implements Serializable
 	public void addExpiry(ProxyField proxyField) {
 		m_history.add(proxyField);		
 	}
-	
+
 }

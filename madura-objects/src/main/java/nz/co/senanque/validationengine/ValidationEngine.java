@@ -49,4 +49,8 @@ public interface ValidationEngine
     String getIdentifier();
 	long getCurrentTime();
 	<T> T getPlugin(Class<T> clazz);
+	void invokeListeners(ValidationObject object, String fieldName,
+			Object newValue, Object currentValue,
+			ValidationSession validationSession);
+	void addListener(ValidationObject object, String name, ValidationSession session, SetterListener listener);
 }

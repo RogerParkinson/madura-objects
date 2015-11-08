@@ -61,6 +61,7 @@ public class ProxyFieldImpl implements ProxyField, Serializable
 	private boolean m_notKnown;
 	private boolean m_lastUnknown;
     private final transient List<History> m_history = new ArrayList<>();
+	private List<SetterListener> m_listeners = new ArrayList<>();
 
     protected ProxyFieldImpl(final String fieldName, final ProxyObject proxyObject,
             final ProxyField parent, final PropertyMetadataImpl fieldMetadata, MessageSourceAccessor messageSourceAccessor)
@@ -487,5 +488,11 @@ public class ProxyFieldImpl implements ProxyField, Serializable
     private long getCurrentTime() {
     	return m_proxyObject.getSession().getValidationEngine().getCurrentTime();
     }
-
+    
+    public List<SetterListener> getListeners() {
+    	return m_listeners ;
+    }
+    public void addListener(SetterListener listener) {
+    	m_listeners.add(listener);
+    }
 }

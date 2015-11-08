@@ -215,6 +215,33 @@ public final class ValidationEngineImpl implements ValidationEngine,
 			}
         }
     }
+	public void invokeListeners(ValidationObject object, String name,
+			Object newValue, Object currentValue,
+			ValidationSession session) {
+        PropertyMetadata fieldMetadata = getMetadata().getField(object, name);
+        if (fieldMetadata == null)
+        {
+            return;
+        }
+        
+        ObjectMetadata objectMetadata = session.getMetadata(object);
+        ProxyField proxyField = objectMetadata.getProxyField(name);
+		for (SetterListener listener: proxyField.getListeners()) {
+			listener.run(object, name, newValue, session);
+		}
+	}
+	
+	public void addListener(ValidationObject object, String name, ValidationSession session, SetterListener listener) {
+        PropertyMetadata fieldMetadata = getMetadata().getField(object, name);
+        if (fieldMetadata == null)
+        {
+            return;
+        }
+        
+        ObjectMetadata objectMetadata = session.getMetadata(object);
+        ProxyField proxyField = objectMetadata.getProxyField(name);
+        proxyField.addListener(listener);
+	}
 
     public void validate(PropertyMetadata fieldMetadata, Object value, ProxyField proxyField)
     {

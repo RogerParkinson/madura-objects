@@ -37,6 +37,7 @@ import nz.co.senanque.validationengine.FieldMetadata;
 import nz.co.senanque.validationengine.ObjectMetadata;
 import nz.co.senanque.validationengine.ProxyField;
 import nz.co.senanque.validationengine.ProxyObject;
+import nz.co.senanque.validationengine.SetterListener;
 import nz.co.senanque.validationengine.ValidationEngine;
 import nz.co.senanque.validationengine.ValidationException;
 import nz.co.senanque.validationengine.ValidationObject;
@@ -283,6 +284,32 @@ public class ObjectTest
         assertEquals(false,customer.getMetadata().isUnknown("address"));
         assertEquals(true,customer.getMetadata().getProxyField("amountstr").isRequired());
         validationSession.close();
+    }
+    private class MySetterListener implements SetterListener {
+    	
+    	private int count = 0;
+
+		@Override
+		public void run(ValidationObject object, String name, Object newValue, ValidationSession session) {
+			count++;
+		}
+		public int getCount() {
+			return count;
+		}
+    	
+    }
+    @Test
+    public void testListeners() {
+        ValidationSession validationSession = m_validationEngine.createSession();
+        // create a customer
+        Customer customer = m_customerDAO.createCustomer();
+        validationSession.bind(customer);
+        MySetterListener msl = new MySetterListener();
+        validationSession.addListener(customer, "address", msl);
+        validationSession.addListener(customer, "amount", msl);
+        customer.setAddress("xyz");
+        customer.setAmount(100D);
+        assertEquals(2,msl.getCount());
     }
     private List<ProxyField> getProxyObjects(ValidationSession validationSession,ProxyObject proxyObject,String ref,String name)
     {
