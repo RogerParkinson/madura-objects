@@ -37,7 +37,7 @@ public class Factories implements MessageSourceAware, nz.co.senanque.rules.facto
     private List<Row> m_rows = new ArrayList<Row>();
     private List<ChoiceBase> m_choices = new ArrayList<ChoiceBase>();
 
-	private MessageSourceAccessor m_messageSourceAccessor;
+	private MessageSource m_messageSource;
     public Row[] getRows(String ruleName)
     {
         if (m_rows.isEmpty())
@@ -46,7 +46,7 @@ public class Factories implements MessageSourceAware, nz.co.senanque.rules.facto
         }
         return (Row[])m_rows.toArray(new Row[m_rows.size()]);
     }
-    public List<ChoiceBase> getChoiceList(MessageSourceAccessor messageSourceAccessor)
+    public List<ChoiceBase> getChoiceList(MessageSource messageSource)
     {
         if (m_choices.isEmpty())
         {
@@ -70,13 +70,13 @@ public class Factories implements MessageSourceAware, nz.co.senanque.rules.facto
                 columns[1] = column2;
                 Row row = new Row(columns);
                 m_rows.add(row);
-                m_choices.add(new ChoiceBase(r,r,m_messageSourceAccessor));
+                m_choices.add(new ChoiceBase(r,r,m_messageSource));
             }
         }
         log.info("total rows in decision table: {}",m_rows.size());
      }
 	public void setMessageSource(MessageSource messageSource) {
-		m_messageSourceAccessor = new MessageSourceAccessor(messageSource);
+		m_messageSource = messageSource;
 		
 	}
 
