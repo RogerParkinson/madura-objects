@@ -8,7 +8,7 @@ import nz.co.senanque.validationengine.choicelists.ChoiceListFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 @Component("customerType")
@@ -20,11 +20,11 @@ public class MyCustomerTypeChoiceList implements ChoiceListFactory {
 	}
 
 	public List<ChoiceBase> getChoiceList(
-			MessageSourceAccessor messageSourceAccessor) {
+			MessageSource messageSource) {
 		List<ChoiceBase> ret = new ArrayList<ChoiceBase>();
-		ret.add(new ChoiceBase("1","1",messageSourceAccessor));
-		ret.add(new ChoiceBase("2","2",messageSourceAccessor));
-		ret.add(new ChoiceBase("3","3",messageSourceAccessor));
+		ret.add(new ChoiceBase("1","1",messageSource));
+		ret.add(new ChoiceBase("2","2",messageSource));
+		ret.add(new ChoiceBase("3","3",messageSource));
 		return ret;
 	}
 

@@ -24,6 +24,7 @@ import nz.co.senanque.validationengine.choicelists.ChoiceBase;
 import nz.co.senanque.validationengine.fieldvalidators.FieldValidator;
 import nz.co.senanque.validationengine.metadata.PropertyMetadata;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
 
 /**
@@ -35,10 +36,10 @@ import org.springframework.context.support.MessageSourceAccessor;
 public class PropertyMetadataMock implements PropertyMetadata
 {
     private transient Class<?> m_class;
-	private MessageSourceAccessor m_messageSourceAccessor;
+	private MessageSource m_messageSource;
 
-    public PropertyMetadataMock(MessageSourceAccessor messageSourceAccessor) {
-    	m_messageSourceAccessor = messageSourceAccessor;
+    public PropertyMetadataMock(MessageSource messageSource) {
+    	m_messageSource = messageSource;
 	}
 
 	/* (non-Javadoc)
@@ -92,8 +93,12 @@ public class PropertyMetadataMock implements PropertyMetadata
         
     }
 
+	public MessageSource getMessageSource() {
+		return m_messageSource;
+	}
+	@Override
 	public MessageSourceAccessor getMessageSourceAccessor() {
-		return m_messageSourceAccessor;
+		return new MessageSourceAccessor(m_messageSource);
 	}
 
 	@Override
@@ -110,6 +115,12 @@ public class PropertyMetadataMock implements PropertyMetadata
 
 	@Override
 	public Method getSetMethod() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getLabelName(MessageSourceAccessor messageSourceAccessor) {
 		// TODO Auto-generated method stub
 		return null;
 	}

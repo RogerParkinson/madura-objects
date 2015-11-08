@@ -17,7 +17,7 @@ package nz.co.senanque.validationengine.choicelists;
 
 import java.util.List;
 
-import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.context.MessageSource;
 
 /**
  * 
@@ -28,5 +28,5 @@ import org.springframework.context.support.MessageSourceAccessor;
  */
 public interface ChoiceListFactory
 {
-    List<ChoiceBase> getChoiceList(MessageSourceAccessor messageSourceAccessor);
+    List<ChoiceBase> getChoiceList(MessageSource messageSource);
 }

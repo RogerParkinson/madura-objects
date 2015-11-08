@@ -15,6 +15,7 @@
  *******************************************************************************/
 package nz.co.senanque.validationengine.choicelists;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
 
 
@@ -29,13 +30,13 @@ public class ChoiceBase implements Choice
 {
     private final transient String m_key;
     private final transient String m_description;
-    private final transient MessageSourceAccessor m_messageSourceAccessor;
+    private final transient MessageSource m_messageSource;
 
-    public ChoiceBase(final Object o, final String description, final MessageSourceAccessor messageSourceAccessor)
+    public ChoiceBase(final Object o, final String description, final MessageSource messageSource)
     {
         m_key = o.toString();
         m_description = description;
-        m_messageSourceAccessor = messageSourceAccessor;
+        m_messageSource = messageSource;
     }
 
     /* (non-Javadoc)
@@ -50,14 +51,23 @@ public class ChoiceBase implements Choice
     {
         return m_description;
     }
-    public boolean equals(final String key)
+    public boolean equals(Object key)
     {
-        return m_key.equals(key);
+    	if (key == null) {
+    		return false;
+    	}
+    	String s = this.toString();
+    	if (key instanceof String) {
+    		return s.equals(key);
+    	} if (key instanceof ChoiceBase) {
+    		return s.equals(key.toString());
+    	}
+    	throw new RuntimeException("Invalid comparison of ChoiceBase and "+key.getClass());
     }
     
     public String toString()
     {
-        return m_messageSourceAccessor.getMessage(m_description, null, m_description);
+        return new MessageSourceAccessor(m_messageSource).getMessage(m_description, null, m_description);
     }
 
 }

@@ -28,6 +28,7 @@ import nz.co.senanque.validationengine.choicelists.Choice;
 import nz.co.senanque.validationengine.choicelists.ChoiceBase;
 import nz.co.senanque.validationengine.fieldvalidators.FieldValidator;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.util.StringUtils;
 
@@ -63,7 +64,7 @@ public class PropertyMetadataImpl implements PropertyMetadata {
     private final transient List<FieldValidator<Annotation>> m_constraintValidators = new ArrayList<FieldValidator<Annotation>>();
     private String m_readPermission;
     private transient boolean m_secret;
-	private transient MessageSourceAccessor m_messageSourceAccessor;
+	private transient MessageSource m_messageSource;
 	private boolean m_unknown;
 	private boolean m_identifier;
 	private int m_maxLength=-1;
@@ -71,7 +72,7 @@ public class PropertyMetadataImpl implements PropertyMetadata {
 	private transient Long m_expire;
 	private transient boolean m_hasHistory;
 	
-	protected PropertyMetadataImpl(Property property, MessageSourceAccessor messageSourceAccessor)
+	protected PropertyMetadataImpl(Property property, MessageSource messageSource)
 	{
 	    m_name = property.getFieldName();
 	    m_labelName = property.getFieldName();
@@ -80,7 +81,7 @@ public class PropertyMetadataImpl implements PropertyMetadata {
         m_getMethod = property.getGetter();
         final Class<?>[] c = m_setMethod.getParameterTypes();
         m_valueOfMethod = ValidationUtils.figureValueOf(c[0]);
-        m_messageSourceAccessor = messageSourceAccessor;
+        m_messageSource = messageSource;
 	}
 	
 	public String getName() {
@@ -91,7 +92,13 @@ public class PropertyMetadataImpl implements PropertyMetadata {
      */
 	public String getLabelName()
 	{
-        return m_messageSourceAccessor.getMessage(
+        return getMessageSourceAccessor().getMessage(
+                m_labelName, new Object[]{}, 
+                m_labelName);
+	}
+	public String getLabelName(MessageSourceAccessor messageSourceAccessor)
+	{
+        return messageSourceAccessor.getMessage(
                 m_labelName, new Object[]{}, 
                 m_labelName);
 	}
@@ -111,7 +118,7 @@ public class PropertyMetadataImpl implements PropertyMetadata {
 		m_maxValue = value;
 	}
 	public String getDescription() {
-        return m_messageSourceAccessor.getMessage(
+        return getMessageSourceAccessor().getMessage(
                 m_description, new Object[]{}, 
                 m_description);
 	}
@@ -160,7 +167,7 @@ public class PropertyMetadataImpl implements PropertyMetadata {
             {
                 final Method m = o.getClass().getMethod("value");
                 final String s = (String)m.invoke(o);
-                list.add(new ChoiceBase(o,s,m_messageSourceAccessor));
+                list.add(new ChoiceBase(o,s,m_messageSource));
             }
             catch (Exception e)
             {
@@ -312,8 +319,8 @@ public class PropertyMetadataImpl implements PropertyMetadata {
         m_secret = secret;
     }
 
-	public MessageSourceAccessor getMessageSourceAccessor() {
-		return m_messageSourceAccessor;
+	public MessageSource getMessageSource() {
+		return m_messageSource;
 	}
 
 	public void setUnknown(boolean unknown) {
@@ -382,6 +389,11 @@ public class PropertyMetadataImpl implements PropertyMetadata {
 
 	public boolean hasHistory() {
 		return m_hasHistory;
+	}
+
+	@Override
+	public MessageSourceAccessor getMessageSourceAccessor() {
+		return new MessageSourceAccessor(m_messageSource);
 	}
 
 }

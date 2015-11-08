@@ -108,7 +108,6 @@ public class AnnotationsMetadataFactory implements FactoryBean<EngineMetadata>, 
 	    
 	    final Map<Class<? extends Annotation>, Class<? extends FieldValidator<Annotation>>> validatorMap = getValidatorMap();
 	    final Map<Class<?>,ClassMetadata> classMap = new HashMap<Class<?>,ClassMetadata>();
-	    final MessageSourceAccessor messageSourceAccessor = new MessageSourceAccessor(getMessageSource());
 
 		for (Class<?> clazz: m_classes)
 		{
@@ -121,7 +120,7 @@ public class AnnotationsMetadataFactory implements FactoryBean<EngineMetadata>, 
                 log.debug("method.getName() {}",method.getName());
                 String mname = method.getName();
 			    final String fieldName = property.getFieldName();
-                final PropertyMetadataImpl fieldMetadata = new PropertyMetadataImpl(property, messageSourceAccessor);
+                final PropertyMetadataImpl fieldMetadata = new PropertyMetadataImpl(property, getMessageSource());
 				boolean fieldNeeded = false;
 				for (Annotation fieldAnnotation: method.getAnnotations())
 				{
@@ -438,24 +437,23 @@ public class AnnotationsMetadataFactory implements FactoryBean<EngineMetadata>, 
     public void createChoiceMap(final Document document)
     {
         m_choicesMap = new HashMap<String,List<ChoiceBase>>();
-        MessageSourceAccessor messageSourceAccessor = new MessageSourceAccessor(m_messageSource);
         for (Element choicebases: (List<Element>)document.getRootElement().getChildren("ChoiceList"))
         {
             String name = choicebases.getAttributeValue("name");
             ChoiceListFactory clf = m_choiceListFactories.get(name);
             if (clf == null) {
-            	m_choicesMap.put(name, defaultChoiceListFactory(choicebases,messageSourceAccessor));
+            	m_choicesMap.put(name, defaultChoiceListFactory(choicebases));
             } else {
-            	 m_choicesMap.put(name, clf.getChoiceList(messageSourceAccessor));
+            	 m_choicesMap.put(name, clf.getChoiceList(m_messageSource));
             }
         }
     }
     
-    private List<ChoiceBase> defaultChoiceListFactory(Element choicebases, MessageSourceAccessor messageSourceAccessor) {
+    private List<ChoiceBase> defaultChoiceListFactory(Element choicebases) {
         List<ChoiceBase> choiceBases = new ArrayList<ChoiceBase>();
         for (Element choicebase: (List<Element>)choicebases.getChildren("Choice"))
         {
-            ChoiceBase choice = new ChoiceBase(choicebase.getAttributeValue("name"),choicebase.getText(),messageSourceAccessor);
+            ChoiceBase choice = new ChoiceBase(choicebase.getAttributeValue("name"),choicebase.getText(),getMessageSource());
             choiceBases.add(choice);
         }
         return choiceBases;

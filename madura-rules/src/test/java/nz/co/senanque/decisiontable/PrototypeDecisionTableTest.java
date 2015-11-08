@@ -69,7 +69,7 @@ public class PrototypeDecisionTableTest
         List<Element> decisionTableElements = root.getChildren("DecisionTable");
         Element decisionTableElement = decisionTableElements.get(0);
         Rule decisionTable = new PrototypeDecisionTable(decisionTableElement,getDecisionTableFactoryMap());
-        RuleSession ruleSession = new RuleSessionMock(root, new MessageSourceAccessor(m_messageSource));
+        RuleSession ruleSession = new RuleSessionMock(root, m_messageSource);
         Pizza pizza = new Pizza(); 
 
         logger.debug("setting size {} topping {}",pizza.getSize(),pizza.getTopping());

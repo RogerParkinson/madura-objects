@@ -8,7 +8,7 @@ import nz.co.senanque.validationengine.choicelists.ChoiceListFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 @Component("Sizes")
@@ -20,12 +20,12 @@ public class SizesChoiceList implements ChoiceListFactory {
 	}
 
 	public List<ChoiceBase> getChoiceList(
-			MessageSourceAccessor messageSourceAccessor) {
+			MessageSource messageSource) {
 		List<ChoiceBase> ret = new ArrayList<ChoiceBase>();
-		ret.add(new ChoiceBase("Small","Small",messageSourceAccessor));
-		ret.add(new ChoiceBase("Medium","Medium",messageSourceAccessor));
-		ret.add(new ChoiceBase("Large","Large",messageSourceAccessor));
-		ret.add(new ChoiceBase("TrulyVast","Truly Vast",messageSourceAccessor));
+		ret.add(new ChoiceBase("Small","Small",messageSource));
+		ret.add(new ChoiceBase("Medium","Medium",messageSource));
+		ret.add(new ChoiceBase("Large","Large",messageSource));
+		ret.add(new ChoiceBase("TrulyVast","Truly Vast",messageSource));
 		return ret;
 	}
 

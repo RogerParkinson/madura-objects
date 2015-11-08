@@ -45,7 +45,7 @@ public class DigitsValidatorTest
     public void testValidate()
     {
         final DigitDTO digitDTO = new DigitDTO();
-        final PropertyMetadataMock propertyMetadata = new PropertyMetadataMock(new MessageSourceAccessor(m_messageSource));
+        final PropertyMetadataMock propertyMetadata = new PropertyMetadataMock(m_messageSource);
         propertyMetadata.setClass(Integer.class);
         final DigitsValidator digitsValidator = new DigitsValidator();
         digitDTO.setIntegerDigits("9");

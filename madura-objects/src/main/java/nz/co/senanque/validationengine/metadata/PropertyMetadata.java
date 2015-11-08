@@ -23,6 +23,7 @@ import nz.co.senanque.validationengine.choicelists.Choice;
 import nz.co.senanque.validationengine.choicelists.ChoiceBase;
 import nz.co.senanque.validationengine.fieldvalidators.FieldValidator;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
 
 /**
@@ -40,7 +41,9 @@ public interface PropertyMetadata
     Choice findChoice(String key);
     Class<?> getClazz();
     List<FieldValidator<Annotation>> getConstraintValidators();
-    MessageSourceAccessor getMessageSourceAccessor();
+    MessageSource getMessageSource();
     Method getGetMethod();
     Method getSetMethod();
+	MessageSourceAccessor getMessageSourceAccessor();
+	String getLabelName(MessageSourceAccessor messageSourceAccessor);
 }

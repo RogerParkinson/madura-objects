@@ -49,7 +49,7 @@ public class RangeValidatorTest
         rangeDTO.setMaxInclusive("100");
         rangeDTO.setMinInclusive("10");
 
-        final PropertyMetadataMock propertyMetadata = new PropertyMetadataMock(new MessageSourceAccessor(m_messageSource));
+        final PropertyMetadataMock propertyMetadata = new PropertyMetadataMock(m_messageSource);
         propertyMetadata.setClass(Integer.class);
 
         rangeValidator.initTest(rangeDTO, propertyMetadata);

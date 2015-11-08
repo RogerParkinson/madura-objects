@@ -37,7 +37,7 @@ import nz.co.senanque.validationengine.choicelists.ChoiceBase;
 import org.jdom.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.context.MessageSource;
 
 /**
  * 
@@ -53,7 +53,7 @@ public class RuleSessionMock implements RuleSession
 
     Map<String,List<ChoiceBase>> m_map = new HashMap<String,List<ChoiceBase>>();
     
-    public RuleSessionMock(Element decisionTableElement, MessageSourceAccessor messageSourceAccessor)
+    public RuleSessionMock(Element decisionTableElement, MessageSource messageSource)
     {
         List<Element> choiceListElements = decisionTableElement.getChildren("ChoiceList");
         for (Element choiceListElement: choiceListElements)
@@ -62,7 +62,7 @@ public class RuleSessionMock implements RuleSession
             List<ChoiceBase> choices = new ArrayList<ChoiceBase>();
             for (Element choiceElement: (List<Element>)choiceListElement.getChildren())
             {
-                ChoiceBase choiceBase =  new ChoiceBase(choiceElement.getAttributeValue("name"),choiceElement.getText(),messageSourceAccessor);
+                ChoiceBase choiceBase =  new ChoiceBase(choiceElement.getAttributeValue("name"),choiceElement.getText(),messageSource);
                 choices.add(choiceBase);
             }
             m_map.put(fieldName, choices);
