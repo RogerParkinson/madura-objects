@@ -24,7 +24,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.inject.Vetoed;
 
 import nz.co.senanque.validationengine.choicelists.Choice;
 import nz.co.senanque.validationengine.choicelists.ChoiceBase;
@@ -51,13 +50,14 @@ import org.springframework.stereotype.Service;
  * @version $Revision: 1.6 $
  */
 @Service("validationEngine")
-@Vetoed
+//@Vetoed
 public final class ValidationEngineImpl implements ValidationEngine,
         MessageSourceAware
 {
     private final static Logger log = LoggerFactory.getLogger(ValidationEngineImpl.class);
 
     @Autowired private transient EngineMetadata m_metadata;
+    @Autowired private transient LocaleAwareExceptionFactory m_localeAwareExceptionFactory;
     private transient MessageSource m_messageSource;
     private transient Binder m_binder = new Binder(this);
     @Autowired(required=false)
@@ -420,5 +420,12 @@ public final class ValidationEngineImpl implements ValidationEngine,
 	public long getCurrentTime() {
 		// just return the current ms
 		return new Date().getTime();
+	}
+	public LocaleAwareExceptionFactory getLocaleAwareExceptionFactory() {
+		return m_localeAwareExceptionFactory;
+	}
+	public void setLocaleAwareExceptionFactory(
+			LocaleAwareExceptionFactory localeAwareExceptionFactory) {
+		m_localeAwareExceptionFactory = localeAwareExceptionFactory;
 	}
 }
