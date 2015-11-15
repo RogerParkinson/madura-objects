@@ -11,7 +11,7 @@
   <dependencies>
 		<dependency>
 			<groupId>nz.co.senanque</groupId>
-			<artifactId>madura-objects</artifactId>
+			<artifactId>madura-objects-cdi</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>

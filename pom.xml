@@ -144,6 +144,7 @@
 		<module>madura-objects-maven-plugin</module>
 		<module>madura-rules</module>
 		<module>madura-rules-maven-plugin</module>
+		<module>madura-objects-cdi</module>
 		<module>madura-objects-test-externals</module>
 		<module>madura-objects-tests</module>
 	</modules>

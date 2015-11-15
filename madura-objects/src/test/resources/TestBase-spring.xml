@@ -92,5 +92,6 @@ limitations under the License.
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="ValidationMessages"/>
 	</bean>
+	<bean id="localeAwareExceptionFactory" class="nz.co.senanque.validationengine.LocaleAwareExceptionFactory"/>
 		
 </beans>

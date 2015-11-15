@@ -119,5 +119,6 @@ Licenses for more details.
 			</list>
 		</property>
 	</bean>
+	<bean id="localeAwareExceptionFactory" class="nz.co.senanque.validationengine.LocaleAwareExceptionFactory"/>
 		
 </beans>

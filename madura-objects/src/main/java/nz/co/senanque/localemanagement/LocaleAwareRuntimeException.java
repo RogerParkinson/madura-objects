@@ -25,6 +25,7 @@ import org.springframework.context.support.MessageSourceAccessor;
  * @author Roger Parkinson
  * @version $Revision:$
  */
+@Deprecated
 public class LocaleAwareRuntimeException extends RuntimeException
 {
     private final String m_localisedMessage;

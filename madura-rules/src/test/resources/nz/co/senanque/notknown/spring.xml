@@ -61,5 +61,6 @@ Licenses for more details.
 			</bean>
 		</property>
 	</bean>
+	<bean id="localeAwareExceptionFactory" class="nz.co.senanque.validationengine.LocaleAwareExceptionFactory"/>
 	
 </beans>
