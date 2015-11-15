@@ -114,6 +114,8 @@ Licenses for more details.
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
+				<value>nz/co/senanque/rules/RulesMessages</value>
+				<value>nz/co/senanque/validationengine/ValidationMessages</value>
 				<value>nz/co/senanque/base/Messages</value>
 				<value>nz/co/senanque/base/messages</value>
 			</list>
