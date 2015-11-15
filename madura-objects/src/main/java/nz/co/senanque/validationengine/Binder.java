@@ -41,9 +41,9 @@ import org.springframework.context.support.MessageSourceAccessor;
  */
 public class Binder
 {
-    private final transient ValidationEngine m_validationEngine;
+    private final transient ValidationEngineImpl m_validationEngine;
 
-    public Binder(final ValidationEngine validationEngine)
+    public Binder(final ValidationEngineImpl validationEngine)
     {
         m_validationEngine = validationEngine;
     }
@@ -68,7 +68,7 @@ public class Binder
                 .getClassMetadata(clazz);
         if (classMetadata == null)
         {
-            throw new LocaleAwareRuntimeException("nz.co.senanque.validationengine.class.not.recognised",new Object[]{clazz.getName()},m_validationEngine.getMessageSource());
+        	throw m_validationEngine.getLocaleAwareExceptionFactory().getRuntimeException("nz.co.senanque.validationengine.class.not.recognised", new Object[]{clazz.getName()});
         }
         object.setValidationSession(session);
         final ProxyObject proxyObject = new ProxyObject(object, parent, index,session);
