@@ -1,4 +1,4 @@
-MaduraRules
+#madura-rules#
 ============
 
 Madura Rules is a rules engine designed to work closely with [Madura Objects](https://github.com/RogerParkinson/MaduraObjects). Where Madura Objects provides a transparent validation and metadata facility, Madura Rules is a plugin to Madura Objects that extends it to provide cross-field validation, dynamic metadata and dynamic data generation.

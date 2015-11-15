@@ -1,8 +1,7 @@
 
-#MaduraObjects#
+#madura-objects#
 	
 ##Business Objects##
-		
 
 Imagine Business Objects looking like ordinary Java Objects, specifically they look like Java objects generated from JAXB[[4]](https://jaxb.dev.java.net/) . That means there are setters and getters for the properties, there are no constructor arguments (so they are simple beans so far) and they use the array stuff that JAXB generates.
 
@@ -21,8 +20,8 @@ Also, if the DAO tries to set a value that is invalid in some way the Business O
 So the collection of related Business Objects, we will call this collection a *case*, is always *valid*, although it may be *incomplete*.
 
 To achieve this we use a bunch of business rules that are run in pluggable rules engines. Depending on the need different rules engines can be plugged into the validation engine, or none at all. The latter case makes testing simple. The Business Objects behave almost like ordinary Java Objects when no engine is present.
+
 ##Metadata##
-		
 
 This was touched on in the previous section. Metadata is very important. People write lots of code to manage things that could instead be driven by metadata. There are two basic kinds: static and dynamic. Static is simple enough. It is easily handled by annotations. You need a label for a field? Put it in an annotation. You need some processing instruction for a treewalker that looks at this field? Put it in an annotation. These are static.
 
@@ -31,8 +30,8 @@ Dynamic metadata might cover the following:
  * Sometimes a field is available/applicable, sometimes not. It depends on other data.
  * Sometimes it is read-only.
  * There might be a list of valid values. This might be static, in which case it is just an enum, but sometimes it changes, then it is dynamic metadata.
+
 ##Validation Engine##
-		
 
 The Validation Engine handles simple validation, which means validating fields in isolation from each other.
 
@@ -52,8 +51,8 @@ These are loosely based on JSR-303[[6]](http://blog.jteam.nl/2009/08/04/bean-val
 This is not to say anything against JSR-303. Just that Madura Objects took a different approach.
 
 Like most of the JSR-303 frameworks you can add your own annotations/validators where you need to.
-##Plugins##
-		
+
+##Plugins##		
 
 Madura Objects can be injected with plugins which are used to do more than simple field validation. The obvious example is cross-field validation but they might be used to integrate specialised engines, perhaps to derive a price for an order described by the bound objects, or perhaps to assess risk. The plugins must implement the `nz.co.senanque.validationengine.Plugin` interface.
 
@@ -62,8 +61,8 @@ See [madura-rules](./madura-rules/README.md) for details of a rules based plugin
 Like the validation engine the operation of the plugins is completely invisible to the code driving the business objects.
 
 The plugins are optional. You can have none if you want.
+
 ##Advantages##
-		
 
 The advantages of all this should be obvious but let's spell them out:
 
@@ -80,10 +79,11 @@ This looks like an Anemic Data model but it is not quite. We call this a *Delega
 Everything centres around the business objects. Multiple applications may use the same business objects, and all of them will automatically implement the same validation and business rules.
 
 In addition we support configuring the application with Spring[[1]](http://www.springframework.org) XML, Spring annotations and CDI[[12]](http://docs.oracle.com/javaee/6/tutorial/doc/giwhl.html) .
+
 ##Examples##
-		
 
 This is what a small program looks like that uses these objects:
+
 ```
 // Create a new session using the (probably injected) engine.
 ValidationSession validationSession = m_validationEngine.createSession();
@@ -115,6 +115,7 @@ long id = m_customerDAO.save(customer);
 ```
 
 The code in the DAO is not very complicated, but it is tidier to keep it together. The following leaves out the imports and getters and setters for brevity.
+
 ```
 public class CustomerJPAImpl implements CustomerDAO {
     @PersistenceContext
