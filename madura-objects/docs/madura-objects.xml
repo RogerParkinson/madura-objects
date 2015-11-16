@@ -747,12 +747,14 @@ nz.co.senanque.validationengine.class.not.recognised=Bind failed. Class not reco
 <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 	<property name="basenames">
 		<list>
-			<value>ValidationMessages</value>
+			<value>nz/co/senanque/validationengine/ValidationMessages</value>
+			<!-- only needed if you are using Madura Rules -->
+			<value>nz/co/senanque/rules/RulesMessages</value>
 		</list>
 	</property>
 </bean>
 		]]></code>
-		<p>The XML only has to specify three things: the packages to scan, the configuration properties file and the messages properties file.
+		<p>The XML only has to specify three things: the packages to scan, the configuration properties file and the messages properties.
 		If you decide to implement a choice list factory (see <sectionLink t="Choice List Factories"/>) you need to make sure it is in a scanned package.</p>
 		</h2>
 		<h2 t="Spring Annotations">
@@ -775,7 +777,9 @@ public class ApplicationConfiguration1 {
 	@Bean
     public MessageSource messageSource() { 
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("ValidationMessages");
+        messageSource.setBasename(new String[]{
+        	"nz/co/senanque/validationengine/ValidationMessages",
+        	"nz/co/senanque/rules/RulesMessages"}); // only needed for Madura Rules
         return messageSource;
     }
    	@Bean // need this to make @PropertySource work
@@ -799,14 +803,14 @@ public class ApplicationConfiguration1 {
 		<p>So what do you need? Nothing much. Just @inject the ValidationEngine into your application and add the configuration properties you want to your
 		<courier>apache-deltaspike.properties</courier> file. You may need one extra property for CDI:</p>
 		<code><![CDATA[
-nz.co.senanque.validationengine.cdi.ValidationEngineProducer.messages=ValidationMessages
+nz.co.senanque.validationengine.cdi.ValidationEngineProducer.messages=nz/co/senanque/validationengine/ValidationMessages,nz/co/senanque/rules/RulesMessages
 		]]></code>
-		<p>This specifies the ValidationMessages.properties file. If you have multiple messages file then use a comma-separated list. Of course
-		if your file is just ValidationMessages.properties then you can leave it out.</p>
+		<p>This specifies the properties files. For multiple messages you use a comma-separated list.</p>
 		<p>The property <courier>nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.packages</courier> behaves a little differently here. As with the other configurations
 		it contains the package that holds your domain objects, but it also holds any other packages you need Spring to scan. The CDI module already scans 
 		<courier>nz.co.senanque.validationengine, nz.co.senanque.validationengine.annotations, nz.co.senanque.rules</courier> so you probably only need to add your domain objects package.
 		If you decide to implement a choice list factory (see <sectionLink t="Choice List Factories"/>) you need to make sure it is in a scanned package.</p>
+		<p>To use the cdi configuration you need to include the maven atrifact <courier>nz.co.senanque:madura-objects-cdi</courier>.</p>
 		</h2>
 		</h1>
 		<h1 t="Validation Plugins">
@@ -1020,6 +1024,12 @@ public class MyChoiceListFactory implements ChoiceListFactory {
 		<tr>
 			<th>3.0.0</th>
 		</tr>
+		<tr>
+            <td>Moved the properties files to make them easier to distribute. Also fixed the broken French messages.</td>
+        </tr>
+		<tr>
+            <td>Split the CDI configuration into a separate artifact.</td>
+        </tr>
 		<tr>
             <td>Moved rules project into the madura objects development tree.</td>
         </tr>
