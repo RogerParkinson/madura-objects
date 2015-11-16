@@ -717,23 +717,8 @@ nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.choicesDocum
 		more than one) that hold the generated domain objects. It should be the same as the <courier>jaxb:package</courier> entry in your xsd file.</le>
 		<le><courier>nz.co.senanque.validationengine.AnnotationsMetadataFactory.choicesDocument</courier> specifies the location of your choices.xml file described in <sectionLink t="Choice Lists"/></le>
 		</list>
-		<p>You also need a resource file that specifies various translation strings. Add translation files of these for each language you want to support. The usual base name for this is ValidationMessages.properties
-		and it should contain this:</p>
-		<code><![CDATA[
-nz.co.senanque.validationengine.regex=Failed Regex parse: label={0} attempted={1}
-nz.co.senanque.validationengine.length=Failed length: label={0} minlength value={1} maxlength value={2} attempted={3}
-nz.co.senanque.validationengine.digits=Failed Digits: label={0} integerDigits value={1} fractionalDigits value={2} attempted={3}
-nz.co.senanque.validationengine.email=Failed email: label={0} not a valid email address, attempted={1}
-nz.co.senanque.validationengine.choicelist=Failed choicelist validation: label={0} attempted={1}
-nz.co.senanque.validationengine.derivedValue=Cannot set derived field. label={0} attempted={1}
-nz.co.senanque.validationengine.range.maxExclusive=Failed range: label={0} must be less than {1} attempted={2}
-nz.co.senanque.validationengine.range.maxInclusive=Failed range: label={0} must be less than or equal to {1} attempted={2}
-nz.co.senanque.validationengine.range.minExclusive=Failed range: label={0} must be greater than {1} attempted={2}
-nz.co.senanque.validationengine.range.minInclusive=Failed range: label={0} must be greater than or equal to {1} attempted={2}
-nz.co.senanque.newrules.decisiontable.business-customerType=Failed constraint business-customerType for label={0} value={1}
-nz.co.senanque.validationengine.conversion.failure=Cannot convert from {0} to {1}
-nz.co.senanque.validationengine.class.not.recognised=Bind failed. Class not recognised: {0}
-		]]></code>
+		<p>You also need to load a resource file that specifies various translation strings. This is <courier>nz/co/senanque/validationengine/ValidationMessages</courier>. 
+		There is an English and French version already in the jar file and you can add extra languages as you need them.</p>
 		<h2 t="Spring XML">
 		<p>If you want to use SpringFrameworks to pull all this together with XML this is the basic XML configuration you need:</p>
 		<code><![CDATA[

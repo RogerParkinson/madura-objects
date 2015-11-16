@@ -410,6 +410,8 @@ nz.co.senanque.rules.RulesPlugin.constantsDocument=classpath:choices.xml
 		after the current date.</p>
 		<p>The other two allow you to split the decision table and constants information in their own files. Most of the time you will
 		be happy to keep them in one file so you can ignore these.</p>
+		<p>You also need to load a resource file that specifies various translation strings. This is <courier>nz/co/senanque/rules/RulesMessages</courier>. 
+		There is an English and French version already in the jar file and you can add extra languages as you need them.</p>
 		<p>The only other consideration is that your generated rules need to be in a scanned package. How you do that depends on the configuration option you
 		have chosen. Either add the package to your Spring XML file, your @Configuration file or, if using CDI, add it to your <courier>nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactory.packages</courier>
 		property. Remember it can take a comma-separated list of packages.</p>
