@@ -231,12 +231,10 @@ public class MaduraJAXBInterceptor extends Plugin {
                 validateSessionSetter.body().assign(validationSession, validateSessionParam);
                 validateSessionSetter.annotate(XmlTransient.class);
 
-//                JMethod metadataGetter = co.implClass.method(JMod.PUBLIC, ObjectMetadataClass, "getMetadata");
-//                JBlock jBlock = metadataGetter.body();
-//                JConditional ifBlock = jBlock._if(metadata.eq(JExpr._null()));
-//                ifBlock._then().block().assign(metadata, JExpr._new(ObjectMetadataClass));
-//                metadataGetter.body()._return(metadata);
-//                metadataGetter.annotate(Transient.class);
+//                JMethod validateSessionGetter = co.implClass.method(JMod.PUBLIC, nz.co.senanque.validationengine.ValidationSession.class, "getValidationSession");
+//                JBlock jBlock = validateSessionGetter.body();
+//                validateSessionGetter.body()._return(validationSession);
+//                validateSessionGetter.annotate(Transient.class);
             }
             
             co.implClass._implements(businessObjectInterface);

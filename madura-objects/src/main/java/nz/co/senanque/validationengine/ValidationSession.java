@@ -18,6 +18,7 @@ package nz.co.senanque.validationengine;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -64,6 +65,10 @@ public class ValidationSession implements Serializable
 
     public Map<ValidationObject,ProxyObject> bind(final ValidationObject object, ValidationObject owner)
     {
+    	if (m_boundMap.get(object) != null) {
+    		// Object is already bound so return an empty map
+    		return new IdentityHashMap<ValidationObject, ProxyObject>();
+    	}
         Map<ValidationObject,ProxyObject> ret = getValidationEngine().bind(object, this, owner);
         m_boundMap.putAll(ret);
         return ret;
@@ -74,7 +79,6 @@ public class ValidationSession implements Serializable
         {
             m_validationEngine.unbindAll(this,m_boundMap);
         }
-        
     }
 
     public void set(final ValidationObject object, final String fieldName, final Object newValue, final Object currentValue)

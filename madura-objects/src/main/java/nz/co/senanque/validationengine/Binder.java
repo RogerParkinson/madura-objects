@@ -21,9 +21,6 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.annotation.XmlElement;
-
-import nz.co.senanque.localemanagement.LocaleAwareRuntimeException;
 import nz.co.senanque.validationengine.annotations.Ignore;
 import nz.co.senanque.validationengine.metadata.ClassMetadata;
 import nz.co.senanque.validationengine.metadata.PropertyMetadata;
@@ -163,6 +160,9 @@ public class Binder
     }
     public void unbindAll(final Map<ValidationObject, ProxyObject> boundMap)
     {
+    	for (ValidationObject validationObject: boundMap.keySet()) {
+    		validationObject.setValidationSession(null);
+    	}
         boundMap.clear();
     }
 
@@ -196,6 +196,9 @@ public class Binder
 								(List<ValidationObject>) getter.invoke(validationObject, new Object[] {});
 						for (ValidationObject child : validationObjects) {
 							m_validationEngine.unbind(session, proxyField, child, boundMap);
+							if (child != null) {
+								child.setValidationSession(null);
+							}
 						}
 					} catch (Exception e) {
 						throw new RuntimeException(e);
@@ -208,6 +211,9 @@ public class Binder
 						ValidationObject child = (ValidationObject) getter
 								.invoke(validationObject, new Object[] {});
 						m_validationEngine.unbind(session, proxyField, child, boundMap);
+						if (child != null) {
+							child.setValidationSession(null);
+						}
 					} catch (Exception e) {
 						throw new RuntimeException(e);
 					}

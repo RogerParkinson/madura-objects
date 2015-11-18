@@ -58,7 +58,7 @@ public class SpringConfiguration {
 	@Bean
     public MessageSource messageSource() { 
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("Messages","nz/co/senanque/pizzaorder/generated/messages");
+        messageSource.setBasenames("Messages","nz/co/senanque/pizzaorder/generated/messages","nz/co/senanque/validationengine/ValidationMessages");
         return messageSource;
     }
 	@Bean

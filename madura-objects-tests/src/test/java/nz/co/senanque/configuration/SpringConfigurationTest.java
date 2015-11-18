@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import nz.co.senanque.pizzaorder.generated.Customer;
 import nz.co.senanque.pizzaorder.generated.Pizza;
+import nz.co.senanque.pizzaorder.generated.Order;
 import nz.co.senanque.rules.RulesPlugin;
 import nz.co.senanque.validationengine.ValidationEngine;
 import nz.co.senanque.validationengine.ValidationException;
@@ -70,6 +71,39 @@ public class SpringConfigurationTest {
         customer.setName("fred");
         assertEquals("yes, that's okay",customer.getPassword());
         assertEquals(12D,customer.getWeight(),0);
+        validationSession.close();
+    }
+	@Test
+	public void testDuplicateCustomer() {
+        assertEquals(validationEngine.getIdentifier(),"my-identifier");
+        ValidationSession validationSession = validationEngine.createSession();
+        Customer customer = new Customer();
+        validationSession.bind(customer);
+        customer.setName("fred");
+        assertEquals("yes, that's okay",customer.getPassword());
+        assertEquals(12D,customer.getWeight(),0);
+        String t = validationSession.getStats();
+        validationSession.bind(customer);
+        String tt = validationSession.getStats();
+        assertEquals(t,tt);
+        validationSession.close();
+    }
+	@Test
+	public void testOrderItemBind() {
+        assertEquals(validationEngine.getIdentifier(),"my-identifier");
+        ValidationSession validationSession = validationEngine.createSession();
+        Order order = new Order();
+        validationSession.bind(order);
+        
+        Pizza pizza = new Pizza();
+        validationSession.bind(pizza);
+        pizza.setSize("Large");
+
+        String t = validationSession.getStats();
+        order.getOrderItems().add(pizza);
+        String tt = validationSession.getStats();
+        assertEquals(t,tt);
+        assertEquals(20D,order.getAmount(),0);
         validationSession.close();
     }
 }
