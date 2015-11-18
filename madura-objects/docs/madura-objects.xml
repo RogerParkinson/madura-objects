@@ -1010,6 +1010,9 @@ public class MyChoiceListFactory implements ChoiceListFactory {
 			<th>3.0.0</th>
 		</tr>
 		<tr>
+            <td>Added protection against binding the same object multiple times.</td>
+        </tr>
+		<tr>
             <td>Moved the properties files to make them easier to distribute. Also fixed the broken French messages.</td>
         </tr>
 		<tr>
