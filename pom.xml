@@ -139,6 +139,22 @@
 		</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<build>
+	    <pluginManagement>
+	    	<plugins>
+	    		<plugin>
+					<groupId>nz.co.senanque</groupId>
+					<artifactId>madura-rules-maven-plugin</artifactId>
+					<version>${project.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>nz.co.senanque</groupId>
+					<artifactId>madura-objects-maven-plugin</artifactId>
+					<version>${project.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 	<modules>
 		<module>madura-objects</module>
 		<module>madura-objects-maven-plugin</module>

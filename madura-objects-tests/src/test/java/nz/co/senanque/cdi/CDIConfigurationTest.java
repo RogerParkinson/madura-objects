@@ -2,6 +2,9 @@ package nz.co.senanque.cdi;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.util.Locale;
+
 import nz.co.senanque.pizzaorder.generated.Customer;
 import nz.co.senanque.pizzaorder.generated.Pizza;
 import nz.co.senanque.rules.RulesPlugin;
@@ -12,6 +15,7 @@ import nz.co.senanque.validationengine.ValidationSession;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.MessageSourceAccessor;
 
 public class CDIConfigurationTest {
 	
@@ -62,5 +66,19 @@ public class CDIConfigurationTest {
         assertEquals(12D,customer.getWeight(),0);
         validationSession.close();
     }
-
+	@Test
+	public void testResourceBundles() {
+	    final ValidationEngine validationEngine = WeldContext.INSTANCE.getBean(ValidationEngine.class);
+        assertEquals(validationEngine.getIdentifier(),"my-identifier");
+		MessageSourceAccessor messageSourceAccessor = new MessageSourceAccessor(validationEngine.getMessageSource());
+		Locale locale = new Locale("en");
+		String m = messageSourceAccessor.getMessage("nz.co.senanque.validationengine.class.not.recognised",locale);
+		assertEquals("Bind failed. Class not recognised: {0}",m);
+		m = messageSourceAccessor.getMessage("nz.co.senanque.rules.divide.by.zero",locale);
+		assertEquals("Divide by zero error",m);
+		m = messageSourceAccessor.getMessage("nz.co.senanque.pizzaorder.generated.R22",locale);
+		assertEquals("try out external functions",m);
+		m = messageSourceAccessor.getMessage("shopping.cart.status",locale);
+		assertEquals("{0} items in cart",m);
+	}
 }

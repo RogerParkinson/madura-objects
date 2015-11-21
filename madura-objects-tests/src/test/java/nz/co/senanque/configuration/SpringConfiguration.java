@@ -15,6 +15,7 @@
  *******************************************************************************/
 package nz.co.senanque.configuration;
 
+import nz.co.senanque.resourceloader.ResourceBundleMessageSourceExt;
 import nz.co.senanque.validationengine.ValidationEngine;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +58,8 @@ public class SpringConfiguration {
 	}
 	@Bean
     public MessageSource messageSource() { 
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("Messages","nz/co/senanque/pizzaorder/generated/messages","nz/co/senanque/validationengine/ValidationMessages");
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSourceExt();
+        messageSource.setBasenames("Messages");
         return messageSource;
     }
 	@Bean

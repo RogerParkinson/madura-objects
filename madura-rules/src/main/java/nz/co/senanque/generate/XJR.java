@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -160,6 +161,16 @@ public class XJR extends Task
                 throw new BuildException(e);
             }
         }
+        try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			generator.generate(m_packageName, targetDir, new PrintStream(baos));
+			baos.flush();
+			baos.close();
+			log.debug(baos.toString());
+		} catch (Exception e) {
+			throw new BuildException(e);
+		}
+
         messages.close();
     }
 

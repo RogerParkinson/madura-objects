@@ -212,6 +212,18 @@ public class XJRMojo
             }
         }
         messages.close();
+        try
+        {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            generator.generate(packageName, targetDir, new PrintStream(baos));
+            baos.flush();
+            baos.close();
+//            log.debug(baos.toString());
+        }
+        catch (Exception e)
+        {
+            throw new MojoExecutionException(e.getMessage());
+        }
     }
 
 	public File getResourceDirectory() {

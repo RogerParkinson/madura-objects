@@ -113,7 +113,6 @@
 			<plugin>
 				<groupId>nz.co.senanque</groupId>
 				<artifactId>madura-objects-maven-plugin</artifactId>
-				<version>${project.version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -132,7 +131,6 @@
 			<plugin>
 				<groupId>nz.co.senanque</groupId>
 				<artifactId>madura-rules-maven-plugin</artifactId>
-				<version>${project.version}</version>
 				<executions>
 					<execution>
 						<goals>

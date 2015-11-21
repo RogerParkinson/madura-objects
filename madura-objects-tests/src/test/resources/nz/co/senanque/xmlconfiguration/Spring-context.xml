@@ -16,11 +16,10 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" >
 		<property name="location" value="classpath:config.properties"/>
 	</bean>
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	<bean id="messageSource" class="nz.co.senanque.resourceloader.ResourceBundleMessageSourceExt">
 		<property name="basenames">
 			<list>
-				<value>Messages</value>
-				<value>nz/co/senanque/pizzaorder/generated/messages</value>
+ 				<value>Messages</value>
 			</list>
 		</property>
 	</bean>

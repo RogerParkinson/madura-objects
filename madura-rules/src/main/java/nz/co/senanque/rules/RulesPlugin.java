@@ -19,7 +19,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -27,6 +26,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import nz.co.senanque.resourceloader.MessageResource;
 import nz.co.senanque.rules.decisiontable.XMLDecisionTable;
 import nz.co.senanque.rules.factories.ConstantFactory;
 import nz.co.senanque.rules.factories.DecisionTableFactory;
@@ -38,7 +38,6 @@ import nz.co.senanque.validationengine.ProxyFieldImpl;
 import nz.co.senanque.validationengine.ProxyObject;
 import nz.co.senanque.validationengine.ValidationObject;
 import nz.co.senanque.validationengine.ValidationSession;
-import nz.co.senanque.validationengine.choicelists.ChoiceListFactory;
 import nz.co.senanque.validationengine.metadata.EngineMetadata;
 
 import org.apache.commons.lang.StringUtils;
@@ -66,6 +65,7 @@ import org.springframework.stereotype.Service;
  * @version $Revision: 1.9 $
  */
 @Service("maduraRules")
+@MessageResource("RulesMessages")
 public class RulesPlugin implements Plugin, MessageSourceAware, BeanFactoryAware, Serializable
 {
 	private static final long serialVersionUID = 1L;

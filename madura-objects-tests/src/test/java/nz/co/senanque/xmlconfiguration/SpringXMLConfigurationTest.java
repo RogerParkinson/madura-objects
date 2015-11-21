@@ -2,6 +2,9 @@ package nz.co.senanque.xmlconfiguration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.util.Locale;
+
 import nz.co.senanque.pizzaorder.generated.Customer;
 import nz.co.senanque.pizzaorder.generated.Pizza;
 import nz.co.senanque.validationengine.ValidationEngine;
@@ -11,6 +14,7 @@ import nz.co.senanque.validationengine.ValidationSession;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -63,5 +67,18 @@ public class SpringXMLConfigurationTest {
         assertEquals(12D,customer.getWeight(),0);
         validationSession.close();
     }
+	@Test
+	public void testResourceBundles() {
+		MessageSourceAccessor messageSourceAccessor = new MessageSourceAccessor(validationEngine.getMessageSource());
+		Locale locale = new Locale("en");
+		String m = messageSourceAccessor.getMessage("nz.co.senanque.validationengine.class.not.recognised",locale);
+		assertEquals("Bind failed. Class not recognised: {0}",m);
+		m = messageSourceAccessor.getMessage("nz.co.senanque.rules.divide.by.zero",locale);
+		assertEquals("Divide by zero error",m);
+		m = messageSourceAccessor.getMessage("nz.co.senanque.pizzaorder.generated.R22",locale);
+		assertEquals("try out external functions",m);
+		m = messageSourceAccessor.getMessage("shopping.cart.status",locale);
+		assertEquals("{0} items in cart",m);
+	}
 
 }

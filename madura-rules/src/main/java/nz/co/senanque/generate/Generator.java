@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import nz.co.senanque.resourceloader.MessageResource;
 import nz.co.senanque.rules.ConstraintViolationException;
 import nz.co.senanque.rules.FieldReference;
 import nz.co.senanque.rules.NotTrueException;
@@ -45,6 +46,7 @@ import nz.co.senanque.validationengine.ListeningArray;
 import nz.co.senanque.validationengine.ProxyField;
 import nz.co.senanque.validationengine.ValidationObject;
 
+import com.sun.codemodel.JAnnotationUse;
 import com.sun.codemodel.JArray;
 import com.sun.codemodel.JBlock;
 import com.sun.codemodel.JCatchBlock;
@@ -65,13 +67,24 @@ import com.sun.codemodel.JVar;
 
 /**
  * 
- * Short description
+ * This class is responsible for generating the Java for a rule.
  * 
  * @author Roger Parkinson
  * @version $Revision: 1.9 $
  */
 public class Generator
 {
+	public void generate(String packageName, File destDir, PrintStream status) throws Exception {
+        JCodeModel cm = new JCodeModel();
+        JPackage jpackage = cm._package(packageName);
+        JDefinedClass maduraResourceComponent = jpackage._class("MaduraResourceComponent");
+        maduraResourceComponent.annotate(org.springframework.stereotype.Component.class);
+        JAnnotationUse annotationUse = maduraResourceComponent.annotate(MessageResource.class);
+        annotationUse.param("value", "messages");
+//        JFieldVar serialVersionUIDField = maduraResourceComponent.field(JMod.FINAL|JMod.PRIVATE|JMod.STATIC, long.class, "serialVersionUID");
+//        serialVersionUIDField.init(JExpr.lit(1L));
+        cm.build(destDir, status);
+	}
 
     public void generate(String packageName, AbstractRule rule, String objectPackage, File destDir, PrintStream status) throws Exception
     {
