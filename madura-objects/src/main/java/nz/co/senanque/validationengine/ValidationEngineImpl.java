@@ -25,6 +25,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import nz.co.senanque.resourceloader.MessageResource;
 import nz.co.senanque.validationengine.choicelists.Choice;
 import nz.co.senanque.validationengine.choicelists.ChoiceBase;
 import nz.co.senanque.validationengine.fieldvalidators.FieldValidator;
@@ -50,6 +51,7 @@ import org.springframework.stereotype.Service;
  * @version $Revision: 1.6 $
  */
 @Service("validationEngine")
+@MessageResource("ValidationMessages")
 //@Vetoed
 public final class ValidationEngineImpl implements ValidationEngine,
         MessageSourceAware

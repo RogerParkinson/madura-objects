@@ -9,6 +9,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import nz.co.senanque.resourceloader.ResourceBundleMessageSourceExt;
 import nz.co.senanque.validationengine.ValidationEngine;
 
 import org.apache.commons.lang.StringUtils;
@@ -19,7 +20,6 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ResourceBundleMessageSource;
 
 @Singleton
 public class ValidationEngineProducer {
@@ -66,10 +66,12 @@ public class ValidationEngineProducer {
 
 	private BeanDefinition getMessageSource() {
 		GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
-		beanDefinition.setBeanClass(ResourceBundleMessageSource.class);
-		beanDefinition.setPropertyValues(
-				new MutablePropertyValues()
-					.add("basenames", StringUtils.split((messages!=null)?messages:"ValidationMessages", ',')));
+		beanDefinition.setBeanClass(ResourceBundleMessageSourceExt.class);
+		if (messages != null) {
+			beanDefinition.setPropertyValues(
+					new MutablePropertyValues()
+						.add("basenames", StringUtils.split(messages, ',')));
+		}
 		return beanDefinition;
 	}
 	
