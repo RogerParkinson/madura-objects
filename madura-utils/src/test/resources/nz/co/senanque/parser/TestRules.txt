@@ -1,0 +1,74 @@
+formula: Customer "Count Items in list"
+{
+	invoiceCount = count(invoices)/(5D*3.2D)+2.0D;
+} // comment
+
+
+formula: Customer "test converter#1"
+{
+	name = toString(invoiceCount);
+}
+
+formula: Customer "test converter#2"
+{
+	invoiceCount = toNumber(name);
+}
+
+constraint: Customer "check the count"
+{
+	logicalNot(invoiceCount > 2L);
+}
+
+rule: Customer "Determine customerType from name"
+{
+	if (amount > 27)
+	{
+		customerType = "a";
+		invoiceCount = 2-10;
+		invoiceCount = 2 % 10;
+		invoiceCount = 2 / 10;
+		invoiceCount = pow(2,10);
+		name = "ABC" + "DEF" + "EFG";
+		name = toString(amount);
+		amount = toNumber(name);
+		name = toString(toDate("01-01-1980"));		
+	}
+}
+
+rule: Customer "Determine business from customerType"
+{
+	if (customerType == "a")
+	{
+		business = "Ag";
+	}
+}
+rule: Customer "Determine business from customerType B"
+{
+	if (customerType+"X"+${xyz} == "b")
+	{
+		business = "fish"+name;
+		business = regex("abc","def");
+		amount = combine(5,7);
+	}
+}
+
+rule: Customer "set customerType to read-only, activate and required"
+{
+	if (name == "xyz")
+	{
+		business = "fish"+name;
+		readonly(customerType);
+		activate(customerType);
+		require(customerType);
+		exclude(customerType,"c");
+	}
+}
+
+rule: Customer "list functions"
+{
+	if (anyTrue(invoices.amount))
+	{
+		amount = sum(invoices.amount);
+		invoices.date=toDate("01-01-1980");
+	}
+}

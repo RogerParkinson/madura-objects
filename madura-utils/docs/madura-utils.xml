@@ -1,0 +1,145 @@
+<?xml-stylesheet type="text/xsl" href="MaduraHTML.xsl" ?>
+
+<doc xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://www.madurasoftware.com/maduradocs.xsd">
+	<title>
+		<MainTitle>MaduraUtils</MainTitle>
+		<SubTitle>User Guide</SubTitle>
+		<Author>Roger Parkinson</Author>
+		<Revision>$Revision: 1$</Revision>
+		<image>logo.jpg</image>
+		<references>
+			<reference t="Spring Framework" url="http://www.springframework.org" />
+			<reference t="slf4j" url="http://www.slf4j.org" />
+			<reference t="Apache Licence 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
+		</references>
+	</title>
+	<body>
+		<process-log/>
+		<process-references/>
+		<h1 t="Overview">
+		<p>The MaduraUtils project is a catch-all project for various miscellaneous features required by other Madura projects (or anyone else) but 
+		which aren't big enough to justify their own project.</p>
+		<list>
+		<le>Locking: this provides a factory and template for using <courier>java.util.concurrent.locks.Lock</courier> implementations as well as two
+		of those implementations. We re-interpret the <courier>Lock</courier> interface here because the original intention for that interface seems to
+		be more about locking memory objects such as lists and queues, across threads. This re-interpretation is about pessimistic locks of abstract
+		items that <emph>might</emph> be locked across multiple threads and multiple JVMs, depending on the implementation.</le>
+		<le>Parser is a set of parsing tools which can be extended to support a specific grammar fairly simply.</le>
+		<le>Schemaparser is a reader of XSD files which creates an object structure which can be easily queried for class names and fields etc.</le>
+		</list>
+		</h1>
+		
+		<h1 t="Locking and Database">
+        <p>The Madura Utils project supplies the framework for a locking system, but the implementation of the locks are your choice.</p>
+        <p>To take out a lock you use the lock factory which is configured like this:</p>
+        <code><![CDATA[
+<bean id="lockFactory" class="nz.co.senanque.locking.simple.SimpleLockFactory" />
+        ]]></code>
+        <p>The lock factory is injected into the relevant objects and called like this:</p>
+        <code><![CDATA[
+Lock lock = getLockFactory().getWrappedLock(ObjectSpecificString, LockType.WRITE, comment);
+        ]]></code>
+        <p>The <courier>lock</courier> is actually a <courier>java.util.concurrent.locks.Lock</courier>, and you can use it to take out a lock
+        on the ObjectSpecificString, which can represent any abstraction you can think of. It is helpful to use a template like this:</p>
+        <code><![CDATA[
+LockTemplate lockTemplate = new LockTemplate(lock, new LockAction() {
+
+	public void doAction() {
+		
+		// some code that must happen in a lock
+	}});
+if (!lockTemplate.doAction()) {
+	throw new RuntimeException("Failed to get a lock");
+}
+        ]]></code>
+        <p>The template ensures that the lock is released when it is done no matter what happens. There is a variation that allows a timeout on the
+        internal <courier>trylock</courier> call. It can accept a single lock as shown, or it can accept a list of locks which it
+        locks in the order they appear in the list, and unlocks in the reverse order.</p>
+        <p>The factory configured earlier delivers a class with an interface called <courier>nz.co.senanque.locking.LockFactory</courier> and that is where
+        it can be extended to use any locking mechanism you like. These are the ones available:</p>
+        <h2 t="SimpleLock">
+        <p>This is the example already shown. It uses a memory array to manage the locks so it is not suitable to lock across different
+        JVMs. This one is mostly used for testing since it needs no extra configuration. It does expose the lock table with JMX so that
+        you can cancel locks manually on the fly. Exactly how much this really is remains to be seen.</p>
+        </h2>
+        <h2 t="SQLLock">
+        <p>This one keeps the locks on a database table so it requires a database and it does work across JVMs. This is the table definition required (for Oracle):</p>
+        <code><![CDATA[
+CREATE TABLE SQL_LOCK
+(
+  lockName  VARCHAR(255)  NOT NULL,
+  ownerName  VARCHAR(100)  NOT NULL,
+  started  VARCHAR(255)  NOT NULL,
+  comments  VARCHAR(255),
+  hostAddress  VARCHAR(100) NOT NULL,
+    CONSTRAINT sql_lock_name PRIMARY KEY (lockName)
+);
+        ]]></code>
+        <p>The configuration looks like this:</p>
+        <code><![CDATA[
+<bean id="lockFactory" class="nz.co.senanque.locking.sql.SQLLockFactory">
+    <property name="datasource" ref="datasource"/>
+    <property name="prefix" value=""/>
+    <property name="maxRetries" value="-1"/>
+    <property name="sleepTime" value="1000"/>
+</bean>
+        ]]></code>
+        <p>The datasource must be a JDBC datasource and the other properties are optional, with the default values shown.</p>
+        <p>The prefix is used when you have multiple JVMs running on the same server (with the same ip address), setting different
+        prefixes on each allows the lock manager to know which JVM owns which lock.</p>
+        <p>The maxRetries and sleepTime defines how many times to keep retrying the lock if we are locked out (-1 means infinite) and
+        the sleep time is how long to wait between each try in milliseconds.</p>
+        </h2>
+        <h2 t="Other Locking Mechanisms">
+        <p>The obvious one to implement is Hazelcast<referenceLink t="Hazelcast"/> which supports the <courier>java.util.concurrent.locks.Lock</courier> interface already so
+        a simple factory that delivers a Hazelcast implementation would be easy to build. Terracotta<referenceLink t="Terracotta"/> can manage distributed locks as well.</p>
+        </h2>
+        </h1>
+        <h1 t="Two Phase Commit support">
+        <p>Hibernate requires a support class to enable two phase commits under JTA using Atomikos. The resulting class is pretty trivial
+        but it enables Spring to get the wiring right. The dependencies for this are only Hibernate and in this project it is marked as 'provided'
+        in maven so you don't get it if you don't want it.</p>
+        </h1>
+        <h1 t="Asserts">
+        <p>The <courier>MaduraAsserts</courier> class roughly mimics Junit's asserts but doesn't need the JUnit dependency in your production code.
+        The asserts take optional format messages and even RuntimeExceptions if you want.</p>
+        </h1>
+		<a1 t="License">
+			<p>The code specific to MaduraUtils is licensed under the Apache Licence 2.0 <referenceLink t="Apache Licence 2.0"/>.</p>
+			<p>The dependent products have compatible licenses as specified in their pom files.</p>
+		</a1>
+		<a1 t="Release Notes">
+			<table width="12cm">
+				<tw>12cm</tw>
+				<tr>
+					<th>1.0.0</th>
+				</tr>
+				<tr>
+					<td>Added asserts.</td>
+				</tr>
+				<tr>
+					<td>Some minor formatting.</td>
+				</tr>
+				<tr>
+					<th>0.0.3</th>
+				</tr>
+				<tr>
+					<td>Adjusted parser behaviour to support Eclipse plugin.</td>
+				</tr>
+				<tr>
+					<th>0.0.2</th>
+				</tr>
+				<tr>
+					<td>Upgraded Spring dependency.</td>
+				</tr>
+				<tr>
+					<th>0.1</th>
+				</tr>
+				<tr>
+					<td>Initial version.</td>
+				</tr>
+			</table>
+		</a1>
+	</body>
+</doc>

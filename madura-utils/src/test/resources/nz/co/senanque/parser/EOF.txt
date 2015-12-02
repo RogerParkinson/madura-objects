@@ -1,0 +1,4 @@
+formula: Customer "Count Items in list"
+{
+	invoiceCount = count(invoices)/(5D*3.2D)+2.0D;
+} // this is a comment

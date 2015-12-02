@@ -61,12 +61,12 @@ Licenses for more details.
     </bean>	
 	
 	<tx:annotation-driven/>	
-	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="hibernateSessionFactory"/>
 	</bean>
 	
   <!-- Hibernate SessionFactory definition -->
-  <bean id="hibernateSessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+  <bean id="hibernateSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
    <property name="dataSource" ref="sampleDBDataSource"/>
    <property name="hibernateProperties">
    		<ref bean="hibernateProperties"/>
