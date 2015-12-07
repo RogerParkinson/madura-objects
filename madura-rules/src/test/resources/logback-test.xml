@@ -9,6 +9,7 @@
 	<logger name="nz.co.senanque.rulesparser" level="debug"/>
 	<logger name="nz.co.senanque.parser" level="debug"/>
 	<logger name="org.hibernate.tool.hbm2ddl.SchemaExport" level="debug"/>
+-->
   <root level="warn">
     <appender-ref ref="STDOUT" />
   </root>
