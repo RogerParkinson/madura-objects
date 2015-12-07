@@ -382,7 +382,7 @@ rule: Customer "Determine business from customerType" {
         ]]></code>
         <p>There are several arguments specified on the xjr plugin:</p>
         <list>
-        <le>destdir is where the resulting Java files will be generated. They will be put into the package specified in packageName.</le>
+        <le>targetDirectory is where the resulting Java files will be generated. They will be put into the package specified in packageName.</le>
         <le>rules specifies the file containing your rules.</le>
         <le>schema specifies the xsd file.</le>
         <le>xsdpackageName is only needed if your xsd package is different from your rules packagename.</le>
@@ -393,7 +393,27 @@ rule: Customer "Determine business from customerType" {
         deployed to maven, then add that dependency to the plugin (as well as your project). The reason for
         adding them into a separate project is to ensure they are added to the plugin's classpath for
         use when it generates the rules.</p>
-        <p>Both of the schema file and the rules file are always in the directory <courier>src/main/resources</courier>.</p>
+        <p>Both the schema file and the rules file are always in the directory <courier>src/main/resources</courier>.</p>
+        <p>The rules generation plugin will put the generated java and a properties file into the targetDirectory. To get the
+        properties file copied into your application you need to specify it in the resources (in the build tag):</p>
+		<code><![CDATA[
+<resources>
+    <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+    </resource>
+	<resource>
+		<directory>generated-sources/xjc</directory>
+		<includes>
+			<include>**/*.properties</include>
+			<include>**/*.xml</include>
+		</includes>
+		<filtering>false</filtering>
+	</resource>
+</resources>
+		]]></code>
+		<p>The first entry ensures maven does its default copy of resources in <courier>src/main/resources</courier>
+		and the second tells it to also get any resources from the generated sources directory.</p>
         </h2>
         <h2 t="Configuring Your Application">
         <p>First take a look at the configuration for Madura Objects which Madura Rules depends on. You only need to add a few
