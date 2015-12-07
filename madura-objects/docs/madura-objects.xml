@@ -444,6 +444,25 @@ public class CustomerJPAImpl implements CustomerDAO {
 ]]></code>
         <p>Most of this is the normal use of the JAXB plugin, but it is worth noting that we are using two plugins to
         JAXB: madura-objects and validator, these are both contained in the madura-objects dependency.</p>
+        <p>However that is all a bit huge so we simplified it with a wrapper plugin. All you really need is this:</p>
+<code><![CDATA[
+<plugin>
+	<groupId>nz.co.senanque</groupId>
+	<artifactId>madura-objects-maven-plugin</artifactId>
+	<executions>
+		<execution>
+			<goals>
+				<goal>generate</goal>
+			</goals>
+			<configuration>
+				<schemaIncludes>
+					<include>PizzaOrder.xsd</include>
+				</schemaIncludes>
+			</configuration>
+		</execution>
+	</executions>
+</plugin>
+]]></code>
         <p>The JAXB plugin expects the schema file to be in the directory <courier>src/main/resources</courier></p>
         <p>Since you probably want to use these generated classes in a database you may want to generate a database script from them. An
         easy way to do this is to use the SchemaTranslatorMavenPlugin<referenceLink t="SchemaTranslatorMavenPlugin"/> like this:</p>
