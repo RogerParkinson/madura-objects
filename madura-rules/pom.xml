@@ -90,18 +90,10 @@ That means you can change rules without having to go back to your Java code, and
 			<version>2.3.3</version>
 			<scope>test</scope>
 		</dependency>
-<!-- 
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-annotations</artifactId>
-			<version>3.5.4-Final</version>
-			<scope>test</scope>
-		</dependency>
- -->
 		<dependency>
 			<groupId>nz.co.senanque</groupId>
 			<artifactId>madura-utils</artifactId>
-			<version>0.0.3</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -122,6 +114,23 @@ That means you can change rules without having to go back to your Java code, and
 	</dependencies>
 	<build>
 		<finalName>madura-rules</finalName>
+ 		<resources>
+			<resource>
+				<directory>${basedir}</directory>
+				<includes>
+					<include>**/*.html</include>
+					<include>**/*.md</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
 		<plugins>
 				<plugin>
 					<groupId>org.jvnet.jaxb2.maven2</groupId>
@@ -459,6 +468,7 @@ That means you can change rules without having to go back to your Java code, and
 							<goals>
 								<goal>resources</goal>
 							</goals>
+
 						</execution>
 						<execution>
 							<id>default-testResources</id>
