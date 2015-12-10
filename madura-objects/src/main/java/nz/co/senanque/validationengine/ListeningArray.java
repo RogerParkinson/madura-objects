@@ -29,7 +29,8 @@ import java.util.List;
  */
 public class ListeningArray<E> extends LinkedList<E>
 {
-    private transient ValidationSession m_validationSession;
+    private static final long serialVersionUID = 1L;
+	private transient ValidationSession m_validationSession;
     private transient ProxyField m_proxyField;
 
     public void add(final int index, final E o)
@@ -41,9 +42,10 @@ public class ListeningArray<E> extends LinkedList<E>
         super.add(index, o);
     }
 
-    public boolean add(final Object o)
+    @SuppressWarnings("unchecked")
+	public boolean add(final Object o)
     {
-        boolean ret = super.add((E)o);
+		boolean ret = super.add((E)o);
         if (m_validationSession != null)
         {
             try
@@ -66,7 +68,8 @@ public class ListeningArray<E> extends LinkedList<E>
         return ret;
     }
 
-    public boolean remove(final Object o)
+    @SuppressWarnings("unchecked")
+	public boolean remove(final Object o)
     {
         boolean ret = false;
         if (m_validationSession != null)
@@ -92,7 +95,8 @@ public class ListeningArray<E> extends LinkedList<E>
         return ret;
     }
 
-    public void clear()
+    @SuppressWarnings("unchecked")
+	public void clear()
     {
         if (m_validationSession != null)
         {
@@ -130,7 +134,8 @@ public class ListeningArray<E> extends LinkedList<E>
         }
     }
 
-    public void addAll(final List<E> o)
+    @SuppressWarnings("unchecked")
+	public void addAll(final List<E> o)
     {
         if (m_validationSession != null)
         {

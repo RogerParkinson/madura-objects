@@ -25,6 +25,7 @@ import org.springframework.context.support.MessageSourceAccessor;
  * @author Roger Parkinson
  * @version $Revision:$
  */
+@SuppressWarnings("serial")
 @Deprecated
 public class LocaleAwareRuntimeException extends RuntimeException
 {

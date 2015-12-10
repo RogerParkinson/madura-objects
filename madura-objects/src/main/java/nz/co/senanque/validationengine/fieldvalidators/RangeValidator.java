@@ -90,7 +90,8 @@ public class RangeValidator implements FieldValidator<Range>
             compareMaxInclusive((Comparable<?>)o);
         }
     }
-    private <T> void compareMinExclusive(Comparable<T> o)
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	private <T> void compareMinExclusive(Comparable<T> o)
     {
         if (m_minExclusive == null) return;
         if (o.compareTo((T) ConvertUtils.convertToComparable((Class<Comparable>)o.getClass(), m_minExclusive, m_propertyMetadata.getMessageSourceAccessor())) <= 0)
@@ -99,7 +100,8 @@ public class RangeValidator implements FieldValidator<Range>
             throw new ValidationException(message);
         }
     }
-    private <T> void compareMinInclusive(Comparable<T> o)
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	private <T> void compareMinInclusive(Comparable<T> o)
     {
         if (m_minInclusive == null)
         {
@@ -111,7 +113,8 @@ public class RangeValidator implements FieldValidator<Range>
             throw new ValidationException(message);
         }
     }
-    private <T> void compareMaxExclusive(Comparable<T> o)
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	private <T> void compareMaxExclusive(Comparable<T> o)
     {
         if (m_maxExclusive == null)
         {
@@ -123,7 +126,8 @@ public class RangeValidator implements FieldValidator<Range>
             throw new ValidationException(message);
         }
     }
-    private <T> void compareMaxInclusive(Comparable<T> o)
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	private <T> void compareMaxInclusive(Comparable<T> o)
     {
         if (m_maxInclusive == null)
         {

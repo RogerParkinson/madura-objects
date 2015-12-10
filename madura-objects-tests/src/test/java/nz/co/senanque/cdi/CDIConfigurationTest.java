@@ -19,6 +19,7 @@ import org.springframework.context.support.MessageSourceAccessor;
 
 public class CDIConfigurationTest {
 	
+	@SuppressWarnings("unused")
 	private final static Logger log = LoggerFactory.getLogger(CDIConfigurationTest.class);
 
 	@Test
@@ -51,7 +52,8 @@ public class CDIConfigurationTest {
         }
         assertTrue(exceptionFound);
         pizza.setSize("TrulyVast");
-        RulesPlugin rulesPlugin = validationEngine.getPlugin(RulesPlugin.class);
+        @SuppressWarnings("unused")
+		RulesPlugin rulesPlugin = validationEngine.getPlugin(RulesPlugin.class);
         validationSession.close();
     }
 	@Test

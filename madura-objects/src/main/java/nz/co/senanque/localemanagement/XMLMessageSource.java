@@ -123,7 +123,8 @@ public class XMLMessageSource extends AbstractMessageSource implements Initializ
         m_resource = resource;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void afterPropertiesSet() throws Exception
     {
         m_resource.getInputStream();

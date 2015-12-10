@@ -18,7 +18,6 @@ package nz.co.senanque.validationengine;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,8 +25,6 @@ import java.util.Set;
 import nz.co.senanque.validationengine.choicelists.ChoiceBase;
 import nz.co.senanque.validationengine.metadata.PropertyMetadataImpl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.support.MessageSourceAccessor;
 
 /**
@@ -38,7 +35,8 @@ import org.springframework.context.support.MessageSourceAccessor;
  */
 public class ProxyFieldImpl implements ProxyField, Serializable
 {
-    protected enum Required {
+	private static final long serialVersionUID = 1L;
+	protected enum Required {
         TRUE, TEMP, FALSE
     }
 
@@ -50,7 +48,7 @@ public class ProxyFieldImpl implements ProxyField, Serializable
     private boolean m_readOnly;
     private boolean m_required;
     private boolean m_inActive;
-    private final static Logger log = LoggerFactory.getLogger(ProxyFieldImpl.class);
+//    private final static Logger log = LoggerFactory.getLogger(ProxyFieldImpl.class);
     private Object m_currentValue = null;
     private boolean m_useCurrentValue = false;
     private Set<String> m_excludes = null;

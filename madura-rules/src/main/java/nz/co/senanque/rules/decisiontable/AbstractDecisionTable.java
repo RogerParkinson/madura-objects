@@ -42,7 +42,8 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractDecisionTable implements Rule, Serializable
 {
-    private static Logger logger = LoggerFactory.getLogger(AbstractDecisionTable.class);
+    private static final long serialVersionUID = 1L;
+	private static Logger logger = LoggerFactory.getLogger(AbstractDecisionTable.class);
     private transient String[] m_columnNames;
     private transient Row[] m_rows;
     private transient boolean[] m_autoAssign;
@@ -60,7 +61,8 @@ public abstract class AbstractDecisionTable implements Rule, Serializable
         Object[] values = new Object[columnCount];
         
         ProxyField lastProxyField = session.getLastProxyField();
-        int columnLastEntered = -1;
+        @SuppressWarnings("unused")
+		int columnLastEntered = -1;
         for (int i=0;i<columnCount;i++)
         {
             proxyFields[i] = getProxyField(session, object, m_columnNames[i]);
@@ -136,7 +138,8 @@ public abstract class AbstractDecisionTable implements Rule, Serializable
     }
     private Set<String>[] figureValids(int columnCount,Object[] values)
     {
-        Set<String>[] valids = new Set[columnCount];
+        @SuppressWarnings("unchecked")
+		Set<String>[] valids = new Set[columnCount];
         for (Row row : m_rows)
         {
             boolean excludeRow = false;

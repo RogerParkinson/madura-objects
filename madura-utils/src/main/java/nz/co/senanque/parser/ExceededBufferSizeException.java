@@ -17,6 +17,8 @@ package nz.co.senanque.parser;
 
 public class ExceededBufferSizeException extends RuntimeException {
 
+	private static final long serialVersionUID = 1L;
+
 	public ExceededBufferSizeException() {
 		// TODO Auto-generated constructor stub
 	}

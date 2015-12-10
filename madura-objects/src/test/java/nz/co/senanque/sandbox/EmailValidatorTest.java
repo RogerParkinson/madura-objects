@@ -16,9 +16,6 @@
 package nz.co.senanque.sandbox;
 
 import static org.junit.Assert.assertTrue;
-
-import java.util.Locale;
-
 import nz.co.senanque.validationengine.ValidationException;
 import nz.co.senanque.validationengine.annotations.Email;
 import nz.co.senanque.validationengine.fieldvalidators.EmailValidator;
@@ -27,8 +24,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 

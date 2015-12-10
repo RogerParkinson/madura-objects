@@ -21,7 +21,6 @@ import java.util.Map;
 
 import nz.co.senanque.rules.Rule;
 import nz.co.senanque.rules.RuleSession;
-import nz.co.senanque.decisiontable.Pizza;
 import nz.co.senanque.rules.factories.DecisionTableFactory;
 
 import org.jdom.Document;
@@ -33,7 +32,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -66,7 +64,8 @@ public class PrototypeDecisionTableTest
 		Document decisionTableDocument = saxBuilder.build(m_decisionTableResource.getInputStream());
     	
     	Element root = decisionTableDocument.getRootElement();
-        List<Element> decisionTableElements = root.getChildren("DecisionTable");
+        @SuppressWarnings("unchecked")
+		List<Element> decisionTableElements = root.getChildren("DecisionTable");
         Element decisionTableElement = decisionTableElements.get(0);
         Rule decisionTable = new PrototypeDecisionTable(decisionTableElement,getDecisionTableFactoryMap());
         RuleSession ruleSession = new RuleSessionMock(root, m_messageSource);

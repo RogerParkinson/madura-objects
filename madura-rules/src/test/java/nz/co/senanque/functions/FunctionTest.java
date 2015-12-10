@@ -41,7 +41,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations={"spring.xml"})
 public class FunctionTest
 {
-    private static final Log log = org.apache.commons.logging.LogFactory.getLog(FunctionTest.class);
+    @SuppressWarnings("unused")
+	private static final Log log = org.apache.commons.logging.LogFactory.getLog(FunctionTest.class);
     @Autowired private transient ValidationEngine m_validationEngine;
     @Autowired private transient CustomerDAO m_customerDAO;
 

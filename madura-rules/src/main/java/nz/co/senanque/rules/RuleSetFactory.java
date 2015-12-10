@@ -26,6 +26,7 @@ import org.springframework.beans.factory.FactoryBean;
  * @author Roger Parkinson
  * @version $Revision: 1.2 $
  */
+@SuppressWarnings("rawtypes")
 @Deprecated
 public class RuleSetFactory implements FactoryBean
 {

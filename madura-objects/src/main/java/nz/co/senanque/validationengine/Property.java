@@ -24,6 +24,7 @@ import java.lang.reflect.Method;
  */
 public class Property implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private final String m_fieldName;
 	private final Method m_getter;
 	private final Class<?> m_clazz;

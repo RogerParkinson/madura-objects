@@ -27,7 +27,8 @@ import org.slf4j.LoggerFactory;
  */
 public class NullParserSource implements ParserSource
 {
-    private static final Logger log = LoggerFactory.getLogger(NullParserSource.class);
+    @SuppressWarnings("unused")
+	private static final Logger log = LoggerFactory.getLogger(NullParserSource.class);
 
     private final String m_source;
 	private int m_lineCount = 0;

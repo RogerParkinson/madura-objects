@@ -98,7 +98,8 @@ public class Parser
         this.m_debug = debug;
     }
 
-    private String getSource(TextProvider textProvider)
+    @SuppressWarnings("unused")
+	private String getSource(TextProvider textProvider)
     {
         return textProvider.getSource();
     }

@@ -40,7 +40,8 @@ import org.jdom.Element;
  */
 public class PrototypeDecisionTable extends AbstractDecisionTable
 {
-    private transient final String m_ruleName;
+    private static final long serialVersionUID = 1L;
+	private transient final String m_ruleName;
     private transient final String m_message;
     private transient final String m_typeName;
     private transient final FieldReference[] m_listeners;
@@ -57,7 +58,8 @@ public class PrototypeDecisionTable extends AbstractDecisionTable
         final String type = tableElement.getAttributeValue("scope");
         m_typeName = type;
         m_message = tableElement.getAttributeValue("message");
-        final List<Element> columNameElements = (List<Element>)tableElement.getChild("ColumnNames").getChildren("ColumnName");
+        @SuppressWarnings("unchecked")
+		final List<Element> columNameElements = (List<Element>)tableElement.getChild("ColumnNames").getChildren("ColumnName");
         String[] columnNames = new String[columNameElements.size()];
         m_listeners = new FieldReference[columNameElements.size()];
         boolean autoAssign[] = new boolean[columNameElements.size()];
@@ -76,12 +78,14 @@ public class PrototypeDecisionTable extends AbstractDecisionTable
         DecisionTableFactory dtf = factoryMap.get(m_ruleName);
         if (dtf == null)
         {
-            final List<Element> rowElements = (List<Element>)tableElement.getChild("Rows").getChildren("Row");
+            @SuppressWarnings("unchecked")
+			final List<Element> rowElements = (List<Element>)tableElement.getChild("Rows").getChildren("Row");
             Row[] rows = new Row[rowElements.size()];
             int rowIindex = 0;
             for (Element rowElement:rowElements)
             {
-                final List<Element> columnElements = (List<Element>)rowElement.getChildren("Column");
+                @SuppressWarnings("unchecked")
+				final List<Element> columnElements = (List<Element>)rowElement.getChildren("Column");
                 Column[] columns = new Column[columnElements.size()];
                 int columnIindex = 0;
                 for (Element columnElement:columnElements)
@@ -100,7 +104,8 @@ public class PrototypeDecisionTable extends AbstractDecisionTable
         setAutoAssign(autoAssign);
     }
     
-    private Class<?> getClazz(String name)
+    @SuppressWarnings("unused")
+	private Class<?> getClazz(String name)
     {
         return null;
     }
@@ -128,7 +133,7 @@ public class PrototypeDecisionTable extends AbstractDecisionTable
 //       return m_clazz.getSimpleName();
        return m_typeName;
    }
-   public Class getScope()
+   public Class<?> getScope()
    {
        return m_clazz;
    }

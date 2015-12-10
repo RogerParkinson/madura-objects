@@ -17,6 +17,7 @@ package nz.co.senanque.parser;
 
 public class ParserException extends RuntimeException
 {
+	private static final long serialVersionUID = 1L;
 	private int m_lineCount = -1;
     public ParserException(String message)
     {

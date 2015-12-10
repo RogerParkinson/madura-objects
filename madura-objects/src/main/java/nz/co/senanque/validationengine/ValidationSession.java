@@ -18,7 +18,6 @@ package nz.co.senanque.validationengine;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -60,7 +59,8 @@ public class ValidationSession implements Serializable
 
     public void bind(ValidationObject validationObject)
     {
-    	Map<ValidationObject,ProxyObject> ret = bind(validationObject,null);
+    	@SuppressWarnings("unused")
+		Map<ValidationObject,ProxyObject> ret = bind(validationObject,null);
     }
 
     public Map<ValidationObject,ProxyObject> bind(final ValidationObject object, ValidationObject owner)
@@ -147,7 +147,8 @@ public class ValidationSession implements Serializable
         return object.getMetadata();
     }
 
-    public boolean add(final ListeningArray<?> listeningArray, final ValidationObject o)
+    @SuppressWarnings("unchecked")
+	public boolean add(final ListeningArray<?> listeningArray, final ValidationObject o)
     {
         boolean ret = true;
         if (m_enabled)
@@ -156,7 +157,8 @@ public class ValidationSession implements Serializable
         }
         return ret;
     }
-    public void add(final ListeningArray<?> listeningArray, final List<ValidationObject> o)
+    @SuppressWarnings("unchecked")
+	public void add(final ListeningArray<?> listeningArray, final List<ValidationObject> o)
     {
         if (m_enabled)
         {

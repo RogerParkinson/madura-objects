@@ -362,7 +362,8 @@ public final class ValidationEngineImpl implements ValidationEngine,
     {
         return m_plugins;
     }
-    public <T> T getPlugin(Class<T> clazz) {
+    @SuppressWarnings("unchecked")
+	public <T> T getPlugin(Class<T> clazz) {
     	for (Plugin plugin: m_plugins) {
     		if (plugin.getClass().equals(clazz)) {
     			return (T)plugin;

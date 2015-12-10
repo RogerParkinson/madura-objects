@@ -28,7 +28,9 @@ import java.util.Map;
 public class ProxyObject implements Serializable
 {
 
-    private final transient ValidationObject m_object;
+    private static final long serialVersionUID = 1L;
+
+	private final transient ValidationObject m_object;
 
     private final transient ProxyField m_parent;
 

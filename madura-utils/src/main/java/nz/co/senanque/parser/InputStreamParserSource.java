@@ -34,7 +34,8 @@ import org.springframework.core.io.Resource;
  */
 public class InputStreamParserSource implements ParserSource
 {
-    private static final Logger log = LoggerFactory.getLogger(InputStreamParserSource.class);
+    @SuppressWarnings("unused")
+	private static final Logger log = LoggerFactory.getLogger(InputStreamParserSource.class);
 
 	private class Mark {
 		final int m_position;

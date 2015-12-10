@@ -39,7 +39,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations={"spring.xml"})
 public class OneInvoiceTest
 {
-    private static final Log log = org.apache.commons.logging.LogFactory.getLog(OneInvoiceTest.class);
+    @SuppressWarnings("unused")
+	private static final Log log = org.apache.commons.logging.LogFactory.getLog(OneInvoiceTest.class);
     @Autowired private transient ValidationEngine m_validationEngine;
     @Autowired private transient CustomerDAO m_customerDAO;
     @Autowired private transient MessageSource m_messageSource;

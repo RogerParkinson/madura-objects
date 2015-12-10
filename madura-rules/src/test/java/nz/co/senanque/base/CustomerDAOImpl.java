@@ -85,6 +85,7 @@ public class CustomerDAOImpl implements CustomerDAO
         customer.getInvoices().size();
         return customer;
     }
+	@SuppressWarnings("unused")
 	public void transactionTester()
 	{
 	    final DefaultTransactionDefinition def = new DefaultTransactionDefinition();
@@ -97,7 +98,8 @@ public class CustomerDAOImpl implements CustomerDAO
         Session session = getSessionFactory().getCurrentSession();
         final Transaction transaction = session.getTransaction();
         Query query = session.createQuery("select p from nz.co.senanque.madura.sandbox.Customer p");
-        List<Customer> customers = query.list();
+        @SuppressWarnings("unchecked")
+		List<Customer> customers = query.list();
         for (Customer customer: customers)
         {
             final Session session1 = getSessionFactory().openSession();

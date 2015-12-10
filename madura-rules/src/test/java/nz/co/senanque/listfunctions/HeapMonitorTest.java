@@ -124,7 +124,8 @@ public class HeapMonitorTest
      * tests the array .clear() method
      * @throws Exception
      */
-    @Test
+    @SuppressWarnings("unused")
+	@Test
     public void test1a() throws Exception
     {        
         ValidationSession validationSession = m_validationEngine.createSession();

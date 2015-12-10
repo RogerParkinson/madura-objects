@@ -231,8 +231,14 @@ public class Generator
         JMethod getClassNameMethod = ruleClass.method(JMod.PUBLIC, cm.ref(String.class), "getClassName");
         getClassNameMethod.body()._return(JExpr.lit(/*objectPackage+"."+*/rule.getClassName()));
         
-        JMethod getScopeMethod = ruleClass.method(JMod.PUBLIC, cm.ref(Class.class), "getScope");
-        getScopeMethod.body()._return(cm.ref(objectPackage+"."+rule.getClassName()).dotclass() );
+        JClass retClass = cm.ref(objectPackage+"."+rule.getClassName());
+        JClass c = cm.ref(Class.class).narrow(retClass);
+        
+//        JMethod getScopeMethod = ruleClass.method(JMod.PUBLIC, cm.ref(Class.class), "getScope");
+//        getScopeMethod.body()._return(cm.ref(objectPackage+"."+rule.getClassName()).dotclass() );
+        
+        JMethod getScopeMethod = ruleClass.method(JMod.PUBLIC, c, "getScope");
+        getScopeMethod.body()._return(retClass.dotclass() );
         
         JMethod listenersMethod = ruleClass.method(JMod.PUBLIC, cm.ref(FieldReference.class).array(), "listeners");
         Set<FieldDescriptor> readFields = rule.getAllFieldsRead();

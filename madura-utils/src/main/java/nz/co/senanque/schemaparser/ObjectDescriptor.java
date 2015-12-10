@@ -26,7 +26,8 @@ import java.util.HashMap;
  */
 public class ObjectDescriptor extends HashMap<String, FieldDescriptor>
 {
-    private final String m_name;
+    private static final long serialVersionUID = 1L;
+	private final String m_name;
     private String m_parent;
     public ObjectDescriptor(String name)
     {

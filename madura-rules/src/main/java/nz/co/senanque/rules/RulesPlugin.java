@@ -309,7 +309,8 @@ public class RulesPlugin implements Plugin, MessageSourceAware, BeanFactoryAware
         ret.addAll(cr.getChildren());
         return ret;
     }
-    private void buildDecisionTables(Document decisionTableDocument)
+    @SuppressWarnings("unchecked")
+	private void buildDecisionTables(Document decisionTableDocument)
     {
         if (decisionTableDocument == null)
         {
@@ -327,7 +328,8 @@ public class RulesPlugin implements Plugin, MessageSourceAware, BeanFactoryAware
             getAllRules().add(decisionTable);
         }
     }
-    private void buildConstants(Document constantsDocument)
+    @SuppressWarnings("unchecked")
+	private void buildConstants(Document constantsDocument)
     {
         if (constantsDocument == null)
         {

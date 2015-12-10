@@ -133,7 +133,8 @@ public final class Expression extends ExpressionElement
 			}
 			throw new ParserException("found unexpected: "+o.getClass().getName(),rtp);
 		}
-        int count = 0;
+        @SuppressWarnings("unused")
+		int count = 0;
 		for (ExpressionElement pe: elements)
 		{
 			count++;
@@ -280,6 +281,7 @@ public final class Expression extends ExpressionElement
 		}
 		return ret.toString();
 	}
+	@SuppressWarnings("unused")
 	private void dump(String comment)
 	{
 		System.out.println(comment);

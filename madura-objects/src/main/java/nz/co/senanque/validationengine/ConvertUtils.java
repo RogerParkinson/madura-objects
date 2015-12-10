@@ -17,7 +17,6 @@ package nz.co.senanque.validationengine;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -44,6 +44,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations={"/TestBase-spring.xml"})
 public class HistoryTest
 {
+	@SuppressWarnings("unused")
 	private static final Logger log = LoggerFactory.getLogger(HistoryTest.class);
 
     @Autowired private transient ValidationEngine m_validationEngine;

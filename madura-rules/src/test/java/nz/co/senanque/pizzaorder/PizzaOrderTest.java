@@ -96,7 +96,8 @@ public class PizzaOrderTest
     @Test
     public void testClearingOptions() throws Exception
     {        
-        int size = 0;
+        @SuppressWarnings("unused")
+		int size = 0;
         ValidationSession validationSession = m_validationEngine.createSession();
         Order order = new Order();
         validationSession.bind(order);

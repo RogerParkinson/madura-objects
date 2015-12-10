@@ -68,7 +68,8 @@ public class ObjectTest
     @Autowired private transient Unmarshaller m_unmarshaller;
     
 
-    @Test
+    @SuppressWarnings("unused")
+	@Test
     public void test1() throws Exception
     {        
         ValidationSession validationSession = m_validationEngine.createSession();
@@ -172,7 +173,8 @@ public class ObjectTest
         // Convert customer back to objects
         SAXBuilder builder = new SAXBuilder();
         org.jdom.Document resultDOM = builder.build(new StringReader(xml));
-        JAXBElement<Session> request  = (JAXBElement<Session>)m_unmarshaller.unmarshal(new JDOMSource(resultDOM));
+        @SuppressWarnings("unchecked")
+		JAXBElement<Session> request  = (JAXBElement<Session>)m_unmarshaller.unmarshal(new JDOMSource(resultDOM));
         validationSession = m_validationEngine.createSession();
         validationSession.bind(request.getValue());
         assertEquals(3,validationSession.getProxyCount());
@@ -334,7 +336,8 @@ public class ObjectTest
     {
         Customer customer = m_customerDAO.createCustomer();
         customer.setName("aaaaaab");
-        final long id = m_customerDAO.save(customer);
+        @SuppressWarnings("unused")
+		final long id = m_customerDAO.save(customer);
         m_customerDAO.transactionTester();
     }
 

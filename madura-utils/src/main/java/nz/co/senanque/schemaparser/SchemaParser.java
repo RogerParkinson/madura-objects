@@ -67,7 +67,8 @@ public class SchemaParser
         findComplexTypes(schemaDocument.getRootElement());
         findSimpleTypes(schemaDocument.getRootElement());
     }
-    private String findPackageName(Element parent) {
+    @SuppressWarnings("unchecked")
+	private String findPackageName(Element parent) {
     	Namespace xsdNameSpace = null;
     	Namespace jaxbNameSpace = null;
     	for (Namespace namespace: (List<Namespace>)parent.getAdditionalNamespaces()) {
@@ -90,7 +91,8 @@ public class SchemaParser
     }
     private void findComplexTypes(Element parent)
     {
-        List<Element> children = parent.getChildren();
+        @SuppressWarnings("unchecked")
+		List<Element> children = parent.getChildren();
         for (Element element: children)
         {
             if (element.getName().equals("complexType"))
@@ -106,9 +108,10 @@ public class SchemaParser
             }
         }
     }
-    private void findSimpleTypes(Element parent)
+    @SuppressWarnings("unchecked")
+	private void findSimpleTypes(Element parent)
     {
-        List<Element> children = parent.getChildren();
+		List<Element> children = parent.getChildren();
         for (Element element: children)
         {
             if (element.getName().equals("simpleType"))
@@ -133,7 +136,8 @@ public class SchemaParser
             }
         }
     }
-    private void findElements(Element parent, ObjectDescriptor fields, String clazz)
+    @SuppressWarnings("unchecked")
+	private void findElements(Element parent, ObjectDescriptor fields, String clazz)
     {
         List<Element> children = parent.getChildren();
         for (Element element: children)
@@ -270,11 +274,12 @@ public class SchemaParser
     	}
     	return null;
     }
-    private FieldDescriptor[] findOperandsInScope(String scope, StringTokenizer st)
+    @SuppressWarnings("unused")
+	private FieldDescriptor[] findOperandsInScope(String scope, StringTokenizer st)
     {
         ObjectDescriptor currentScope = m_classes.get(scope);
         FieldDescriptor[] ret = null;
-        ObjectDescriptor lastScope;
+		ObjectDescriptor lastScope;
         while(st.hasMoreTokens())
         {
             if (currentScope == null)

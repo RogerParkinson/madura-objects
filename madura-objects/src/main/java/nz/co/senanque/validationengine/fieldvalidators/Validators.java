@@ -26,7 +26,8 @@ import java.lang.annotation.Annotation;
  */
 public class Validators
 {
-    public static Class<FieldValidator<Annotation>>[] s_validators = (Class<FieldValidator<Annotation>>[])new Class<?>[]
+    @SuppressWarnings("unchecked")
+	public static Class<FieldValidator<Annotation>>[] s_validators = (Class<FieldValidator<Annotation>>[])new Class<?>[]
     		{RegexValidator.class,
 	    	LengthValidator.class,
 	    	RangeValidator.class,

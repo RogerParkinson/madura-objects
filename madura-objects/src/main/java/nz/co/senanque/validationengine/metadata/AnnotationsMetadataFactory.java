@@ -112,7 +112,8 @@ public class AnnotationsMetadataFactory implements FactoryBean<EngineMetadata>, 
 			log.debug("class name {}",clazz);
 			boolean classNeeded = true;
 			final ClassMetadata classMetadata = new ClassMetadata();		
-	        Map<String,Property> propertyMap = ValidationUtils.getProperties((Class<? extends ValidationObject>) clazz);
+	        @SuppressWarnings("unchecked")
+			Map<String,Property> propertyMap = ValidationUtils.getProperties((Class<? extends ValidationObject>) clazz);
 	        for (Property property: propertyMap.values()) {
 				Method method = property.getGetter();
                 log.debug("method.getName() {}",method.getName());
@@ -432,7 +433,8 @@ public class AnnotationsMetadataFactory implements FactoryBean<EngineMetadata>, 
         m_fieldValidators = fieldValidators;
     }
 
-    public void createChoiceMap(final Document document)
+    @SuppressWarnings("unchecked")
+	public void createChoiceMap(final Document document)
     {
         m_choicesMap = new HashMap<String,List<ChoiceBase>>();
         for (Element choicebases: (List<Element>)document.getRootElement().getChildren("ChoiceList"))
@@ -447,7 +449,8 @@ public class AnnotationsMetadataFactory implements FactoryBean<EngineMetadata>, 
         }
     }
     
-    private List<ChoiceBase> defaultChoiceListFactory(Element choicebases) {
+    @SuppressWarnings("unchecked")
+	private List<ChoiceBase> defaultChoiceListFactory(Element choicebases) {
         List<ChoiceBase> choiceBases = new ArrayList<ChoiceBase>();
         for (Element choicebase: (List<Element>)choicebases.getChildren("Choice"))
         {

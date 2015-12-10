@@ -41,20 +41,19 @@ public class MessageFormatTest
                 planet, new Date(), event);
         System.out.println(result);
         
-        Class clazz = BusinessCustomer.class;
+        Class<BusinessCustomer> clazz = BusinessCustomer.class;
         try
         {
-            Class superClass = clazz.getSuperclass();
-            Field f = superClass.getDeclaredField("address");
+            Class<?> superClass = clazz.getSuperclass();
+            @SuppressWarnings("unused")
+			Field f = superClass.getDeclaredField("address");
         }
         catch (SecurityException e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         catch (NoSuchFieldException e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         

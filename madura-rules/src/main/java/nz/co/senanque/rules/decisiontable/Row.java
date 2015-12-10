@@ -26,7 +26,8 @@ import java.io.Serializable;
  */
 public class Row implements Serializable
 {
-    final Column[] m_columns;
+    private static final long serialVersionUID = 1L;
+	final Column[] m_columns;
 
     public Row(final Column[] columns)
     {

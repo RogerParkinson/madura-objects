@@ -26,7 +26,6 @@ import nz.co.senanque.validationengine.ListeningArray;
 import nz.co.senanque.validationengine.ProxyField;
 
 import org.springframework.context.MessageSource;
-import org.springframework.context.MessageSourceAware;
 import org.springframework.context.support.MessageSourceAccessor;
 
 /**
@@ -73,7 +72,8 @@ public class OperationsImpl implements Operations, Serializable
     {
         if (value2 != null && value2 instanceof Comparable)
         {
-            final int ret = ((Comparable)value2).compareTo(value);
+            @SuppressWarnings("rawtypes")
+			final int ret = ((Comparable)value2).compareTo(value);
             return (ret > 0); 
         }
         return null;
@@ -88,7 +88,8 @@ public class OperationsImpl implements Operations, Serializable
     {
         if (value != null && value instanceof Comparable)
         {
-            final int ret = ((Comparable)value2).compareTo(value);
+            @SuppressWarnings("rawtypes")
+			final int ret = ((Comparable)value2).compareTo(value);
             return (ret < 0); 
         }
         return null;
@@ -103,7 +104,8 @@ public class OperationsImpl implements Operations, Serializable
     {
         if (value != null && value instanceof Comparable)
         {
-            final int ret = ((Comparable)value2).compareTo(value);
+            @SuppressWarnings("rawtypes")
+			final int ret = ((Comparable)value2).compareTo(value);
             return (ret >= 0); 
         }
         return null;
@@ -118,7 +120,8 @@ public class OperationsImpl implements Operations, Serializable
     {
         if (value != null && value instanceof Comparable)
         {
-            final int ret = ((Comparable)value2).compareTo(value);
+            @SuppressWarnings("rawtypes")
+			final int ret = ((Comparable)value2).compareTo(value);
             return (ret <= 0); 
         }
         return null;

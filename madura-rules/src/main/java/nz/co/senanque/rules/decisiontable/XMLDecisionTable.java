@@ -47,10 +47,11 @@ public class XMLDecisionTable extends AbstractDecisionTable
         m_ruleName = tableElement.getAttributeValue("name");
         final String type = tableElement.getAttributeValue("scope");
         m_typeName = type;
-        // TODO: this will not handle inherited rules (but doesn't need to here)
+        // this will not handle inherited rules (but doesn't need to here)
         m_clazz = rulesPlugin.getClassReferenceMap().get(type).getClazz();
         m_message = tableElement.getAttributeValue("message");
-        final List<Element> columNameElements = (List<Element>)tableElement.getChild("ColumnNames").getChildren("ColumnName");
+        @SuppressWarnings("unchecked")
+		final List<Element> columNameElements = (List<Element>)tableElement.getChild("ColumnNames").getChildren("ColumnName");
         String[] columnNames = new String[columNameElements.size()];
         m_listeners = new FieldReference[columNameElements.size()];
         boolean autoAssign[] = new boolean[columNameElements.size()];
@@ -69,12 +70,14 @@ public class XMLDecisionTable extends AbstractDecisionTable
         DecisionTableFactory dtf = factoryMap.get(m_ruleName);
         if (dtf == null)
         {
-            final List<Element> rowElements = (List<Element>)tableElement.getChild("Rows").getChildren("Row");
+            @SuppressWarnings("unchecked")
+			final List<Element> rowElements = (List<Element>)tableElement.getChild("Rows").getChildren("Row");
             Row[] rows = new Row[rowElements.size()];
             int rowIindex = 0;
             for (Element rowElement:rowElements)
             {
-                final List<Element> columnElements = (List<Element>)rowElement.getChildren("Column");
+                @SuppressWarnings("unchecked")
+				final List<Element> columnElements = (List<Element>)rowElement.getChildren("Column");
                 Column[] columns = new Column[columnElements.size()];
                 int columnIindex = 0;
                 for (Element columnElement:columnElements)
@@ -93,7 +96,8 @@ public class XMLDecisionTable extends AbstractDecisionTable
         setAutoAssign(autoAssign);
     }
     
-    private Class<?> getClazz(String name)
+    @SuppressWarnings("unused")
+	private Class<?> getClazz(String name)
     {
         return null;
 //        try
@@ -129,7 +133,7 @@ public class XMLDecisionTable extends AbstractDecisionTable
 //       return m_clazz.getSimpleName();
        return m_typeName;
    }
-   public Class getScope()
+   public Class<?> getScope()
    {
        return m_clazz;
    }

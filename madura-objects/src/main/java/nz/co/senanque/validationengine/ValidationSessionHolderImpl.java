@@ -23,6 +23,7 @@ import java.io.Serializable;
  */
 public class ValidationSessionHolderImpl implements ValidationSessionHolder, Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private final ValidationEngine m_validationEngine;
 	private ValidationSession m_validationSession;
 

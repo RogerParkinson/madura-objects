@@ -21,6 +21,8 @@ package nz.co.senanque.schemaparser;
  */
 public class SchemaParserException extends RuntimeException {
 
+	private static final long serialVersionUID = 1L;
+
 	public SchemaParserException(String string, Exception e) {
 		super(string,e);
 	}

@@ -18,7 +18,9 @@ package nz.co.senanque.rulesparser;
 public class RuleParserException extends RuntimeException
 {
 
-    public RuleParserException(Exception e1)
+    private static final long serialVersionUID = 1L;
+
+	public RuleParserException(Exception e1)
     {
         super(e1);
     }

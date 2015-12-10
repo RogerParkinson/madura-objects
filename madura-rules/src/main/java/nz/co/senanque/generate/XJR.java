@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +73,8 @@ public class XJR extends Task
         return cr;
     }
 
-    public void execute() {
+    @SuppressWarnings("resource")
+	public void execute() {
         // parse the schema
         SAXBuilder builder = new SAXBuilder();
 //        builder.setValidation(true);

@@ -51,7 +51,7 @@ import org.springframework.context.support.MessageSourceAccessor;
  */
 public final class RuleSessionImpl implements RuleSession, Serializable
 {
-	private static final long serialVersionUID = -472427637888836560L;
+	private static final long serialVersionUID = -1L;
 
 	private final transient static Logger s_log = LoggerFactory.getLogger(RuleSessionImpl.class);
 
@@ -284,6 +284,7 @@ public final class RuleSessionImpl implements RuleSession, Serializable
         m_activateFields.clear();
         m_requiredFields.clear();
 		m_excludes.clear();
+		@SuppressWarnings("unused")
 		int count=0;
 		m_indenter.clear();
 		s_log.debug("{}Setting values...",m_indenter);
@@ -452,13 +453,14 @@ public final class RuleSessionImpl implements RuleSession, Serializable
      * @see nz.co.senanque.rules.RuleSession#assign(nz.co.senanque.validationengine.ProxyField, java.lang.Object, nz.co.senanque.rules.RuleContext, boolean)
      */
     
-    public void assign(RuleProxyField target, Object value, RuleContext ruleContext, boolean dummy)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assign(RuleProxyField target, Object value, RuleContext ruleContext, boolean dummy)
     {
     	ProxyField target1 = target.getProxyField();
         Class<?> clazz = target1.getPropertyMetadata().getSetMethod().getParameterTypes()[0];
         if (value instanceof List<?>)
         {
-            List<ProxyField> sourceList = (List<ProxyField>)value;
+			List<ProxyField> sourceList = (List<ProxyField>)value;
             RuleProxyField rpf = target;
             for (ProxyField pf: sourceList)
             {
@@ -802,7 +804,8 @@ public final class RuleSessionImpl implements RuleSession, Serializable
         {
             if (args[i] instanceof List<?>)
             {
-                List<ProxyField> list = (List<ProxyField>)args[i];
+                @SuppressWarnings("unchecked")
+				List<ProxyField> list = (List<ProxyField>)args[i];
                 StringBuilder sb = new StringBuilder();
                 for (ProxyField pf: list)
                 {

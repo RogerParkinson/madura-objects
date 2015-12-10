@@ -37,6 +37,7 @@ public final class FunctionDescriptorFactory
 	{
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void parse(Document doc, FunctionDescriptorHolder rtp)
 	{
 	    for (Element e: (List<Element>)doc.getRootElement().getChildren())

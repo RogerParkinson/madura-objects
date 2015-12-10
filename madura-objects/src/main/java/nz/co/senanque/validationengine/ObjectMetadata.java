@@ -32,7 +32,7 @@ import nz.co.senanque.validationengine.metadata.PropertyMetadataImpl;
  */
 public class ObjectMetadata implements Serializable
 {
-	private static final long serialVersionUID = -6502825487182156092L;
+	private static final long serialVersionUID = -1L;
 
 	private transient ProxyObject m_proxyObject;
 
@@ -84,7 +84,8 @@ public class ObjectMetadata implements Serializable
         }
         else if (o instanceof ListeningArray<?>)
         {
-            ListeningArray<ValidationObject> la = (ListeningArray)o;
+            @SuppressWarnings("unchecked")
+			ListeningArray<ValidationObject> la = (ListeningArray<ValidationObject>)o;
             for (ValidationObject vo : la)
             {
                 ProxyObject po = vs.getProxyObject(vo);

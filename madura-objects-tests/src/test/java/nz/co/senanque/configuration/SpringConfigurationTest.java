@@ -26,7 +26,8 @@ public class SpringConfigurationTest {
 
 	@BeforeClass
 	public static void setup() {
-        ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfiguration.class);
+        @SuppressWarnings("resource")
+		ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfiguration.class);
         validationEngine = (ValidationEngine) context.getBean("validationEngine");		
 	}
 	@AfterClass
@@ -62,7 +63,8 @@ public class SpringConfigurationTest {
         }
         assertTrue(exceptionFound);
         pizza.setSize("TrulyVast");
-        RulesPlugin rulesPlugin = validationEngine.getPlugin(RulesPlugin.class);
+        @SuppressWarnings("unused")
+		RulesPlugin rulesPlugin = validationEngine.getPlugin(RulesPlugin.class);
         validationSession.close();
     }
 

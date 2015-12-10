@@ -69,7 +69,8 @@ public class PerformanceTest
         validationSession.close();
     }
     
-    @Test @Ignore
+    @SuppressWarnings("unused")
+	@Test @Ignore
     public void listTest() throws Exception
     {        
         ValidationSession validationSession = m_validationEngine.createSession();
@@ -109,7 +110,8 @@ public class PerformanceTest
         invoice.setAmount(100);
     }
     
-    private Customer simpleTest(ValidationSession validationSession)
+    @SuppressWarnings("unused")
+	private Customer simpleTest(ValidationSession validationSession)
     {
         Customer customer = m_customerDAO.createCustomer();
         validationSession.bind(customer);

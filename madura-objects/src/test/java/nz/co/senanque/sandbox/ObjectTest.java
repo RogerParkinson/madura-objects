@@ -78,7 +78,8 @@ public class ObjectTest
     @Test
     public void test1() throws Exception
     {  
-        Object en = IndustryType.fromValue("Ag");
+        @SuppressWarnings("unused")
+		Object en = IndustryType.fromValue("Ag");
         ValidationSession validationSession = m_validationEngine.createSession();
 
         // create a customer
@@ -100,7 +101,8 @@ public class ObjectTest
         assertTrue(exceptionFound);
         
         final ObjectMetadata customerMetadata = validationSession.getMetadata(customer);
-        final FieldMetadata customerTypeMetadata = customerMetadata.getFieldMetadata(Customer.CUSTOMERTYPE);
+        @SuppressWarnings("unused")
+		final FieldMetadata customerTypeMetadata = customerMetadata.getFieldMetadata(Customer.CUSTOMERTYPE);
         
 //        assertFalse(customerTypeMetadata.isActive());
 //        assertFalse(customerTypeMetadata.isReadOnly());
@@ -134,7 +136,8 @@ public class ObjectTest
         
         // fetch customer back
         customer = m_customerDAO.getCustomer(id);
-        final int invoiceCount = customer.getInvoices().size();
+        @SuppressWarnings("unused")
+		final int invoiceCount = customer.getInvoices().size();
         validationSession.bind(customer);
         invoice = new Invoice();
         ValidationUtils.setDefaults(invoice);
@@ -160,7 +163,8 @@ public class ObjectTest
         ObjectMetadata metadata = customer.getMetadata();
         assertEquals("this is a description",metadata.getFieldMetadata(Customer.NAME).getDescription());
         assertEquals("ABC",metadata.getFieldMetadata(Customer.NAME).getPermission());
-        List<ChoiceBase> choices = metadata.getFieldMetadata(Customer.BUSINESS).getChoiceList();
+        @SuppressWarnings("unused")
+		List<ChoiceBase> choices = metadata.getFieldMetadata(Customer.BUSINESS).getChoiceList();
 //        assertEquals(1,choices.size());
         List<ChoiceBase> choices2 = metadata.getFieldMetadata(Customer.CUSTOMERTYPE).getChoiceList();
 //        assertEquals(1,choices2.size());
@@ -192,7 +196,8 @@ public class ObjectTest
         // Convert customer back to objects
         SAXBuilder builder = new SAXBuilder();
         org.jdom.Document resultDOM = builder.build(new StringReader(xml));
-        JAXBElement<Session> request  = (JAXBElement<Session>)m_unmarshaller.unmarshal(new JDOMSource(resultDOM));
+        @SuppressWarnings("unchecked")
+		JAXBElement<Session> request  = (JAXBElement<Session>)m_unmarshaller.unmarshal(new JDOMSource(resultDOM));
         validationSession = m_validationEngine.createSession();
         validationSession.bind(request.getValue());
         assertEquals(3,validationSession.getProxyCount());
@@ -260,10 +265,12 @@ public class ObjectTest
         invoice = customer.getOneInvoice();
         invoice.setAmount(200);
         
-        ProxyObject proxyObject0 = validationSession.getProxyObject(invoice);
+        @SuppressWarnings("unused")
+		ProxyObject proxyObject0 = validationSession.getProxyObject(invoice);
 
         ProxyObject proxyObject = validationSession.getProxyObject(customer);
-        List<ProxyField> ret = getProxyObjects(validationSession,proxyObject,"invoices", "amount");
+        @SuppressWarnings("unused")
+		List<ProxyField> ret = getProxyObjects(validationSession,proxyObject,"invoices", "amount");
         ret = getProxyObjects(validationSession,proxyObject,"oneInvoice", "amount");
         validationSession.close();
     }
@@ -311,7 +318,8 @@ public class ObjectTest
         customer.setAmount(100D);
         assertEquals(2,msl.getCount());
     }
-    private List<ProxyField> getProxyObjects(ValidationSession validationSession,ProxyObject proxyObject,String ref,String name)
+    @SuppressWarnings("unchecked")
+	private List<ProxyField> getProxyObjects(ValidationSession validationSession,ProxyObject proxyObject,String ref,String name)
     {
         List<ProxyField> ret = new ArrayList<ProxyField>();
         Map<String, ProxyField> fieldMap = proxyObject.getFieldMap();

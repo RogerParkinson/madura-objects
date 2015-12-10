@@ -15,7 +15,7 @@
  *******************************************************************************/
 package nz.co.senanque.validationengine.choicelists;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import nz.co.senanque.madura.sandbox.Customer;
 import nz.co.senanque.validationengine.FieldMetadata;
 import nz.co.senanque.validationengine.ValidationEngine;
@@ -23,8 +23,6 @@ import nz.co.senanque.validationengine.ValidationSession;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

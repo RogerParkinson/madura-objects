@@ -26,7 +26,8 @@ import java.io.Serializable;
  */
 public class Column implements Serializable
 {
-    private final String m_value;
+    private static final long serialVersionUID = 1L;
+	private final String m_value;
     
     public Column(final String value)
     {

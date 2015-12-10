@@ -42,9 +42,11 @@ public class JdbcMessageSource extends AbstractMessageSource implements
         InitializingBean {
 
     private static class CacheKey {
-        public String code;
+        @SuppressWarnings("unused")
+		public String code;
 
-        public Locale locale;
+        @SuppressWarnings("unused")
+		public Locale locale;
 
         public CacheKey(String code, Locale locale) {
             this.code = code;
@@ -56,7 +58,7 @@ public class JdbcMessageSource extends AbstractMessageSource implements
 
     private String sqlStatement;
 
-    private Map cachedMessages = new HashMap();
+    private Map<CacheKey,MessageFormat> cachedMessages = new HashMap<>();
 
     private long cachedMilliSecond = 0;
 
@@ -72,7 +74,7 @@ public class JdbcMessageSource extends AbstractMessageSource implements
         MessageFormat result = null;
 
         if (cachedMilliSecond == 0
-                || ((result = (MessageFormat) cachedMessages.get(new CacheKey(
+                || ((result = cachedMessages.get(new CacheKey(
                         code, locale))) == null)
                 || lastQuery + cachedMilliSecond < System.currentTimeMillis()) {
             result = resolveCodeInternal(code, locale);

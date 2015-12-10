@@ -85,6 +85,7 @@ public class CustomerDAOImpl implements CustomerDAO
         customer.getInvoices().size();
         return customer;
     }
+	@SuppressWarnings({ "unused", "unchecked" })
 	public void transactionTester()
 	{
 	    final DefaultTransactionDefinition def = new DefaultTransactionDefinition();

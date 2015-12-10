@@ -103,7 +103,8 @@ public class MaduraJAXBInterceptor extends Plugin {
             final JClass ValidationUtilsClass=model.getCodeModel().ref(nz.co.senanque.validationengine.ValidationUtils.class);
             final JClass businessObjectInterface=model.getCodeModel().ref(nz.co.senanque.validationengine.ValidationObject.class);
 //            final JType[] jTypes = JTypeUtils.getBasicTypes(model.getCodeModel());
-            Collection<ClassOutline> allClasses = (Collection<ClassOutline>) model.getClasses();
+            @SuppressWarnings("unchecked")
+			Collection<ClassOutline> allClasses = (Collection<ClassOutline>) model.getClasses();
             for( ClassOutline co : model.getClasses() ) 
             {
                 ClassOutline extendingClass = co.getSuperClass();

@@ -53,9 +53,10 @@ public class RuleSessionMock implements RuleSession
 
     Map<String,List<ChoiceBase>> m_map = new HashMap<String,List<ChoiceBase>>();
     
-    public RuleSessionMock(Element decisionTableElement, MessageSource messageSource)
+    @SuppressWarnings("unchecked")
+	public RuleSessionMock(Element decisionTableElement, MessageSource messageSource)
     {
-        List<Element> choiceListElements = decisionTableElement.getChildren("ChoiceList");
+		List<Element> choiceListElements = decisionTableElement.getChildren("ChoiceList");
         for (Element choiceListElement: choiceListElements)
         {
             String fieldName = choiceListElement.getAttributeValue("name");

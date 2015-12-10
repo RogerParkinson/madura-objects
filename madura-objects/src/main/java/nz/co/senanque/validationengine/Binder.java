@@ -89,7 +89,8 @@ public class Binder
             {
                 try
                 {
-                    final List<ValidationObject> validationObjects = (List<ValidationObject>) method.invoke(object,new Object[]{});
+                    @SuppressWarnings("unchecked")
+					final List<ValidationObject> validationObjects = (List<ValidationObject>) method.invoke(object,new Object[]{});
                     final ListeningArray<Object> array = new ListeningArray<Object>();
                     array.addAll(validationObjects);
                     array.setValidationSession(session);
@@ -192,6 +193,7 @@ public class Binder
 				if (getter.getReturnType().isAssignableFrom(List.class)) {
 					// if this is a list then walk the list and unbind the objects there.
 					try {
+						@SuppressWarnings("unchecked")
 						final List<ValidationObject> validationObjects = 
 								(List<ValidationObject>) getter.invoke(validationObject, new Object[] {});
 						for (ValidationObject child : validationObjects) {

@@ -21,6 +21,8 @@ package nz.co.senanque.asserts;
  */
 public class NotEqualsException extends RuntimeException {
 
+	private static final long serialVersionUID = 1L;
+
 	public NotEqualsException(String message) {
 		super(message);
 	}

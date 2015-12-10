@@ -27,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
-import org.springframework.context.support.MessageSourceAccessor;
 
 public class Factories implements MessageSourceAware, nz.co.senanque.rules.factories.DecisionTableFactory,nz.co.senanque.validationengine.choicelists.ChoiceListFactory
 {

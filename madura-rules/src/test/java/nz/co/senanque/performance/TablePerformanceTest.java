@@ -48,7 +48,8 @@ public class TablePerformanceTest
     private static int MAX_LOOP = 10;
     public static int MAX_LOOP2 = 1000;
 
-    @Test
+    @SuppressWarnings("unused")
+	@Test
     public void simpleTest() throws Exception
     {        
         ValidationSession validationSession = m_validationEngine.createSession();
