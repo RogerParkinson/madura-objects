@@ -17,7 +17,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 Licenses for more details.
 -->
 <messages xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xi:noNamespaceSchemaLocation="https://repo1.maven.org/maven2/nz/co/senanque/madura-objects/2.2.4/madura-objects-2.2.4-messages.xsd">
+	xi:noNamespaceSchemaLocation="http://www.madurasoftware.com/messages.xsd">
 	<locale name="en_US">
 		<entry name="Medium" value="Medium"/>
 		<entry name="Seafood" value="Seafood"/>

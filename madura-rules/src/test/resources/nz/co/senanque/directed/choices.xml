@@ -16,7 +16,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 Licenses for more details.
 -->
 <MaduraValidator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://repo1.maven.org/maven2/nz/co/senanque/madura-objects/2.2.4/madura-objects-2.2.4-choices.xsd">
+	xsi:noNamespaceSchemaLocation="http://www.madurasoftware.com/choices.xsd">
 	<ChoiceList name="customerType">
 		<Choice name="a">A</Choice>
 		<Choice name="b">B</Choice>
