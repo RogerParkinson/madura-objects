@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.peachjean.slf4j.mojo.AbstractLoggingMojo;
-import nz.co.senanque.generate.ClassReference;
 import nz.co.senanque.generate.Generator;
 import nz.co.senanque.parser.InputStreamParserSource;
 import nz.co.senanque.parser.ParserException;

@@ -376,7 +376,6 @@ That means you can change rules without having to go back to your Java code, and
 				</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.0.2</version>
 				<executions>
 					<!-- 
 					This first execution just builds the xjr test.
@@ -417,8 +416,8 @@ That means you can change rules without having to go back to your Java code, and
 				</executions>
 				<inherited>true</inherited>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 			<plugin>
