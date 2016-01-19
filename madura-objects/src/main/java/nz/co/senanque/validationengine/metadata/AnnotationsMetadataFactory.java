@@ -417,9 +417,10 @@ public class AnnotationsMetadataFactory implements FactoryBean<EngineMetadata>, 
 		
 		Set<BeanDefinition> components = provider
 				.findCandidateComponents(basePackage.replace('.', '/'));
+		ClassLoader cl = Thread.currentThread().getContextClassLoader();
 		for (BeanDefinition component : components) {
 			@SuppressWarnings("unchecked")
-			Class<ValidationObject> class_ = (Class<ValidationObject>)Class.forName(component.getBeanClassName());
+			Class<ValidationObject> class_ = (Class<ValidationObject>)Class.forName(component.getBeanClassName(),true,cl);
             domainObjects.add(class_);
 		}
     }
