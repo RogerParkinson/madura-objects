@@ -78,6 +78,7 @@ public class ValidationSession implements Serializable
         if (m_enabled)
         {
             m_validationEngine.unbindAll(this,m_boundMap);
+            m_history.clear();
         }
     }
 
