@@ -46,4 +46,5 @@ public interface PropertyMetadata
     Method getSetMethod();
 	MessageSourceAccessor getMessageSourceAccessor();
 	String getLabelName(MessageSourceAccessor messageSourceAccessor);
+	int getFractionalDigits();
 }

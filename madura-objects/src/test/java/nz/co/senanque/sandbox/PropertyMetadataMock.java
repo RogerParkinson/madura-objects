@@ -125,4 +125,10 @@ public class PropertyMetadataMock implements PropertyMetadata
 		return null;
 	}
 
+	@Override
+	public int getFractionalDigits() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

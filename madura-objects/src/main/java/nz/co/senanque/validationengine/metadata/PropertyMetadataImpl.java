@@ -71,6 +71,7 @@ public class PropertyMetadataImpl implements PropertyMetadata {
 	private transient Integer m_entries;
 	private transient Long m_expire;
 	private transient boolean m_hasHistory;
+	private int m_fractionalDigits;
 	
 	protected PropertyMetadataImpl(Property property, MessageSource messageSource)
 	{
@@ -394,6 +395,14 @@ public class PropertyMetadataImpl implements PropertyMetadata {
 	@Override
 	public MessageSourceAccessor getMessageSourceAccessor() {
 		return new MessageSourceAccessor(m_messageSource);
+	}
+
+	public int getFractionalDigits() {
+		return m_fractionalDigits;
+	}
+
+	public void setFractionalDigits(String fractionalDigits) {
+		m_fractionalDigits = Integer.parseInt(fractionalDigits);
 	}
 
 }

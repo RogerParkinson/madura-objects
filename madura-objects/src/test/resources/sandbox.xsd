@@ -158,6 +158,16 @@ limitations under the License.
     				</restriction>
     			</simpleType>
     		</element>
+			<element name="mydecimalValue" type="tns:currencyNumber" >
+				
+                    <xsd:annotation>
+					<xsd:appinfo>
+						<annox:annotate>
+							<md:Label labelName="mydecimal" />
+						</annox:annotate>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</element>
     		<element name="count" type="long">
     			<xsd:annotation>
     				<xsd:appinfo>
@@ -296,5 +306,11 @@ limitations under the License.
 			<xsd:enumeration value="finance"/>
 		</xsd:restriction>
 	</xsd:simpleType>
+	<xsd:simpleType name="currencyNumber">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="5" />
+			<xsd:fractionDigits value="2" />
+		</xsd:restriction>
+	</xsd:simpleType> 
 
 </schema>

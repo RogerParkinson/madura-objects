@@ -84,6 +84,9 @@ public class FieldMetadata implements Serializable
     {
         return m_propertyMetadata.getReadPermission();
     }
+    public int getFractionalDigits() {
+    	return m_propertyMetadata.getFractionalDigits();
+    }
 
     public String getLabelName()
     {

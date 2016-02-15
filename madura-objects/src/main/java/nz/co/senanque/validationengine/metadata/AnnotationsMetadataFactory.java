@@ -30,6 +30,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlElement;
 
@@ -38,6 +39,7 @@ import nz.co.senanque.validationengine.ValidationObject;
 import nz.co.senanque.validationengine.ValidationUtils;
 import nz.co.senanque.validationengine.annotations.ChoiceList;
 import nz.co.senanque.validationengine.annotations.Description;
+import nz.co.senanque.validationengine.annotations.Digits;
 import nz.co.senanque.validationengine.annotations.History;
 import nz.co.senanque.validationengine.annotations.Inactive;
 import nz.co.senanque.validationengine.annotations.Label;
@@ -121,6 +123,9 @@ public class AnnotationsMetadataFactory implements FactoryBean<EngineMetadata>, 
 			    final String fieldName = property.getFieldName();
                 final PropertyMetadataImpl fieldMetadata = new PropertyMetadataImpl(property, getMessageSource());
 				boolean fieldNeeded = false;
+				boolean foundDigits = false;
+				boolean foundLength = false;
+				int digitsLength = -1;
 				for (Annotation fieldAnnotation: method.getAnnotations())
 				{
 					log.debug("field annotation {}",fieldAnnotation);
@@ -153,6 +158,14 @@ public class AnnotationsMetadataFactory implements FactoryBean<EngineMetadata>, 
                     {
                         fieldMetadata.setRequired(true);
                         fieldNeeded = true;
+                    }
+                    if (fieldAnnotation instanceof Digits)
+                    {
+                        fieldMetadata.setFractionalDigits(((Digits)fieldAnnotation).fractionalDigits());
+                        fieldNeeded = true;
+                        foundDigits = true;
+                        digitsLength = Integer.parseInt(((Digits)fieldAnnotation).integerDigits());
+                        foundLength = true;
                     }
 					if (fieldAnnotation instanceof Range)
 					{
@@ -210,6 +223,7 @@ public class AnnotationsMetadataFactory implements FactoryBean<EngineMetadata>, 
                     {
                         fieldMetadata.setMaxLength(((Length)fieldAnnotation).maxLength());
                         fieldNeeded = true;
+                        foundLength = true;
                     }
                     Class<? extends FieldValidator<Annotation>> fvClass = validatorMap.get(fieldAnnotation.annotationType());
                     if (fvClass != null)
@@ -220,6 +234,27 @@ public class AnnotationsMetadataFactory implements FactoryBean<EngineMetadata>, 
                         fieldNeeded = true;
                    }                        
 				}
+				Column column = method.getAnnotation(Column.class);
+				if (column != null) {
+					int precision = column.precision();
+					int fractional = column.scale();
+					int length = column.length();
+					if (!foundDigits) {
+						if (fractional > 0) {
+							fieldMetadata.setFractionalDigits(String.valueOf(fractional));
+						}
+					}
+					if (!foundLength) {
+						if (precision > 0 && length == 255) {
+							length = column.precision()+((fractional >0)?1:0);
+							fieldMetadata.setMaxLength(String.valueOf(length));
+						} else {
+							length = column.length();
+							fieldMetadata.setMaxLength(String.valueOf(length));							
+						}
+					}
+				}
+				
 				Field field;
 				try {
 					field = clazz.getField(mname);

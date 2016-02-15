@@ -305,7 +305,31 @@ public class CustomerJPAImpl implements CustomerDAO {
 	</simpleType>
 </element>
 		]]></code>
-		<p>Numeric fields often need the number of digits validated. This allows the field to be in the format ######.##.</p>
+		<p>Numeric fields often need the number of digits validated. This allows the field to be in the format ######.##. Now, this is a simpler way to
+		specify the numeric field but the official JAXB way is a little more long winded. You first define a type like this:</p>
+		<code><![CDATA[
+<simpleType name="currencyNumber">
+	<restriction base="decimal">
+		<totalDigits value="8" />
+		<fractionDigits value="2" />
+	</restriction>
+</simpleType> 
+		]]></code>
+		<p>Then you can use this type to define fields like this:</p>
+		<code><![CDATA[
+<element name="mydecimalValue" type="tns:currencyNumber" >
+	<xsd:annotation>
+		<xsd:appinfo>
+			<annox:annotate>
+				<md:Label labelName="mydecimal" />
+			</annox:annotate>
+		</xsd:appinfo>
+	</xsd:annotation>
+</element>
+		]]></code>
+		<p>That does the same thing as the earlier definition and both forms are handled
+		by Madura. If you use both then the <courier>md:Digits</courier> tag will override the
+		type. But there is no reason to use both.</p>
 		<code><![CDATA[
 <element name="customerType">
 	<annotation>
@@ -1020,6 +1044,12 @@ public class MyChoiceListFactory implements ChoiceListFactory {
 		<tr>
 			<th>3.0.0</th>
 		</tr>
+		<tr>
+            <td>Exposed number of fractional digits to API so that UI can use it for formatting.</td>
+        </tr>
+		<tr>
+            <td>Ensured JAXB fractional digits is properly supported.</td>
+        </tr>
 		<tr>
             <td>Added protection against binding the same object multiple times.</td>
         </tr>
