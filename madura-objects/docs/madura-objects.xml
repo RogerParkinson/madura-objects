@@ -15,8 +15,8 @@
 			<reference t="Hyperjaxb3" url="https://hyperjaxb3.dev.java.net/" />
 			<reference t="JSR-303" url="http://blog.jteam.nl/2009/08/04/bean-validation-integrating-jsr-303-with-spring/"/>
 			<reference t="Annox" url="http://confluence.highsource.org/display/ANX/Home"/>
-			<reference t="MaduraObjects" url="https://github.com/RogerParkinson/MaduraObjects"/>
-			<reference t="MaduraRules" url="https://github.com/RogerParkinson/MaduraRules"/>
+			<reference t="MaduraObjects" url="https://github.com/RogerParkinson/madura-objects-parent/tree/master/madura-objects"/>
+			<reference t="MaduraRules" url="https://github.com/RogerParkinson/madura-objects-parent/tree/master/madura-rules"/>
 			<reference t="Apache Licence 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
 			<reference t="SchemaTranslatorMavenPlugin" url="https://github.com/RogerParkinson/SchemaTranslatorMavenPlugin"/>
 			<reference t="CDI" url="http://docs.oracle.com/javaee/6/tutorial/doc/giwhl.html"/>

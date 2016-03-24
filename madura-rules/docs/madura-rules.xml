@@ -20,7 +20,7 @@
 			<reference t="Apache Licence V2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
 			<reference t="eclipse" url="http://www.eclipse.org"/>
 			<reference t="maduraeditors" url="https://github.com/RogerParkinson/maduraeditors"/>
-			<reference t="Madura Objects" url="https://github.com/RogerParkinson/madura-objects-parent"/>
+			<reference t="Madura Objects" url="https://github.com/RogerParkinson/madura-objects-parent/tree/master/madura-objects"/>
 		</references>
 	</title>
 	<body>
