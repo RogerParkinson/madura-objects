@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>nz.co.senanque</groupId>
 		<artifactId>madura-objects-parent</artifactId>
-		<version>3.0.0</version>
+		<version>3.0.1-SNAPSHOT</version>
 	</parent>
 	<description>Implements POJOs that self validate automatically with an optional rule based complex validation and dynamic metadata. </description>
 	<artifactId>madura-objects</artifactId>
