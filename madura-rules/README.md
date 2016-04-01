@@ -5,7 +5,7 @@ A more detailed document can be found at [Madura Rules (PDF)](http://www.maduras
 
 Madura Rules is a rules engine designed to work closely with [Madura Objects](https://github.com/RogerParkinson/MaduraObjects). Where Madura Objects provides a transparent validation and metadata facility, Madura Rules is a plugin to Madura Objects that extends it to provide cross-field validation, dynamic metadata and dynamic data generation.
 
-Let's look at a real scenario. You have an object called Customer and to that is linked some Address objects and some Invoice objects. These are all just simple Java beans with getters and setters. Well, they look like that at first. You actually defined them using an XSD file and generated the Java objects using JAXB<referenceLink t="JAXB"/>. Even better you have used the [HyperJAXB3](https://hyperjaxb3.dev.java.net/) and Madura Objects plugins to JAXB to add some extra hooks to those objects. You did not have to write the objects, you just had to define them in an XSD file.
+Let's look at a real scenario. You have an object called Customer and to that is linked some Address objects and some Invoice objects. These are all just simple Java beans with getters and setters. Well, they look like that at first. You actually defined them using an XSD file and generated the Java objects using JAXB. Even better you have used the [HyperJAXB3](https://hyperjaxb3.dev.java.net/) and Madura Objects plugins to JAXB to add some extra hooks to those objects. You did not have to write the objects, you just had to define them in an XSD file.
 
 So far this gives you the following features:
 
