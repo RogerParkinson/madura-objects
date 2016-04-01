@@ -535,7 +535,7 @@ That means you can change rules without having to go back to your Java code, and
 				<plugin>
 					<groupId>nz.co.senanque</groupId>
 					<artifactId>maduradocs</artifactId>
-					<version>6.2.0</version>
+					<version>${maduradocs.version}</version>
 					<executions>
 						<execution>
 							<goals>

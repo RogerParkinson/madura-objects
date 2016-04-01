@@ -24,6 +24,7 @@
 		<hyperjaxb3-ejb-runtime.version>0.5.6</hyperjaxb3-ejb-runtime.version>
    		<timestamp>${maven.build.timestamp}</timestamp>
    		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+   		<maduradocs.version>6.2.1</maduradocs.version>
    	</properties>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>

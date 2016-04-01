@@ -94,7 +94,7 @@
 				<plugin>
 					<groupId>nz.co.senanque</groupId>
 					<artifactId>maduradocs</artifactId>
-					<version>6.2.0</version>
+					<version>${maduradocs.version}</version>
 					<executions>
 						<execution>
 							<goals>
