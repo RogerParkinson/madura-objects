@@ -29,6 +29,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
+import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -111,7 +112,7 @@ public class SchemaParserTest {
 		SchemaVisitorJdom visitor = new SchemaVisitorJdom(root,"PizzaOrder.xsd","http://www.madurasoftware.com/root.xsd");
 		schemaParser.traverse(visitor);
 		
-		XMLOutputter fmt = new XMLOutputter();
+		XMLOutputter fmt = new XMLOutputter(Format.getPrettyFormat());
 		fmt.output(visitor.getDocument(), System.out);
 	}
 }

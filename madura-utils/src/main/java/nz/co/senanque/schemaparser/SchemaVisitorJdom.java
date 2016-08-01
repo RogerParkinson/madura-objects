@@ -54,7 +54,8 @@ public class SchemaVisitorJdom implements SchemaVisitor {
 	@Override
 	public void beginObject(ObjectDescriptor objectDescriptor) {
 		Element root = elements.peek();
-		Element o = root.addContent(new Element(objectDescriptor.getName()));
+		Element o = new Element(objectDescriptor.getName());
+		root.addContent(o);
 		elements.push(o);
 	}
 
@@ -66,7 +67,8 @@ public class SchemaVisitorJdom implements SchemaVisitor {
 	@Override
 	public void beginField(FieldDescriptor fieldDescriptor) {
 		Element root = elements.peek();
-		Element o = root.addContent(new Element(fieldDescriptor.getName()));
+		Element o = new Element(fieldDescriptor.getName());
+		root.addContent(o);
 		elements.push(o);
 	}
 
