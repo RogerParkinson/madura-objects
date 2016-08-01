@@ -15,14 +15,21 @@
  *******************************************************************************/
 package nz.co.senanque.schemaparser;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.dom4j.DocumentHelper;
+import org.dom4j.QName;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
 import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
+import org.jdom.output.XMLOutputter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -74,5 +81,37 @@ public class SchemaParserTest {
 		schemaParser.parse(doc);
 		Set<String> operands = schemaParser.findOperandsInScope("Order", "");
 		assertEquals(7,operands.size());
+	}
+	@Test
+	public void testParse3() throws Exception {
+
+		SAXBuilder builder = new SAXBuilder();
+		Document doc = null;
+		doc = builder.build(m_schema.getInputStream());
+		SchemaParser schemaParser = new SchemaParser();
+		schemaParser.parse(doc);
+		QName root = DocumentHelper.createQName("root",DocumentHelper.createNamespace("root", "http://www.madurasoftware.com/root"));
+		SchemaVisitorDom4j visitor = new SchemaVisitorDom4j(root,"PizzaOrder.xsd","http://www.madurasoftware.com/root.xsd");
+		schemaParser.traverse(visitor);
+		
+        OutputFormat format = OutputFormat.createPrettyPrint();
+        XMLWriter writer = new XMLWriter( System.out, format );
+        writer.write( visitor.getDocument() );
+	}
+	@Test
+	public void testParse4() throws Exception {
+
+		SAXBuilder builder = new SAXBuilder();
+		Document doc = null;
+		doc = builder.build(m_schema.getInputStream());
+		SchemaParser schemaParser = new SchemaParser();
+		schemaParser.parse(doc);
+		Namespace ns = Namespace.getNamespace("root", "http://www.madurasoftware.com/root");
+		Element root = new Element("root",ns);
+		SchemaVisitorJdom visitor = new SchemaVisitorJdom(root,"PizzaOrder.xsd","http://www.madurasoftware.com/root.xsd");
+		schemaParser.traverse(visitor);
+		
+		XMLOutputter fmt = new XMLOutputter();
+		fmt.output(visitor.getDocument(), System.out);
 	}
 }

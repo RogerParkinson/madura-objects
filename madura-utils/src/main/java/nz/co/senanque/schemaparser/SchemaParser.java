@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
@@ -38,7 +39,9 @@ public class SchemaParser
 {
     private Map<String,ObjectDescriptor> m_classes = new HashMap<String,ObjectDescriptor>();
     private Map<String,List<String>> m_constants = new HashMap<String,List<String>>();
+	private Map<String, ObjectDescriptor> m_elements = new HashMap<>();
     private String m_xsdpackageName;
+	private String m_targetNamespace;
     
     private static Map<String, String> s_types;
     
@@ -58,17 +61,40 @@ public class SchemaParser
     public void parse(Document schemaDocument, String xsdpackageName)
     {
         m_xsdpackageName = xsdpackageName;
+        m_targetNamespace = schemaDocument.getRootElement().getAttribute("targetNamespace").getValue();
         findComplexTypes(schemaDocument.getRootElement());
         findSimpleTypes(schemaDocument.getRootElement());
+        findTopElements(schemaDocument.getRootElement());
     }
     public void parse(Document schemaDocument)
     {
-        m_xsdpackageName = findPackageName(schemaDocument.getRootElement());;
-        findComplexTypes(schemaDocument.getRootElement());
-        findSimpleTypes(schemaDocument.getRootElement());
+        String xsdpackageName = findPackageName(schemaDocument.getRootElement());
+        parse(schemaDocument, xsdpackageName);
     }
     @SuppressWarnings("unchecked")
 	private String findPackageName(Element parent) {
+    	Namespace xsdNameSpace = null;
+    	Namespace jaxbNameSpace = null;
+    	for (Namespace namespace: (List<Namespace>)parent.getAdditionalNamespaces()) {
+    		if (namespace.getURI().equals("http://www.w3.org/2001/XMLSchema")) {
+    			xsdNameSpace = namespace;
+    		}
+    		if (namespace.getURI().equals("http://java.sun.com/xml/ns/jaxb")) {
+    			jaxbNameSpace = namespace;
+    		}
+    	}
+        try {
+			Element annotation = parent.getChild("annotation",xsdNameSpace);
+			Element appinfo = annotation.getChild("appinfo",xsdNameSpace);
+			Element schemaBindings = appinfo.getChild("schemaBindings",jaxbNameSpace);
+			Element packageElement = schemaBindings.getChild("package",jaxbNameSpace);
+			return packageElement.getAttributeValue("name");
+		} catch (Exception e) {
+			throw new SchemaParserException("Failed to find package name",e);
+		}
+    }
+	private String findtargetNamespace(Element parent) {
+		Attribute attribute = parent.getAttribute("targetNamespace");
     	Namespace xsdNameSpace = null;
     	Namespace jaxbNameSpace = null;
     	for (Namespace namespace: (List<Namespace>)parent.getAdditionalNamespaces()) {
@@ -135,6 +161,31 @@ public class SchemaParser
                 }
             }
         }
+    }
+    private void findTopElements(Element parent) {
+        List<Element> children = parent.getChildren();
+        for (Element element: children)
+        {
+            if (element.getName().equals("element"))
+            {
+                String name = element.getAttributeValue("name");
+                String type = element.getAttributeValue("type");
+                if (type == null) {
+                	continue;
+                }
+                int i = type.indexOf(':');
+                if (i > -1)
+                {
+                    type = type.substring(i+1);
+                }
+                ObjectDescriptor descriptor = m_classes.get(type);
+                if (descriptor == null) {
+                	throw new SchemaParserException("Element refers to non existent object",null);
+                }
+                m_elements.put(name, descriptor);
+            }
+        }
+    	
     }
     @SuppressWarnings("unchecked")
 	private void findElements(Element parent, ObjectDescriptor fields, String clazz)
@@ -320,5 +371,14 @@ public class SchemaParser
             return new EnumeratedConstant(m_xsdpackageName,className,fieldName);
         }
         return null;
+    }
+    public void traverse(SchemaVisitor visitor) {
+    	visitor.initialize(m_xsdpackageName, m_targetNamespace);
+    	for (Map.Entry<String,ObjectDescriptor> entry: m_elements.entrySet()) {
+    		ObjectDescriptor objectDescriptor = entry.getValue();
+    		// get the type and call the visitor for it.
+    		objectDescriptor.traverse(visitor);
+    	}
+    	visitor.terminate();
     }
 }

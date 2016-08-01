@@ -45,6 +45,13 @@ public class ObjectDescriptor extends HashMap<String, FieldDescriptor>
     {
         m_parent = parent;
     }
+	public void traverse(SchemaVisitor visitor) {
+		visitor.beginObject(this);
+		for (FieldDescriptor fd: this.values()) {
+			fd.traverse(visitor);
+		}
+		visitor.endObject(this);
+	}
     
     
 }

@@ -56,5 +56,11 @@ public class FieldDescriptor
     {
         return m_list;
     }
+
+	public void traverse(SchemaVisitor visitor) {
+		visitor.beginField(this);
+		visitor.endField(this);
+		
+	}
     
 }
