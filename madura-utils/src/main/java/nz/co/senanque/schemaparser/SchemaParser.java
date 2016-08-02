@@ -23,6 +23,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import nz.co.senanque.schemaparser.restrictions.Restriction;
+import nz.co.senanque.schemaparser.restrictions.RestrictionFactory;
+import nz.co.senanque.schemaparser.restrictions.Restrictions;
+
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -156,6 +160,11 @@ public class SchemaParser
                                 String value = e1.getAttributeValue("value").toUpperCase();
                                 fields.add(value);
                             }
+                            if (e1.getName().equals("maxLength"))
+                            {
+                                String value = e1.getAttributeValue("value").toUpperCase();
+                                fields.add(value);
+                            }
                         }
                     }
                 }
@@ -190,6 +199,7 @@ public class SchemaParser
     @SuppressWarnings("unchecked")
 	private void findElements(Element parent, ObjectDescriptor fields, String clazz)
     {
+    	Restrictions restrictions = null;
         List<Element> children = parent.getChildren();
         for (Element element: children)
         {
@@ -208,6 +218,7 @@ public class SchemaParser
                                 if (e1.getName().equals("restriction"))
                                 {
                                     type = e1.getAttributeValue("base");
+                                    restrictions = RestrictionFactory.getRestrictions(e1);
                                     break;
                                 }
                                 break;
@@ -245,7 +256,7 @@ public class SchemaParser
                 {
                     translatedType = type; 
                 }
-                fields.put(name,new FieldDescriptor(clazz,name,translatedType,list));
+                fields.put(name,new FieldDescriptor(clazz,name,translatedType,list,restrictions));
             }
             else
             {

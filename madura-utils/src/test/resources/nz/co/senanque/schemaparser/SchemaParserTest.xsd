@@ -100,6 +100,14 @@ limitations under the License.
                     </appinfo>
                 </annotation>
             </element>
+			<element name="age">
+			  <simpleType>
+			    <restriction base="integer">
+			      <minInclusive value="0"/>
+			      <maxInclusive value="120"/>
+			    </restriction>
+			  </simpleType>
+			</element> 
             <element name="orderName">
                 <xsd:annotation>
                     <xsd:appinfo>
@@ -123,6 +131,7 @@ limitations under the License.
 	</complexType>
 
 	<element name="Session" type="tns:Session"></element>
+	<element name="C" type="tns:Order"></element>
 
 	<complexType name="Session">
         <xsd:annotation>

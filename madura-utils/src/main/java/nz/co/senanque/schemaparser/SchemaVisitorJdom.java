@@ -22,6 +22,10 @@ import org.jdom.Element;
 import org.jdom.Namespace;
 
 /**
+ * 
+ * Accumulate a jdom example document for this XSD.
+ * Every top level element tag is used to create an XML object in the structure
+ *
  * @author Roger Parkinson
  *
  */

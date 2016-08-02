@@ -21,6 +21,8 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import nz.co.senanque.schemaparser.restrictions.Restrictions;
+
 import org.dom4j.DocumentHelper;
 import org.dom4j.QName;
 import org.dom4j.io.OutputFormat;
@@ -81,7 +83,7 @@ public class SchemaParserTest {
 		SchemaParser schemaParser = new SchemaParser();
 		schemaParser.parse(doc);
 		Set<String> operands = schemaParser.findOperandsInScope("Order", "");
-		assertEquals(7,operands.size());
+		assertEquals(8,operands.size());
 	}
 	@Test
 	public void testParse3() throws Exception {
@@ -114,5 +116,9 @@ public class SchemaParserTest {
 		
 		XMLOutputter fmt = new XMLOutputter(Format.getPrettyFormat());
 		fmt.output(visitor.getDocument(), System.out);
+		
+		FieldDescriptor fd = schemaParser.findOperandInScope("Order", "age");
+		Restrictions restrictions = fd.getRestrictions();
+		assertEquals(2,restrictions.getRestrictions().size());
 	}
 }

@@ -15,6 +15,8 @@
  *******************************************************************************/
 package nz.co.senanque.schemaparser;
 
+import nz.co.senanque.schemaparser.restrictions.Restrictions;
+
 /**
  * 
  * Field descriptor
@@ -28,17 +30,22 @@ public class FieldDescriptor
     private final String m_clazz;
     private final String m_type;
     private final boolean m_list;
+    private Restrictions m_restrictions;
     
     public String toString() {
     	return m_name;
     }
     
-    public FieldDescriptor(String clazz,String name, String type, boolean list)
+    public FieldDescriptor(String clazz,String name, String type, boolean list, Restrictions restrictions)
     {
         m_clazz = clazz;
         m_name = name;
         m_type = type;
         m_list = list;
+        m_restrictions = restrictions;
+        if (restrictions != null) {
+        	m_restrictions.setOwner(this);
+        }
     }
     public String getName()
     {
@@ -60,7 +67,17 @@ public class FieldDescriptor
 	public void traverse(SchemaVisitor visitor) {
 		visitor.beginField(this);
 		visitor.endField(this);
-		
+	}
+
+	public Restrictions getRestrictions() {
+		if (m_restrictions == null) {
+			m_restrictions = new Restrictions(m_type);
+		}
+		return m_restrictions;
+	}
+	
+	public String getSortKey() {
+		return m_clazz+"."+m_name;
 	}
     
 }

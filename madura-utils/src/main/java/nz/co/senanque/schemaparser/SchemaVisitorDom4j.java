@@ -25,6 +25,8 @@ import org.dom4j.Namespace;
 import org.dom4j.QName;
 
 /**
+ * Accumulate a dom4j example document for this XSD.
+ * 
  * @author Roger Parkinson
  *
  */
