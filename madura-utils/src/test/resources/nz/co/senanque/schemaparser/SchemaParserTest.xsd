@@ -122,6 +122,17 @@ limitations under the License.
                     </restriction>
                 </simpleType>
             </element>
+			<element name="bmi2" type="double"/>
+			<element name="bmi" type="double">
+				<xsd:annotation>
+					<xsd:appinfo>
+						<annox:annotate>
+							<md:Label labelName="BodyMassIndex" />
+							<md:Unknown />
+						</annox:annotate>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</element>
             <element name="retryFlag" type="boolean"></element>
             <element name="rejected" type="boolean"></element>
             <element name="decisionField" type="boolean"></element>

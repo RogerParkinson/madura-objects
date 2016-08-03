@@ -24,7 +24,7 @@ import org.jdom.Element;
  * @author Roger Parkinson
  *
  */
-public class MaxInclusive implements Restriction {
+public class MaxInclusive extends Restriction {
 
 	long value;
 	
@@ -39,6 +39,9 @@ public class MaxInclusive implements Restriction {
 			candidateValues.add(new CandidateValue(Long.toString(value),true));
 		}
 		return candidateValues;
+	}
+	public String getValue() {
+		return Long.toString(value);
 	}
 
 }

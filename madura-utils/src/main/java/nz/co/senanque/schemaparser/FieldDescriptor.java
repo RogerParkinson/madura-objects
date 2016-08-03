@@ -72,6 +72,7 @@ public class FieldDescriptor
 	public Restrictions getRestrictions() {
 		if (m_restrictions == null) {
 			m_restrictions = new Restrictions(m_type);
+			m_restrictions.setOwner(this);
 		}
 		return m_restrictions;
 	}

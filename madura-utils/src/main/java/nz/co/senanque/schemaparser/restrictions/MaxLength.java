@@ -25,7 +25,7 @@ import org.jdom.Element;
  * @author Roger Parkinson
  *
  */
-public class MaxLength implements Restriction {
+public class MaxLength extends Restriction {
 	
 	int length;
 
@@ -39,6 +39,9 @@ public class MaxLength implements Restriction {
 			candidateValues.add(new CandidateValue(StringUtils.rightPad("", length, '.'),true));
 		}
 		return candidateValues;
+	}
+	public String getValue() {
+		return Integer.toString(length);
 	}
 
 }

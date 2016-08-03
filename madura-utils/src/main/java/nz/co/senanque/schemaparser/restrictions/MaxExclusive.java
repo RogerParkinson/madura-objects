@@ -24,7 +24,7 @@ import org.jdom.Element;
  * @author Roger Parkinson
  *
  */
-public class MaxExclusive implements Restriction {
+public class MaxExclusive extends Restriction {
 
 	long value;
 	List<CandidateValue> candidateValues = new ArrayList<>();
@@ -38,6 +38,9 @@ public class MaxExclusive implements Restriction {
 			candidateValues.add(new CandidateValue(Long.toString(value-1),true));
 		}
 		return candidateValues;
+	}
+	public String getValue() {
+		return Long.toString(value);
 	}
 	
 }

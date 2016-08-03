@@ -24,7 +24,7 @@ import org.jdom.Element;
  * @author Roger Parkinson
  *
  */
-public class MinExclusive implements Restriction {
+public class MinExclusive extends Restriction {
 
 	long value;
 	
@@ -39,6 +39,9 @@ public class MinExclusive implements Restriction {
 			candidateValues.add(new CandidateValue(Long.toString(value+1),false));
 		}
 		return candidateValues;
+	}
+	public String getValue() {
+		return Long.toString(value);
 	}
 
 }

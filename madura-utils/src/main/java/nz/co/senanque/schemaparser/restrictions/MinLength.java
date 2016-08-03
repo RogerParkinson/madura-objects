@@ -25,7 +25,7 @@ import org.jdom.Element;
  * @author Roger Parkinson
  *
  */
-public class MinLength implements Restriction {
+public class MinLength extends Restriction {
 
 	int value;
 	
@@ -39,5 +39,8 @@ public class MinLength implements Restriction {
 			candidateValues.add(new CandidateValue(StringUtils.rightPad("", value, '.'),true));
 		}
 		return candidateValues;
+	}
+	public String getValue() {
+		return Long.toString(value);
 	}
 }

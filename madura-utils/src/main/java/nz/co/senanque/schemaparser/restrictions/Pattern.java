@@ -24,15 +24,18 @@ import org.jdom.Element;
  * @author Roger Parkinson
  *
  */
-public class Pattern implements Restriction {
+public class Pattern extends Restriction {
 
-	long value;
+	String value;
 	
 	List<CandidateValue> candidateValues = new ArrayList<>();
 	public List<CandidateValue> getCandidateValues() {
 		return candidateValues;
 	}
 	public Pattern(Element restriction) {
-		value = Long.parseLong(restriction.getAttributeValue("value"));
+		value = restriction.getAttributeValue("value");
+	}
+	public String getValue() {
+		return value;
 	}
 }

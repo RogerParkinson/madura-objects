@@ -24,7 +24,7 @@ import org.jdom.Element;
  * @author Roger Parkinson
  *
  */
-public class FractionDigits implements Restriction {
+public class FractionDigits extends Restriction {
 
 	long value;
 	
@@ -34,5 +34,8 @@ public class FractionDigits implements Restriction {
 	}
 	public FractionDigits(Element restriction) {
 		value = Long.parseLong(restriction.getAttributeValue("value"));
+	}
+	public String getValue() {
+		return Long.toString(value);
 	}
 }

@@ -23,7 +23,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import nz.co.senanque.schemaparser.restrictions.Restriction;
 import nz.co.senanque.schemaparser.restrictions.RestrictionFactory;
 import nz.co.senanque.schemaparser.restrictions.Restrictions;
 
@@ -199,10 +198,10 @@ public class SchemaParser
     @SuppressWarnings("unchecked")
 	private void findElements(Element parent, ObjectDescriptor fields, String clazz)
     {
-    	Restrictions restrictions = null;
         List<Element> children = parent.getChildren();
         for (Element element: children)
         {
+        	Restrictions restrictions = null;
             if (element.getName().equals("element"))
             {
                 String name = element.getAttributeValue("name");
@@ -392,4 +391,7 @@ public class SchemaParser
     	}
     	visitor.terminate();
     }
+	public String getTargetNamespace() {
+		return m_targetNamespace;
+	}
 }
