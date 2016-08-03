@@ -16,9 +16,12 @@
 package nz.co.senanque.schemaparser.restrictions;
 
 import java.util.ArrayList;
+import com.mifmif.common.regex.util.Iterator;
 import java.util.List;
 
 import org.jdom.Element;
+
+import com.mifmif.common.regex.Generex;
 
 /**
  * @author Roger Parkinson
@@ -30,6 +33,14 @@ public class Pattern extends Restriction {
 	
 	List<CandidateValue> candidateValues = new ArrayList<>();
 	public List<CandidateValue> getCandidateValues() {
+		if (candidateValues.isEmpty()) {
+			Generex generex = new Generex(value);
+	        Iterator iterator = generex.iterator();
+	        int i=0;
+	        while (iterator.hasNext() && (i++ < 10)) {
+	            candidateValues.add(new CandidateValue(iterator.next(),true));
+	        }
+		}
 		return candidateValues;
 	}
 	public Pattern(Element restriction) {

@@ -27,7 +27,7 @@ public class CandidateValue {
 	}
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(restriction.getClass().getSimpleName());
+		sb.append((restriction != null)?restriction.getClass().getSimpleName():"xxx");
 		sb.append(':');
 		sb.append(result);
 		sb.append(':');

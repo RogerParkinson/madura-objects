@@ -262,6 +262,11 @@
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 		</dependency>
+		<dependency>
+		  <groupId>com.github.mifmif</groupId>
+		  <artifactId>generex</artifactId>
+		  <version>1.0.1</version>
+		</dependency>
 	</dependencies>
 
 </project>

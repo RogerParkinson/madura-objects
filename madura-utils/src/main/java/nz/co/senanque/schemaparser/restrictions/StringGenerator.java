@@ -15,32 +15,24 @@
  *******************************************************************************/
 package nz.co.senanque.schemaparser.restrictions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
-import org.jdom.Element;
 
 /**
+ * Generates a string for the specified length including a description if there is room.
+ * 
  * @author Roger Parkinson
  *
  */
-public class TotalDigits extends Restriction {
-
-	int value;
+public class StringGenerator {
 	
-	List<CandidateValue> candidateValues = new ArrayList<>();
-	public List<CandidateValue> getCandidateValues() {
-		if (candidateValues.isEmpty()) {
-			candidateValues.add(new CandidateValue(StringUtils.rightPad("9", value+1, '.'),false));
-			candidateValues.add(new CandidateValue(StringUtils.rightPad("9", value, '.'),true));
+	public static String getString(int l) {
+		String ll = Integer.toString(l);
+		if (l > ll.length()) {
+			String ret = StringUtils.rightPad(ll, l - ll.length(), '.');
+			return ret;
 		}
-		return candidateValues;
+		String ret = StringUtils.rightPad("", l, '.');
+		return ret;
 	}
-	public TotalDigits(Element restriction) {
-		value = Integer.parseInt(restriction.getAttributeValue("value"));
-	}
-	public String getValue() {
-		return Integer.toString(value);
-	}
+
 }

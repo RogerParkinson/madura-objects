@@ -28,16 +28,17 @@ public class Restrictions {
 	public List<Restriction> getRestrictions() {
 		return Collections.unmodifiableList(restrictions);
 	}
+
 	public List<Enumerate> getEnumerations() {
 		return Collections.unmodifiableList(enumerations);
 	}
+
 	public boolean isActive() {
 		return !(restrictions.isEmpty() && enumerations.isEmpty());
 	}
 
 	public void setOwner(FieldDescriptor fieldDescriptor) {
 		this.fieldDescriptor = fieldDescriptor;
-		
 	}
 
 }

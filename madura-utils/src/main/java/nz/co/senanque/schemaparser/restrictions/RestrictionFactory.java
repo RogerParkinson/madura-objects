@@ -52,12 +52,9 @@ public class RestrictionFactory {
         			ret.addEnumerate(new Enumerate(restriction));
         			continue;
         		}
-    			
         	}
         	return ret;
         }
         return null;
-
 	}
-
 }

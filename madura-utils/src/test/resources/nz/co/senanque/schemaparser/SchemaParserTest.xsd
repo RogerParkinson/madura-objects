@@ -119,6 +119,7 @@ limitations under the License.
                 <simpleType>
                     <restriction base="string">
                         <maxLength value="50"></maxLength>
+                        <pattern value="[0-3]([a-c]|[e-g]{1,2})"></pattern>
                     </restriction>
                 </simpleType>
             </element>
@@ -132,6 +133,15 @@ limitations under the License.
 						</annox:annotate>
 					</xsd:appinfo>
 				</xsd:annotation>
+			</element>
+			<element name="ptype">
+				<simpleType>
+					<xsd:restriction base="string">
+						<xsd:enumeration value="gluten" />
+						<xsd:enumeration value="shellfish" />
+						<xsd:enumeration value="lactose" />
+					</xsd:restriction>
+				</simpleType>
 			</element>
             <element name="retryFlag" type="boolean"></element>
             <element name="rejected" type="boolean"></element>
