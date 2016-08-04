@@ -86,7 +86,7 @@ public class SchemaParserTest {
 		SchemaParser schemaParser = new SchemaParser();
 		schemaParser.parse(doc);
 		Set<String> operands = schemaParser.findOperandsInScope("Order", "");
-		assertEquals(10,operands.size());
+		assertEquals(12,operands.size());
 	}
 	@Test
 	public void testParse3() throws Exception {
@@ -134,6 +134,10 @@ public class SchemaParserTest {
 		fd = schemaParser.findOperandInScope("Order", "ptype");
 		restrictions = fd.getRestrictions();
 		assertEquals(3,restrictions.size());
+		analyzeCandidateValues(fd);
+		fd = schemaParser.findOperandInScope("Order", "ptype2");
+		restrictions = fd.getRestrictions();
+		assertEquals(5,restrictions.size());
 		analyzeCandidateValues(fd);
 	}
 	

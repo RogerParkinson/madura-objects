@@ -143,6 +143,7 @@ limitations under the License.
 					</xsd:restriction>
 				</simpleType>
 			</element>
+			<element name="ptype2" type="tns:ItemType"/>
             <element name="retryFlag" type="boolean"></element>
             <element name="rejected" type="boolean"></element>
             <element name="decisionField" type="boolean"></element>
@@ -165,5 +166,15 @@ limitations under the License.
 			<element name="started" type="dateTime"></element>
 		</sequence>
 	</complexType>
+
+	<xsd:simpleType name="ItemType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Pizza" />
+			<xsd:enumeration value="Drink" />
+			<xsd:enumeration value="Bread" />
+			<xsd:enumeration value="Extra" />
+			<xsd:enumeration value="Dessert" />
+		</xsd:restriction>
+	</xsd:simpleType>
 
 </schema>

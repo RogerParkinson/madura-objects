@@ -15,6 +15,7 @@
  *******************************************************************************/
 package nz.co.senanque.schemaparser;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,6 +52,10 @@ public class FieldDescriptor
         	r.setFieldDescriptor(this);
         }
     }
+    public FieldDescriptor(String clazz,String name, String type, boolean list) {
+    	this(clazz,name,type,list,new ArrayList<Restriction>());
+    }
+
     public String getName()
     {
         return m_name;

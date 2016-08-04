@@ -60,13 +60,15 @@ public class SchemaParser
         s_types.put("date", "java.util.Date");
         s_types.put("list", "nz.co.senanque.validationengine.ListeningArray");
     }
+    
+    private Map<String,SimpleType> m_simpleTypes = new HashMap<>();
 
     public void parse(Document schemaDocument, String xsdpackageName)
     {
         m_xsdpackageName = xsdpackageName;
         m_targetNamespace = schemaDocument.getRootElement().getAttribute("targetNamespace").getValue();
-        findComplexTypes(schemaDocument.getRootElement());
         findSimpleTypes(schemaDocument.getRootElement());
+        findComplexTypes(schemaDocument.getRootElement());
         findTopElements(schemaDocument.getRootElement());
     }
     public void parse(Document schemaDocument)
@@ -152,6 +154,8 @@ public class SchemaParser
                 {
                     if (e.getName().equals("restriction"))
                     {
+                    	m_simpleTypes.put(name, new SimpleType(name,e.getAttributeValue("base"),RestrictionFactory.getRestrictions(e)));
+
                         for (Element e1: (List<Element>)e.getChildren())
                         {
                             if (e1.getName().equals("enumeration"))
@@ -167,6 +171,7 @@ public class SchemaParser
                         }
                     }
                 }
+                
             }
         }
     }
@@ -253,7 +258,12 @@ public class SchemaParser
                 String translatedType = s_types.get(type);
                 if (translatedType == null)
                 {
-                    translatedType = type; 
+                    translatedType = type;
+                    SimpleType st = m_simpleTypes.get(type);
+                    if (st != null) {
+                    	restrictions = st.getRestrictions();
+                    	translatedType = st.getType();
+                    }
                 }
                 fields.put(name,new FieldDescriptor(clazz,name,translatedType,list,restrictions));
             }
