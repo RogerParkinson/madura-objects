@@ -32,8 +32,8 @@ public class TotalDigits extends Restriction {
 	List<CandidateValue> candidateValues = new ArrayList<>();
 	public List<CandidateValue> getCandidateValues() {
 		if (candidateValues.isEmpty()) {
-			candidateValues.add(new CandidateValue(StringUtils.rightPad("9", value+1, '.'),false));
-			candidateValues.add(new CandidateValue(StringUtils.rightPad("9", value, '.'),true));
+			candidateValues.add(new CandidateValue(StringUtils.rightPad("9", value+1, '.'),false,this));
+			candidateValues.add(new CandidateValue(StringUtils.rightPad("9", value, '.'),true,this));
 		}
 		return candidateValues;
 	}

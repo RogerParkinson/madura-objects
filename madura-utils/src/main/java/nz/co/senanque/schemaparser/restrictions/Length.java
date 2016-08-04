@@ -35,9 +35,9 @@ public class Length extends Restriction {
 	}
 	public List<CandidateValue> getCandidateValues() {
 		if (candidateValues.isEmpty()) {
-			candidateValues.add(new CandidateValue(StringUtils.rightPad("", length-1, '.'),false));
-			candidateValues.add(new CandidateValue(StringUtils.rightPad("", length+1, '.'),false));
-			candidateValues.add(new CandidateValue(StringUtils.rightPad("", length, '.'),true));
+			candidateValues.add(new CandidateValue(StringUtils.rightPad("", length-1, '.'),false,this));
+			candidateValues.add(new CandidateValue(StringUtils.rightPad("", length+1, '.'),false,this));
+			candidateValues.add(new CandidateValue(StringUtils.rightPad("", length, '.'),true,this));
 		}
 		return candidateValues;
 	}

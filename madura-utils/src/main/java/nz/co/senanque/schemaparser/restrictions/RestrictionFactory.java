@@ -1,55 +1,56 @@
 package nz.co.senanque.schemaparser.restrictions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom.Element;
 
 public class RestrictionFactory {
 	
-	public static Restrictions getRestrictions(Element e1) {
+	public static List<Restriction> getRestrictions(Element e1) {
         if (e1.getName().equals("restriction"))
         {
             String type = e1.getAttributeValue("base");
-    		Restrictions ret = new Restrictions(type);
+            List<Restriction> ret = new ArrayList<>();
         	for (Element restriction: (List<Element>)e1.getChildren()) {
         		if (restriction.getName().equals("maxLength")) {
-        			ret.addRestriction(new MaxLength(restriction));
+        			ret.add(new MaxLength(restriction));
         			continue;
         		}
         		if (restriction.getName().equals("length")) {
-        			ret.addRestriction(new Length(restriction));
+        			ret.add(new Length(restriction));
         			continue;
         		}
            		if (restriction.getName().equals("maxExclusive")) {
-        			ret.addRestriction(new MaxExclusive(restriction));
+        			ret.add(new MaxExclusive(restriction));
         			continue;
         		}
            		if (restriction.getName().equals("minExclusive")) {
-        			ret.addRestriction(new MinExclusive(restriction));
+        			ret.add(new MinExclusive(restriction));
         			continue;
         		}
            		if (restriction.getName().equals("maxInclusive")) {
-        			ret.addRestriction(new MaxInclusive(restriction));
+        			ret.add(new MaxInclusive(restriction));
         			continue;
         		}
            		if (restriction.getName().equals("minInclusive")) {
-        			ret.addRestriction(new MinInclusive(restriction));
+        			ret.add(new MinInclusive(restriction));
         			continue;
         		}
            		if (restriction.getName().equals("fractionDigits")) {
-        			ret.addRestriction(new FractionDigits(restriction));
+        			ret.add(new FractionDigits(restriction));
         			continue;
         		}
            		if (restriction.getName().equals("totalDigits")) {
-        			ret.addRestriction(new TotalDigits(restriction));
+        			ret.add(new TotalDigits(restriction));
         			continue;
         		}
            		if (restriction.getName().equals("pattern")) {
-        			ret.addRestriction(new Pattern(restriction));
+        			ret.add(new Pattern(restriction));
         			continue;
         		}
-           		if (restriction.getName().equals("enumerate")) {
-        			ret.addEnumerate(new Enumerate(restriction));
+           		if (restriction.getName().equals("enumeration")) {
+        			ret.add(new Enumerate(restriction));
         			continue;
         		}
         	}

@@ -15,7 +15,11 @@
  *******************************************************************************/
 package nz.co.senanque.schemaparser;
 
-import nz.co.senanque.schemaparser.restrictions.Restrictions;
+import java.util.Collections;
+import java.util.List;
+
+import nz.co.senanque.schemaparser.restrictions.Restriction;
+
 
 /**
  * 
@@ -30,21 +34,21 @@ public class FieldDescriptor
     private final String m_clazz;
     private final String m_type;
     private final boolean m_list;
-    private Restrictions m_restrictions;
+    private List<Restriction> m_restrictions;
     
     public String toString() {
     	return m_name;
     }
     
-    public FieldDescriptor(String clazz,String name, String type, boolean list, Restrictions restrictions)
+    public FieldDescriptor(String clazz,String name, String type, boolean list, List<Restriction> restrictions)
     {
         m_clazz = clazz;
         m_name = name;
         m_type = type;
         m_list = list;
         m_restrictions = restrictions;
-        if (restrictions != null) {
-        	m_restrictions.setOwner(this);
+        for (Restriction r: restrictions) {
+        	r.setFieldDescriptor(this);
         }
     }
     public String getName()
@@ -69,12 +73,8 @@ public class FieldDescriptor
 		visitor.endField(this);
 	}
 
-	public Restrictions getRestrictions() {
-		if (m_restrictions == null) {
-			m_restrictions = new Restrictions(m_type);
-			m_restrictions.setOwner(this);
-		}
-		return m_restrictions;
+	public List<Restriction> getRestrictions() {
+		return Collections.unmodifiableList(m_restrictions);
 	}
 	
 	public String getSortKey() {

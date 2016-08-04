@@ -35,8 +35,8 @@ public class MaxInclusive extends Restriction {
 	}
 	public List<CandidateValue> getCandidateValues() {
 		if (candidateValues.isEmpty()) {
-			candidateValues.add(new CandidateValue(Long.toString(value+1),false));
-			candidateValues.add(new CandidateValue(Long.toString(value),true));
+			candidateValues.add(new CandidateValue(Long.toString(value+1),false,this));
+			candidateValues.add(new CandidateValue(Long.toString(value),true,this));
 		}
 		return candidateValues;
 	}

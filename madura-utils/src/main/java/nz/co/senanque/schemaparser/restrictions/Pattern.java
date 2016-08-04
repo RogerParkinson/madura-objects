@@ -38,7 +38,7 @@ public class Pattern extends Restriction {
 	        Iterator iterator = generex.iterator();
 	        int i=0;
 	        while (iterator.hasNext() && (i++ < 10)) {
-	            candidateValues.add(new CandidateValue(iterator.next(),true));
+	            candidateValues.add(new CandidateValue(iterator.next(),true,this));
 	        }
 		}
 		return candidateValues;

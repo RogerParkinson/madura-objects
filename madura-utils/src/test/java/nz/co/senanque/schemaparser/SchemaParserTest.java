@@ -17,18 +17,19 @@ package nz.co.senanque.schemaparser;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
 
 import nz.co.senanque.schemaparser.restrictions.CandidateValue;
 import nz.co.senanque.schemaparser.restrictions.Restriction;
-import nz.co.senanque.schemaparser.restrictions.Restrictions;
 
 import org.dom4j.DocumentHelper;
 import org.dom4j.QName;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
+import org.hibernate.criterion.Restrictions;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
@@ -120,24 +121,25 @@ public class SchemaParserTest {
 		fmt.output(visitor.getDocument(), System.out);
 		
 		FieldDescriptor fd = schemaParser.findOperandInScope("Order", "age");
-		Restrictions restrictions = fd.getRestrictions();
-		assertEquals(2,restrictions.getRestrictions().size());
-		analyzeCandidateValues(restrictions);
+		List<Restriction> restrictions = fd.getRestrictions();
+		assertEquals(2,restrictions.size());
+		analyzeCandidateValues(fd);
 		fd = schemaParser.findOperandInScope("Order", "orderName");
 		restrictions = fd.getRestrictions();
-		assertEquals(2,restrictions.getRestrictions().size());
-		analyzeCandidateValues(restrictions);
+		assertEquals(2,restrictions.size());
+		analyzeCandidateValues(fd);
 		fd = schemaParser.findOperandInScope("Order", "bmi2");
 		restrictions = fd.getRestrictions();
-		assertEquals(0,restrictions.getRestrictions().size());
+		assertEquals(0,restrictions.size());
 		fd = schemaParser.findOperandInScope("Order", "ptype");
 		restrictions = fd.getRestrictions();
-		assertEquals(1,restrictions.getRestrictions().size());
-		analyzeCandidateValues(restrictions);
+		assertEquals(3,restrictions.size());
+		analyzeCandidateValues(fd);
 	}
 	
-	private void analyzeCandidateValues(Restrictions restrictions) {
-		for (Restriction r:restrictions.getRestrictions()) {
+	private void analyzeCandidateValues(FieldDescriptor fd) {
+		log.debug("{}",fd.getName());
+		for (Restriction r:fd.getRestrictions()) {
 			for (CandidateValue cv: r.getCandidateValues()) {
 				log.debug("{}",cv);
 			}

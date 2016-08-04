@@ -34,8 +34,8 @@ public class MaxExclusive extends Restriction {
 	}
 	public List<CandidateValue> getCandidateValues() {
 		if (candidateValues.isEmpty()) {
-			candidateValues.add(new CandidateValue(Long.toString(value),false));
-			candidateValues.add(new CandidateValue(Long.toString(value-1),true));
+			candidateValues.add(new CandidateValue(Long.toString(value),false,this));
+			candidateValues.add(new CandidateValue(Long.toString(value-1),true,this));
 		}
 		return candidateValues;
 	}

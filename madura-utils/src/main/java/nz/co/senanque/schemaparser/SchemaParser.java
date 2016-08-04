@@ -23,8 +23,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import nz.co.senanque.schemaparser.restrictions.Restriction;
 import nz.co.senanque.schemaparser.restrictions.RestrictionFactory;
-import nz.co.senanque.schemaparser.restrictions.Restrictions;
 
 import org.jdom.Attribute;
 import org.jdom.Document;
@@ -201,7 +201,7 @@ public class SchemaParser
         List<Element> children = parent.getChildren();
         for (Element element: children)
         {
-        	Restrictions restrictions = null;
+        	List<Restriction> restrictions = new ArrayList<>();
             if (element.getName().equals("element"))
             {
                 String name = element.getAttributeValue("name");

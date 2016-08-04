@@ -4,11 +4,12 @@ public class CandidateValue {
 	
 	private final String value;
 	private final boolean result;
-	private Restriction restriction;
+	private final Restriction restriction;
 
-	public CandidateValue(String value, boolean result) {
+	public CandidateValue(String value, boolean result, Restriction restriction) {
 		this.value = value;
 		this.result = result;
+		this.restriction = restriction;
 	}
 
 	public String getValue() {
@@ -18,16 +19,14 @@ public class CandidateValue {
 	public boolean isResult() {
 		return result;
 	}
-	public void setRestriction(Restriction r) {
-		restriction = r;
-	}
 
 	public Restriction getRestriction() {
 		return restriction;
 	}
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append((restriction != null)?restriction.getClass().getSimpleName():"xxx");
+		sb.append(restriction.getClass().getSimpleName());
 		sb.append(':');
 		sb.append(result);
 		sb.append(':');
