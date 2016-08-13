@@ -113,12 +113,25 @@ CREATE TABLE SQL_LOCK
 			<table width="12cm">
 				<tw>12cm</tw>
 				<tr>
+					<th>3.0.1</th>
+				</tr>
+				<tr>
+					<td>Improved interface to schema parser. Specifically added a traverse(visitor) pattern
+					and supporting classes to generate an example jdom document from the XSD.</td>
+				</tr>
+				<tr>
+					<th>3.0.0</th>
+				</tr>
+				<tr>
+					<td>Released to align version with Madura Objects.</td>
+				</tr>
+								<tr>
 					<th>1.0.0</th>
 				</tr>
 				<tr>
 					<td>Added asserts.</td>
 				</tr>
-				<tr>
+								<tr>
 					<td>Some minor formatting.</td>
 				</tr>
 				<tr>
