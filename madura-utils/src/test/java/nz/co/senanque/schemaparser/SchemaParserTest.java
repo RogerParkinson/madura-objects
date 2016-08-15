@@ -29,7 +29,6 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.QName;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
-import org.hibernate.criterion.Restrictions;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;

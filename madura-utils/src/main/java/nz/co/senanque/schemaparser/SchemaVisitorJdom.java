@@ -17,6 +17,8 @@ package nz.co.senanque.schemaparser;
 
 import java.util.Stack;
 
+import nz.co.senanque.asserts.MaduraAsserts;
+
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
@@ -35,6 +37,7 @@ public class SchemaVisitorJdom implements SchemaVisitor {
 	private final Stack<Element> elements = new Stack<>();
 	private final String location;
 	private final String rootLocation;
+	private Namespace defaultns;
 	
 	public SchemaVisitorJdom(Element r, String loc, String rloc) {
 		document = new Document(r);
@@ -44,21 +47,24 @@ public class SchemaVisitorJdom implements SchemaVisitor {
 
 	@Override
 	public void initialize(String xsdpackageName, String targetNamespace) {
+		MaduraAsserts.assertNotNull("unexpected null value for xsdpackageName",xsdpackageName);
+		MaduraAsserts.assertNotNull("unexpected null value for targetNamespace",targetNamespace);
 		Element rootElement = document.getDocument().getRootElement();
 		Namespace xsi = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		rootElement.addNamespaceDeclaration(xsi);
-		if (targetNamespace != null) {
-			Namespace tns = Namespace.getNamespace("tns", targetNamespace);
-			rootElement.addNamespaceDeclaration(xsi);
-			rootElement.setAttribute("schemaLocation", targetNamespace+" "+location+" "+rootElement.getNamespaceURI()+" "+rootLocation, xsi);
-		}
+		defaultns = Namespace.getNamespace( targetNamespace);
+		Namespace tns = Namespace.getNamespace("tns", targetNamespace);
+		rootElement.addNamespaceDeclaration(xsi);
+		rootElement.addNamespaceDeclaration(tns);
+		rootElement.addNamespaceDeclaration(defaultns);
+		rootElement.setAttribute("schemaLocation", targetNamespace+" "+location+" "+rootElement.getNamespaceURI()+" "+rootLocation, xsi);
 		elements.push(rootElement);
 	}
 
 	@Override
 	public void beginObject(ObjectDescriptor objectDescriptor) {
 		Element root = elements.peek();
-		Element o = new Element(objectDescriptor.getName());
+		Element o = new Element(objectDescriptor.getName(),defaultns);
 		root.addContent(o);
 		elements.push(o);
 	}
@@ -71,7 +77,7 @@ public class SchemaVisitorJdom implements SchemaVisitor {
 	@Override
 	public void beginField(FieldDescriptor fieldDescriptor) {
 		Element root = elements.peek();
-		Element o = new Element(fieldDescriptor.getName());
+		Element o = new Element(fieldDescriptor.getName(),defaultns);
 		root.addContent(o);
 		elements.push(o);
 	}
