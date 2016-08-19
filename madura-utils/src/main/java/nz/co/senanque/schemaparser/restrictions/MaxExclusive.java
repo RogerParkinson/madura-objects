@@ -32,6 +32,9 @@ public class MaxExclusive extends Restriction {
 	public MaxExclusive(Element restriction) {
 		value = Long.parseLong(restriction.getAttributeValue("value"));
 	}
+	public MaxExclusive(String value) {
+		this.value = Long.parseLong(value);
+	}
 	public List<CandidateValue> getCandidateValues() {
 		if (candidateValues.isEmpty()) {
 			candidateValues.add(new CandidateValue(Long.toString(value),false,this));

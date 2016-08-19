@@ -33,6 +33,9 @@ public class MinLength extends Restriction {
 	public MinLength(Element restriction) {
 		value = Integer.parseInt(restriction.getAttributeValue("value"));
 	}
+	public MinLength(String value) {
+		this.value = Integer.parseInt(value);
+	}
 	public List<CandidateValue> getCandidateValues() {
 		if (candidateValues.isEmpty()) {
 			candidateValues.add(new CandidateValue(StringUtils.rightPad("", value-1, '.'),false,this));

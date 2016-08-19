@@ -33,6 +33,9 @@ public class MaxInclusive extends Restriction {
 	public MaxInclusive(Element restriction) {
 		value = Long.parseLong(restriction.getAttributeValue("value"));
 	}
+	public MaxInclusive(String value) {
+		this.value = Long.parseLong(value);
+	}
 	public List<CandidateValue> getCandidateValues() {
 		if (candidateValues.isEmpty()) {
 			candidateValues.add(new CandidateValue(Long.toString(value+1),false,this));

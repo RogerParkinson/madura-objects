@@ -73,7 +73,7 @@ public class SchemaParserTest {
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = null;
 		doc = builder.build(m_schema.getInputStream());
-		SchemaParser schemaParser = new SchemaParser();
+		SchemaParserImpl schemaParser = new SchemaParserImpl();
 		schemaParser.parse(doc, "nz.co.senanque.processparser");
 	}
 	@Test
@@ -82,7 +82,7 @@ public class SchemaParserTest {
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = null;
 		doc = builder.build(m_schema.getInputStream());
-		SchemaParser schemaParser = new SchemaParser();
+		SchemaParserImpl schemaParser = new SchemaParserImpl();
 		schemaParser.parse(doc);
 		Set<String> operands = schemaParser.findOperandsInScope("Order", "");
 		assertEquals(12,operands.size());
@@ -93,7 +93,7 @@ public class SchemaParserTest {
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = null;
 		doc = builder.build(m_schema.getInputStream());
-		SchemaParser schemaParser = new SchemaParser();
+		SchemaParserImpl schemaParser = new SchemaParserImpl();
 		schemaParser.parse(doc);
 		QName root = DocumentHelper.createQName("root",DocumentHelper.createNamespace("root", "http://www.madurasoftware.com/root"));
 		SchemaVisitorDom4j visitor = new SchemaVisitorDom4j(root,"PizzaOrder.xsd","http://www.madurasoftware.com/root.xsd");
@@ -109,7 +109,7 @@ public class SchemaParserTest {
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = null;
 		doc = builder.build(m_schema.getInputStream());
-		SchemaParser schemaParser = new SchemaParser();
+		SchemaParserImpl schemaParser = new SchemaParserImpl();
 		schemaParser.parse(doc);
 		Namespace ns = Namespace.getNamespace("root", "http://www.madurasoftware.com/root");
 		Element root = new Element("root",ns);

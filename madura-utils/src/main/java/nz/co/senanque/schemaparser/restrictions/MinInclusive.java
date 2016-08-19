@@ -33,6 +33,9 @@ public class MinInclusive extends Restriction {
 	public MinInclusive(Element restriction) {
 		value = Long.parseLong(restriction.getAttributeValue("value"));
 	}
+	public MinInclusive(String value) {
+		this.value = Long.parseLong(value);
+	}
 	public List<CandidateValue> getCandidateValues() {
 		if (candidateValues.isEmpty()) {
 			candidateValues.add(new CandidateValue(Long.toString(value-1),false,this));

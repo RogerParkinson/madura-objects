@@ -33,7 +33,7 @@ import nz.co.senanque.rulesparser.AbstractRule;
 import nz.co.senanque.rulesparser.FunctionDescriptorFactory;
 import nz.co.senanque.rulesparser.ParsePackage;
 import nz.co.senanque.rulesparser.RulesTextProvider;
-import nz.co.senanque.schemaparser.SchemaParser;
+import nz.co.senanque.schemaparser.SchemaParserImpl;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.jdom.Document;
@@ -147,7 +147,7 @@ public class XJRMojo
         {
            throw new MojoExecutionException(e.getMessage());
         }
-        SchemaParser schemaParser = new SchemaParser();
+        SchemaParserImpl schemaParser = new SchemaParserImpl();
         schemaParser.parse(doc,(xsdpackageName==null)?packageName:xsdpackageName);
         List<Class<?>> externalFunctions = new ArrayList<Class<?>>();
 		if (externalFunctionClasses != null) {

@@ -31,7 +31,7 @@ import nz.co.senanque.rulesparser.AbstractRule;
 import nz.co.senanque.rulesparser.FunctionDescriptorFactory;
 import nz.co.senanque.rulesparser.ParsePackage;
 import nz.co.senanque.rulesparser.RulesTextProvider;
-import nz.co.senanque.schemaparser.SchemaParser;
+import nz.co.senanque.schemaparser.SchemaParserImpl;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
@@ -88,7 +88,7 @@ public class XJR extends Task
         {
            throw new BuildException(e);
         }
-        SchemaParser schemaParser = new SchemaParser();
+        SchemaParserImpl schemaParser = new SchemaParserImpl();
         schemaParser.parse(doc,(m_xsdpackageName==null)?m_packageName:m_xsdpackageName);
         List<Class<?>> externalFunctions = new ArrayList<Class<?>>();
         if (m_externalFunctionClasses != null)

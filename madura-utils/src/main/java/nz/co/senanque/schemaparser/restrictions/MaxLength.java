@@ -33,6 +33,9 @@ public class MaxLength extends Restriction {
 	public MaxLength(Element restriction) {
 		length = Integer.parseInt(restriction.getAttributeValue("value"));
 	}
+	public MaxLength(String value) {
+		this.length = Integer.parseInt(value);
+	}
 	public List<CandidateValue> getCandidateValues() {
 		if (candidateValues.isEmpty()) {
 			candidateValues.add(new CandidateValue(StringUtils.rightPad("", length+1, '.'),false,this));

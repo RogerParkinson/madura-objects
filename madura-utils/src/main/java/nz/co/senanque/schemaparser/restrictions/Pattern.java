@@ -46,6 +46,9 @@ public class Pattern extends Restriction {
 	public Pattern(Element restriction) {
 		value = restriction.getAttributeValue("value");
 	}
+	public Pattern(String value) {
+		this.value = value;
+	}
 	public String getValue() {
 		return value;
 	}

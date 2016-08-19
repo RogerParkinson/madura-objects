@@ -48,16 +48,18 @@ public class SchemaVisitorJdom implements SchemaVisitor {
 	@Override
 	public void initialize(String xsdpackageName, String targetNamespace) {
 		MaduraAsserts.assertNotNull("unexpected null value for xsdpackageName",xsdpackageName);
-		MaduraAsserts.assertNotNull("unexpected null value for targetNamespace",targetNamespace);
+//		MaduraAsserts.assertNotNull("unexpected null value for targetNamespace",targetNamespace);
 		Element rootElement = document.getDocument().getRootElement();
-		Namespace xsi = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-		rootElement.addNamespaceDeclaration(xsi);
-		defaultns = Namespace.getNamespace( targetNamespace);
-		Namespace tns = Namespace.getNamespace("tns", targetNamespace);
-		rootElement.addNamespaceDeclaration(xsi);
-		rootElement.addNamespaceDeclaration(tns);
-		rootElement.addNamespaceDeclaration(defaultns);
-		rootElement.setAttribute("schemaLocation", targetNamespace+" "+location+" "+rootElement.getNamespaceURI()+" "+rootLocation, xsi);
+		if (targetNamespace != null) {
+			Namespace xsi = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+			rootElement.addNamespaceDeclaration(xsi);
+			defaultns = Namespace.getNamespace( targetNamespace);
+			Namespace tns = Namespace.getNamespace("tns", targetNamespace);
+			rootElement.addNamespaceDeclaration(xsi);
+			rootElement.addNamespaceDeclaration(tns);
+			rootElement.addNamespaceDeclaration(defaultns);
+			rootElement.setAttribute("schemaLocation", targetNamespace+" "+location+" "+rootElement.getNamespaceURI()+" "+rootLocation, xsi);
+		}
 		elements.push(rootElement);
 	}
 

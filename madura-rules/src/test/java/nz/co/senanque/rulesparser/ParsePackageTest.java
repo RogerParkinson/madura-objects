@@ -22,7 +22,7 @@ import java.util.List;
 
 import nz.co.senanque.parser.InputStreamParserSource;
 import nz.co.senanque.parser.ParserSource;
-import nz.co.senanque.schemaparser.SchemaParser;
+import nz.co.senanque.schemaparser.SchemaParserImpl;
 
 import org.apache.tools.ant.BuildException;
 import org.jdom.Document;
@@ -71,7 +71,7 @@ public class ParsePackageTest
     @Test
     public void testParse() throws Exception
     {
-        SchemaParser schemaParser = new SchemaParser();
+        SchemaParserImpl schemaParser = new SchemaParserImpl();
         schemaParser.parse(getSchema(), "nz.co.senanque.rulesparser");
         List<Class<?>> externalFunctions = new ArrayList<Class<?>>();
         externalFunctions.add(getExternalFunctions());
@@ -87,7 +87,7 @@ public class ParsePackageTest
     @Test
     public void testLogicalNot() throws Exception
     {
-        SchemaParser schemaParser = new SchemaParser();
+        SchemaParserImpl schemaParser = new SchemaParserImpl();
         schemaParser.parse(getSchema(), "nz.co.senanque.rulesparser");
         List<Class<?>> externalFunctions = new ArrayList<Class<?>>();
         externalFunctions.add(getExternalFunctions());
@@ -103,7 +103,7 @@ public class ParsePackageTest
     @Test
     public void testListFunctions() throws Exception
     {
-        SchemaParser schemaParser = new SchemaParser();
+        SchemaParserImpl schemaParser = new SchemaParserImpl();
         schemaParser.parse(getSchema(), "nz.co.senanque.rulesparser");
         List<Class<?>> externalFunctions = new ArrayList<Class<?>>();
         externalFunctions.add(getExternalFunctions());
@@ -119,7 +119,7 @@ public class ParsePackageTest
     @Test
     public void testNotKnownFunction() throws Exception
     {
-        SchemaParser schemaParser = new SchemaParser();
+        SchemaParserImpl schemaParser = new SchemaParserImpl();
         schemaParser.parse(getSchema(), "nz.co.senanque.rulesparser");
         List<Class<?>> externalFunctions = new ArrayList<Class<?>>();
         externalFunctions.add(getExternalFunctions());
@@ -135,7 +135,7 @@ public class ParsePackageTest
     @Test
     public void testPizzaOrder() throws Exception
     {
-        SchemaParser schemaParser = new SchemaParser();
+        SchemaParserImpl schemaParser = new SchemaParserImpl();
 		SAXBuilder builder = new SAXBuilder();
 		Document schemaDocument = builder.build(new File("src/test/resources/nz/co/senanque/pizzaorder/PizzaOrder.xsd"));
         schemaParser.parse(schemaDocument, "nz.co.senanque.pizzaorder");
@@ -152,7 +152,7 @@ public class ParsePackageTest
     @Test
     public void testBufferOverflow() throws Exception
     {
-        SchemaParser schemaParser = new SchemaParser();
+        SchemaParserImpl schemaParser = new SchemaParserImpl();
 		SAXBuilder builder = new SAXBuilder();
 		Document schemaDocument = builder.build(new File("src/test/resources/nz/co/senanque/bufferoverflow/overflow.xsd"));
         schemaParser.parse(schemaDocument, "nz.co.senanque.pizzaorder");
