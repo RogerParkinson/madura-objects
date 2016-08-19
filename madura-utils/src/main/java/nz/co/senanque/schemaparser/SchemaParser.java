@@ -15,5 +15,5 @@ public interface SchemaParser {
 	public abstract void traverse(SchemaVisitor visitor);
 
 	public abstract String getTargetNamespace();
-
+	
 }

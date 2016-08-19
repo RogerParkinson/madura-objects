@@ -98,7 +98,7 @@ public class SchemaParserImpl implements SchemaParser
 			throw new SchemaParserException("Failed to find package name",e);
 		}
     }
-	private String findtargetNamespace(Element parent) {
+	protected String findtargetNamespace(Element parent) {
 		Attribute attribute = parent.getAttribute("targetNamespace");
     	Namespace xsdNameSpace = null;
     	Namespace jaxbNameSpace = null;
