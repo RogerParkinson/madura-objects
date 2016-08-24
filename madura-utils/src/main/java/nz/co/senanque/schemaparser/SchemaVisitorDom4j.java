@@ -15,6 +15,7 @@
  *******************************************************************************/
 package nz.co.senanque.schemaparser;
 
+import java.util.Map;
 import java.util.Stack;
 
 import org.dom4j.Attribute;
@@ -37,6 +38,7 @@ public class SchemaVisitorDom4j implements SchemaVisitor {
 	private final QName rootName;
 	private final String location;
 	private final String rootLocation;
+	private Map<String, ObjectDescriptor> classes;
 	
 	public SchemaVisitorDom4j(QName r, String loc, String rloc) {
 		rootName = r;
@@ -45,7 +47,8 @@ public class SchemaVisitorDom4j implements SchemaVisitor {
 	}
 
 	@Override
-	public void initialize(String xsdpackageName, String targetNamespace) {
+	public void initialize(String xsdpackageName, String targetNamespace, Map<String, ObjectDescriptor> classes) {
+		this.classes = classes;
 		Element root = document.addElement(rootName );
 		Namespace xsi = DocumentHelper.createNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		root.add(xsi);

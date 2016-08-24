@@ -15,6 +15,7 @@
  *******************************************************************************/
 package nz.co.senanque.schemaparser;
 
+import java.util.Map;
 import java.util.Stack;
 
 import nz.co.senanque.asserts.MaduraAsserts;
@@ -38,6 +39,7 @@ public class SchemaVisitorJdom implements SchemaVisitor {
 	private final String location;
 	private final String rootLocation;
 	private Namespace defaultns;
+	private Map<String, ObjectDescriptor> classes;
 	
 	public SchemaVisitorJdom(Element r, String loc, String rloc) {
 		document = new Document(r);
@@ -46,7 +48,8 @@ public class SchemaVisitorJdom implements SchemaVisitor {
 	}
 
 	@Override
-	public void initialize(String xsdpackageName, String targetNamespace) {
+	public void initialize(String xsdpackageName, String targetNamespace, Map<String, ObjectDescriptor> classes) {
+		this.classes = classes;
 		MaduraAsserts.assertNotNull("unexpected null value for xsdpackageName",xsdpackageName);
 //		MaduraAsserts.assertNotNull("unexpected null value for targetNamespace",targetNamespace);
 		Element rootElement = document.getDocument().getRootElement();
@@ -82,6 +85,13 @@ public class SchemaVisitorJdom implements SchemaVisitor {
 		Element o = new Element(fieldDescriptor.getName(),defaultns);
 		root.addContent(o);
 		elements.push(o);
+		if (!fieldDescriptor.isSimpleType()) {
+			// this field refers to an object.
+			ObjectDescriptor od = classes.get(fieldDescriptor.getType());
+			if (od != null) {
+				od.traverse(this);
+			}
+		}
 	}
 
 	@Override

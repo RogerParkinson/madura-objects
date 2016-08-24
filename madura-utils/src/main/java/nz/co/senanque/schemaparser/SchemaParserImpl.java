@@ -255,6 +255,7 @@ public class SchemaParserImpl implements SchemaParser
                         list = true;
                     }
                 }
+                boolean simpleType = true;
                 String translatedType = s_types.get(type);
                 if (translatedType == null)
                 {
@@ -263,9 +264,11 @@ public class SchemaParserImpl implements SchemaParser
                     if (st != null) {
                     	restrictions = st.getRestrictions();
                     	translatedType = st.getType();
+                    } else {
+                    	simpleType = false;
                     }
                 }
-                fields.put(name,new FieldDescriptor(clazz,name,translatedType,list,restrictions));
+                fields.put(name,new FieldDescriptor(clazz,name,translatedType,list,restrictions,simpleType));
             }
             else
             {
@@ -409,7 +412,7 @@ public class SchemaParserImpl implements SchemaParser
 	 */
     @Override
 	public void traverse(SchemaVisitor visitor) {
-    	visitor.initialize(m_xsdpackageName, m_targetNamespace);
+    	visitor.initialize(m_xsdpackageName, m_targetNamespace,m_classes);
     	for (Map.Entry<String,ObjectDescriptor> entry: m_elements.entrySet()) {
     		ObjectDescriptor objectDescriptor = entry.getValue();
     		// get the type and call the visitor for it.

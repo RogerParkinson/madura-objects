@@ -21,7 +21,6 @@ import java.util.List;
 
 import nz.co.senanque.schemaparser.restrictions.Restriction;
 
-
 /**
  * 
  * Field descriptor
@@ -36,16 +35,18 @@ public class FieldDescriptor
     private final String m_type;
     private final boolean m_list;
     private List<Restriction> m_restrictions;
+	private final boolean m_simpleType;
     
     public String toString() {
     	return m_name;
     }
     
-    public FieldDescriptor(String clazz,String name, String type, boolean list, List<Restriction> restrictions)
+    public FieldDescriptor(String clazz,String name, String type, boolean list, List<Restriction> restrictions, boolean simpleType)
     {
         m_clazz = clazz;
         m_name = name;
         m_type = type;
+        m_simpleType = simpleType;
         m_list = list;
         m_restrictions = restrictions;
         for (Restriction r: restrictions) {
@@ -53,7 +54,7 @@ public class FieldDescriptor
         }
     }
     public FieldDescriptor(String clazz,String name, String type, boolean list) {
-    	this(clazz,name,type,list,new ArrayList<Restriction>());
+    	this(clazz,name,type,list,new ArrayList<Restriction>(),true);
     }
 
     public String getName()
@@ -84,6 +85,10 @@ public class FieldDescriptor
 	
 	public String getSortKey() {
 		return m_clazz+"."+m_name;
+	}
+
+	public boolean isSimpleType() {
+		return m_simpleType;
 	}
     
 }
