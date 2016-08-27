@@ -91,6 +91,9 @@ public class SchemaVisitorJdom implements SchemaVisitor {
 			if (od != null) {
 				od.traverse(this);
 			}
+//		} else if (fieldDescriptor.isList()) {
+//			Element t = new Element(fieldDescriptor.getType(),defaultns);
+//			o.addContent(t);
 		}
 	}
 
