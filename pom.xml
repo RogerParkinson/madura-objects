@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nz.co.senanque</groupId>
 	<artifactId>madura-objects-parent</artifactId>
-	<version>3.0.6-SNAPSHOT</version>
+	<version>3.0.6</version>
 	<name>Madura Objects Parent Project</name>
 	<packaging>pom</packaging>
 	<url>www.madurasoftware.com</url>
