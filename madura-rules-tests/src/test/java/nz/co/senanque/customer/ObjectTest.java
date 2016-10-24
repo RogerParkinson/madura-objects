@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package nz.co.senanque.base;
+package nz.co.senanque.customer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -29,6 +29,13 @@ import javax.xml.namespace.QName;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 
+import nz.co.senanque.base.BusinessCustomer;
+import nz.co.senanque.base.Customer;
+import nz.co.senanque.base.CustomerDAO;
+import nz.co.senanque.base.IndustryType;
+import nz.co.senanque.base.Invoice;
+import nz.co.senanque.base.Session;
+import nz.co.senanque.base.SpringConfiguration;
 import nz.co.senanque.rules.ConstraintViolationException;
 import nz.co.senanque.validationengine.FieldMetadata;
 import nz.co.senanque.validationengine.ObjectMetadata;
@@ -59,7 +66,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @version $Revision: 1.8 $
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration( classes = SpringConfiguration.class)
+@ContextConfiguration( classes = {SpringConfiguration.class,ObjectConfiguration.class})
 public class ObjectTest
 {
     private final Logger log = LoggerFactory.getLogger(this.getClass());

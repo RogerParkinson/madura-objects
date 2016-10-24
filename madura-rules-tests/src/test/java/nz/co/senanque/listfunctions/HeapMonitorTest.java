@@ -21,6 +21,7 @@ import nz.co.senanque.base.Customer;
 import nz.co.senanque.base.CustomerDAO;
 import nz.co.senanque.base.Invoice;
 import nz.co.senanque.base.Session;
+import nz.co.senanque.base.SpringConfiguration;
 import nz.co.senanque.rules.ConstraintViolationException;
 import nz.co.senanque.validationengine.ValidationEngine;
 import nz.co.senanque.validationengine.ValidationSession;
@@ -42,7 +43,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @version $Revision: 1.3 $
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"spring.xml"})
+@ContextConfiguration( classes = {SpringConfiguration.class,ListFunctionConfiguration.class})
 public class HeapMonitorTest
 {
     private static final Logger logger = LoggerFactory.getLogger(HeapMonitorTest.class);

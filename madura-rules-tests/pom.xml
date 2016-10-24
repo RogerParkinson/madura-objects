@@ -281,7 +281,7 @@
 							<rules>Customer.rul</rules>
 							<schema>Customer.xsd</schema>
 							<bufferSize>2000</bufferSize>
-							<packageName>nz.co.senanque.base</packageName>
+							<packageName>nz.co.senanque.customer</packageName>
 							<xsdpackageName>nz.co.senanque.base</xsdpackageName>
 							<externalFunctionClasses>
 								<param>nz.co.senanque.pizzaorder.externals.MyExternalFunctions</param>

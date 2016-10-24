@@ -19,12 +19,14 @@ import static org.junit.Assert.assertEquals;
 import nz.co.senanque.base.Customer;
 import nz.co.senanque.base.CustomerDAO;
 import nz.co.senanque.base.Invoice;
+import nz.co.senanque.base.SpringConfiguration;
 import nz.co.senanque.validationengine.ValidationEngine;
 import nz.co.senanque.validationengine.ValidationSession;
 
-import org.apache.commons.logging.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -38,11 +40,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @version $Revision: 1.3 $
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"spring.xml"})
+@ContextConfiguration( classes = {SpringConfiguration.class,ListFunctionConfiguration.class})
 public class ListFunctionTest
 {
     @SuppressWarnings("unused")
-	private static final Log log = org.apache.commons.logging.LogFactory.getLog(ListFunctionTest.class);
+    private final Logger log = LoggerFactory.getLogger(ListFunctionTest.class);
     @Autowired private transient ValidationEngine m_validationEngine;
     @Autowired private transient CustomerDAO m_customerDAO;
 
