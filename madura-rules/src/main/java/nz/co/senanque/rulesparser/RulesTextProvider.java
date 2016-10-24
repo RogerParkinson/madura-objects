@@ -16,11 +16,13 @@
 package nz.co.senanque.rulesparser;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeMap;
 
 import nz.co.senanque.parser.AbstractTextProvider;
 import nz.co.senanque.parser.ParserException;
@@ -39,7 +41,18 @@ import nz.co.senanque.schemaparser.SchemaParser;
 public class RulesTextProvider extends AbstractTextProvider implements FunctionDescriptorHolder, TOCInterface
 {
     private Map<String,FunctionDescriptor> m_functionMap = new HashMap<String,FunctionDescriptor>();
-    private Map<String,FunctionDescriptor> m_operatorMap = new HashMap<String,FunctionDescriptor>();
+    private Map<String,FunctionDescriptor> m_operatorMap = new TreeMap<String,FunctionDescriptor>(new Comparator<String>(){
+
+		@Override
+		public int compare(String o1, String o2) {
+			if (o1.length() == o2.length()) {
+				o1.compareTo(o2);
+			}
+			if (o1.length() < o2.length()) {
+				return 1;
+			}
+			return -1;
+		}});
     private final SchemaParser m_schemaParser;
     private String m_currentScope;
     private List<AbstractRule> m_rules = new ArrayList<AbstractRule>();
