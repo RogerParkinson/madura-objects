@@ -331,16 +331,16 @@ public class ObjectTest
 //at org.hibernate.impl.SessionImpl.flush(SessionImpl.java:1028)
 //at nz.co.senanque.sandbox.CustomerDAOImpl.save(CustomerDAOImpl.java:65)
     
-    @Ignore("See above, but only happens if run w other tests")
-    @Test
-    public void testTransaction() throws Exception
-    {
-        Customer customer = m_customerDAO.createCustomer();
-        customer.setName("aaaaaab");
-        @SuppressWarnings("unused")
-		final long id = m_customerDAO.save(customer);
-        m_customerDAO.transactionTester();
-    }
+//    @Ignore("See above, but only happens if run w other tests")
+//    @Test
+//    public void testTransaction() throws Exception
+//    {
+//        Customer customer = m_customerDAO.createCustomer();
+//        customer.setName("aaaaaab");
+//        @SuppressWarnings("unused")
+//		final long id = m_customerDAO.save(customer);
+//        m_customerDAO.transactionTester();
+//    }
 
 
 }

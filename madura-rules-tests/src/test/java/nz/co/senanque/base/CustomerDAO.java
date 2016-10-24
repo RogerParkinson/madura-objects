@@ -15,7 +15,6 @@
  *******************************************************************************/
 package nz.co.senanque.base;
 
-import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -38,9 +37,5 @@ public interface CustomerDAO
     long save(Customer customer);
 
     Customer getCustomer(long id);
-    SessionFactory getSessionFactory();
-
-    @Transactional(readOnly = true)
-    void transactionTester();
 
 }

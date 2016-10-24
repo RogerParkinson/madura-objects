@@ -17,7 +17,6 @@ package nz.co.senanque.base;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import org.springframework.oxm.Marshaller;
 
 import nz.co.senanque.resourceloader.ResourceBundleMessageSourceExt;
 import nz.co.senanque.validationengine.ValidationEngine;
@@ -36,8 +35,10 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author Roger Parkinson
@@ -50,6 +51,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 		"nz.co.senanque.rules",
 		"nz.co.senanque.base" })
 @PropertySource("classpath:config.properties")
+@EnableTransactionManagement
 public class SpringConfiguration {
 
 	@Autowired

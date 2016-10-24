@@ -103,7 +103,7 @@ http://code.google.com/p/madura-rules/
     			<simpleType>
     				<restriction base="string">
     					<maxLength value="30"></maxLength>
-    					<pattern value="a*b"></pattern>
+     					<pattern value="a*b"></pattern>
     				</restriction>
     			</simpleType>
     		</element>
