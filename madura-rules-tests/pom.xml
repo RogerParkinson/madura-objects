@@ -314,6 +314,32 @@
 							<xsdpackageName>nz.co.senanque.base</xsdpackageName>
 						</configuration>
 					</execution>
+					<execution>
+						<id>oneinvoice</id>
+						<goals>
+							<goal>xjr</goal>
+						</goals>
+						<configuration>
+							<rules>OneInvoice.rul</rules>
+							<schema>Customer.xsd</schema>
+							<bufferSize>2000</bufferSize>
+							<packageName>nz.co.senanque.oneinvoice</packageName>
+							<xsdpackageName>nz.co.senanque.base</xsdpackageName>
+						</configuration>
+					</execution>
+					<execution>
+						<id>performance</id>
+						<goals>
+							<goal>xjr</goal>
+						</goals>
+						<configuration>
+							<rules>Performance.rul</rules>
+							<schema>Customer.xsd</schema>
+							<bufferSize>2000</bufferSize>
+							<packageName>nz.co.senanque.performance</packageName>
+							<xsdpackageName>nz.co.senanque.base</xsdpackageName>
+						</configuration>
+					</execution>
 				</executions>
 				<dependencies>
 					<dependency>

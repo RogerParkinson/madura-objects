@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package nz.co.senanque.functions;
+package nz.co.senanque.oneinvoice;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.Date;
-
+import nz.co.senanque.base.BusinessCustomer;
 import nz.co.senanque.base.Customer;
 import nz.co.senanque.base.CustomerDAO;
-import nz.co.senanque.base.Invoice;
+import nz.co.senanque.base.IndustryType;
 import nz.co.senanque.base.SpringConfiguration;
 import nz.co.senanque.validationengine.ValidationEngine;
 import nz.co.senanque.validationengine.ValidationSession;
 
+import org.apache.commons.logging.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,40 +37,28 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Tests to verify that the XSD generated objects actually do serialise properly
  * 
  * @author Roger Parkinson
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration( classes = {SpringConfiguration.class,FunctionConfiguration.class})
-public class FunctionTest
+@ContextConfiguration(classes = {SpringConfiguration.class, OneInvoiceConfiguration.class})
+public class OneInvoice2Test
 {
+    @SuppressWarnings("unused")
+	private static final Log log = org.apache.commons.logging.LogFactory.getLog(OneInvoice2Test.class);
     @Autowired private transient ValidationEngine m_validationEngine;
     @Autowired private transient CustomerDAO m_customerDAO;
 
+
     @Test
     public void test1() throws Exception
-    {
+    {        
         ValidationSession validationSession = m_validationEngine.createSession();
 
-        Customer customer = m_customerDAO.createCustomer();
+        Customer customer = new BusinessCustomer();
         validationSession.bind(customer);
-        Invoice invoice = new Invoice();
-        invoice.setDescription("test invoice");
-        customer.setOneInvoice(invoice);
-		customer.setAmount(130);
-        
-        Double d = invoice.getAmount();
-        
-        // proves r1 fired okay
-        assertEquals(130L,d.longValue());
-
-        long days = invoice.getDays();
-
-        // proves r2 fired okay
-        assertEquals(3834L,days);
-        
-        Date revisedDate = invoice.getRevisedDate();
-        assertEquals("Mon Apr 24 00:00:00 NZST 2000",revisedDate.toString());
-        
+        IndustryType industryType = customer.getBusinessy();
+        assertEquals(null,industryType);
     }
+
 
 }
