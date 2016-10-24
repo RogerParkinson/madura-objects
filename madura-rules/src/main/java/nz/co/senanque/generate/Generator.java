@@ -78,8 +78,9 @@ public class Generator
         JCodeModel cm = new JCodeModel();
         JPackage jpackage = cm._package(packageName);
         JDefinedClass maduraResourceComponent = jpackage._class("MaduraResourceComponent");
-        maduraResourceComponent.annotate(org.springframework.stereotype.Component.class);
-        JAnnotationUse annotationUse = maduraResourceComponent.annotate(MessageResource.class);
+        JAnnotationUse annotationUse = maduraResourceComponent.annotate(org.springframework.stereotype.Component.class);
+        annotationUse.param("value", maduraResourceComponent.fullName());
+        annotationUse = maduraResourceComponent.annotate(MessageResource.class);
         annotationUse.param("value", "messages");
 //        JFieldVar serialVersionUIDField = maduraResourceComponent.field(JMod.FINAL|JMod.PRIVATE|JMod.STATIC, long.class, "serialVersionUID");
 //        serialVersionUIDField.init(JExpr.lit(1L));
@@ -110,7 +111,8 @@ public class Generator
         ruleClass.javadoc().add(comment);
         ruleClass._implements(ruleDefinedClass);
         ruleClass._implements(serializableClass);
-        ruleClass.annotate(org.springframework.stereotype.Component.class);
+        JAnnotationUse annotationUse = ruleClass.annotate(org.springframework.stereotype.Component.class);
+        annotationUse.param("value", ruleClass.fullName());
         JFieldVar serialVersionUIDField = ruleClass.field(JMod.FINAL|JMod.PRIVATE|JMod.STATIC, long.class, "serialVersionUID");
         serialVersionUIDField.init(JExpr.lit(1L));
         JMethod evaluateMethod = ruleClass.method(JMod.PUBLIC, cm.VOID, "evaluate");
@@ -187,7 +189,7 @@ public class Generator
         }
         
         JMethod getRuleNameMethod = ruleClass.method(JMod.PUBLIC, cm.ref(String.class), "getRuleName");
-        getRuleNameMethod.body()._return(JExpr.lit(rule.getName()+":"+rule.getMessage()));
+        getRuleNameMethod.body()._return(JExpr.lit(packageName+"."+rule.getName()+":"+rule.getMessage()));
         
 //        JMethod getMessageMethod = ruleClass.method(JMod.PUBLIC, cm.ref(String.class), "getMessage");
 //        getMessageMethod.body()._return(JExpr.lit(packageName+"."+rule.getName()));
@@ -226,7 +228,7 @@ public class Generator
         getMessageMethod1.body()._return(sessionVar1.invoke("getMessage").arg(JExpr.lit(packageName+"."+rule.getName())).arg(jarray1));
         
         JMethod toStringMethod = ruleClass.method(JMod.PUBLIC, cm.ref(String.class), "toString");
-        toStringMethod.body()._return(JExpr.lit(rule.getName()+":"+rule.getMessage()));
+        toStringMethod.body()._return(JExpr.lit(packageName+"."+rule.getName()+":"+rule.getMessage()));
         
         JMethod getClassNameMethod = ruleClass.method(JMod.PUBLIC, cm.ref(String.class), "getClassName");
         getClassNameMethod.body()._return(JExpr.lit(/*objectPackage+"."+*/rule.getClassName()));
