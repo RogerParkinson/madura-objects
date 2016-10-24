@@ -301,6 +301,19 @@
 							<xsdpackageName>nz.co.senanque.base</xsdpackageName>
 						</configuration>
 					</execution>
+					<execution>
+						<id>functions</id>
+						<goals>
+							<goal>xjr</goal>
+						</goals>
+						<configuration>
+							<rules>Functions.rul</rules>
+							<schema>Customer.xsd</schema>
+							<bufferSize>2000</bufferSize>
+							<packageName>nz.co.senanque.functions</packageName>
+							<xsdpackageName>nz.co.senanque.base</xsdpackageName>
+						</configuration>
+					</execution>
 				</executions>
 				<dependencies>
 					<dependency>
