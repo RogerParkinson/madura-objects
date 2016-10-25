@@ -15,18 +15,7 @@
  *******************************************************************************/
 package nz.co.senanque.alltests;
 
-import nz.co.senanque.base.ObjectTest;
-import nz.co.senanque.decisiontable.PrototypeDecisionTableTest;
-import nz.co.senanque.directed.DirectedRulesTest;
-import nz.co.senanque.functions.FunctionTest;
-import nz.co.senanque.listfunctions.HeapMonitorTest;
-import nz.co.senanque.listfunctions.ListFunctionTest;
-import nz.co.senanque.notknown.NotKnownRulesTest;
-import nz.co.senanque.oneinvoice.OneInvoice2Test;
-import nz.co.senanque.oneinvoice.OneInvoiceTest;
-import nz.co.senanque.pizzaorder.PizzaOrderTest;
 import nz.co.senanque.rulesparser.ParsePackageTest;
-import nz.co.senanque.tableconstraint.TableConstraintTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -34,19 +23,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-//	XJRTest.class,
-	ObjectTest.class,
-	FunctionTest.class,
-	ListFunctionTest.class,
-	HeapMonitorTest.class,
-	OneInvoiceTest.class,
-	OneInvoice2Test.class,
-	PizzaOrderTest.class,
-	PrototypeDecisionTableTest.class,
-	DirectedRulesTest.class,
-	NotKnownRulesTest.class,
-	ParsePackageTest.class,
-	TableConstraintTest.class
+	ParsePackageTest.class
 	})
 public class AllTests
 {

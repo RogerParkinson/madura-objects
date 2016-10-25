@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import nz.co.senanque.parser.InputStreamParserSource;
 import nz.co.senanque.parser.ParserSource;
@@ -28,6 +29,8 @@ import org.apache.tools.ant.BuildException;
 import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -38,6 +41,7 @@ import org.junit.Test;
  */
 public class ParsePackageTest
 {
+    private final Logger log = LoggerFactory.getLogger(ParsePackageTest.class);
 	
 	String SOURCE_DIR = "src/test/resources/nz/co/senanque/rulesparser/";
 	Document m_document = null;
@@ -111,6 +115,9 @@ public class ParsePackageTest
         ParserSource parserSource = new InputStreamParserSource(new FileInputStream(fileName), fileName);
         RulesTextProvider fileProvider = new RulesTextProvider(parserSource, schemaParser, externalFunctions);
         new FunctionDescriptorFactory().loadOperators(fileProvider);
+        for (Map.Entry<String,FunctionDescriptor> e: fileProvider.getOperators()) {
+        	log.debug(e.getKey());
+        }
         ParsePackage pp = new ParsePackage();
         pp.parse(fileProvider);
 
@@ -129,7 +136,22 @@ public class ParsePackageTest
         new FunctionDescriptorFactory().loadOperators(fileProvider);
         ParsePackage pp = new ParsePackage();
         pp.parse(fileProvider);
-
+    }
+    @Test
+    public void testBufferOverflow() throws Exception
+    {
+        SchemaParserImpl schemaParser = new SchemaParserImpl();
+		SAXBuilder builder = new SAXBuilder();
+		Document schemaDocument = builder.build(new File(SOURCE_DIR+"overflow.xsd"));
+        schemaParser.parse(schemaDocument, "nz.co.senanque.pizzaorder");
+        List<Class<?>> externalFunctions = new ArrayList<Class<?>>();
+        String fileName = SOURCE_DIR+"overflow.rul";
+        ParserSource parserSource = new InputStreamParserSource(new FileInputStream(fileName), fileName, 400);
+        RulesTextProvider fileProvider = new RulesTextProvider(parserSource, schemaParser, externalFunctions);
+        new FunctionDescriptorFactory().loadOperators(fileProvider);
+        ParsePackage pp = new ParsePackage();
+        pp.setDebug(true);
+        pp.parse(fileProvider);
     }
 
     @Test
@@ -137,32 +159,14 @@ public class ParsePackageTest
     {
         SchemaParserImpl schemaParser = new SchemaParserImpl();
 		SAXBuilder builder = new SAXBuilder();
-		Document schemaDocument = builder.build(new File("src/test/resources/nz/co/senanque/pizzaorder/PizzaOrder.xsd"));
-        schemaParser.parse(schemaDocument, "nz.co.senanque.pizzaorder");
+		Document schemaDocument = builder.build(new File(SOURCE_DIR+"PizzaOrder.xsd"));
+        schemaParser.parse(schemaDocument, "nz.co.senanque.pizzaorder.instances");
         List<Class<?>> externalFunctions = new ArrayList<Class<?>>();
-        String fileName = "src/test/resources/nz/co/senanque/pizzaorder/PizzaOrderRules.txt";
+        String fileName = SOURCE_DIR+"PizzaOrder.rul";
         ParserSource parserSource = new InputStreamParserSource(new FileInputStream(fileName), fileName, 2000);
         RulesTextProvider fileProvider = new RulesTextProvider(parserSource, schemaParser, externalFunctions);
         new FunctionDescriptorFactory().loadOperators(fileProvider);
         ParsePackage pp = new ParsePackage();
-        pp.parse(fileProvider);
-
-    }
-
-    @Test
-    public void testBufferOverflow() throws Exception
-    {
-        SchemaParserImpl schemaParser = new SchemaParserImpl();
-		SAXBuilder builder = new SAXBuilder();
-		Document schemaDocument = builder.build(new File("src/test/resources/nz/co/senanque/bufferoverflow/overflow.xsd"));
-        schemaParser.parse(schemaDocument, "nz.co.senanque.pizzaorder");
-        List<Class<?>> externalFunctions = new ArrayList<Class<?>>();
-        String fileName = "src/test/resources/nz/co/senanque/bufferoverflow/overflow.rul";
-        ParserSource parserSource = new InputStreamParserSource(new FileInputStream(fileName), fileName, 400);
-        RulesTextProvider fileProvider = new RulesTextProvider(parserSource, schemaParser, externalFunctions);
-        new FunctionDescriptorFactory().loadOperators(fileProvider);
-        ParsePackage pp = new ParsePackage();
-        pp.setDebug(true);
         pp.parse(fileProvider);
 
     }

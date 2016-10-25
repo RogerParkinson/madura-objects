@@ -25,7 +25,6 @@ import nz.co.senanque.base.CustomerDAO;
 import nz.co.senanque.base.IndustryType;
 import nz.co.senanque.base.Invoice;
 import nz.co.senanque.base.SpringConfiguration;
-import nz.co.senanque.oneinvoice.OneInvoiceConfiguration;
 import nz.co.senanque.validationengine.FieldMetadata;
 import nz.co.senanque.validationengine.ObjectMetadata;
 import nz.co.senanque.validationengine.ValidationEngine;

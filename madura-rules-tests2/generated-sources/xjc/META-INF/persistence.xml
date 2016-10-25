@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd
+http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:orm="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <persistence-unit name="nz.co.senanque.base">
+        <class>nz.co.senanque.base.Bread</class>
+        <class>nz.co.senanque.base.Customer</class>
+        <class>nz.co.senanque.base.Dessert</class>
+        <class>nz.co.senanque.base.Drink</class>
+        <class>nz.co.senanque.base.Extra</class>
+        <class>nz.co.senanque.base.Order</class>
+        <class>nz.co.senanque.base.OrderItem</class>
+        <class>nz.co.senanque.base.Pizza</class>
+        <class>nz.co.senanque.base.Preference</class>
+        <class>nz.co.senanque.base.Session</class>
+    </persistence-unit>
+</persistence>

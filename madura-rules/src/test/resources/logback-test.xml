@@ -7,7 +7,10 @@
 	</encoder>
 	</appender>
 	<logger name="nz.co.senanque.performance" level="info"/>
-<!-- 	
+<!--
+	<logger name="nz.co.senanque.rulesparser.FunctionDescriptorFactory" level="debug"/>
+	<logger name="nz.co.senanque.rulesparser.ParsePackageTest" level="debug"/>
+ 	
 	<logger name="nz.co.senanque.rulesparser" level="debug"/>
 	<logger name="nz.co.senanque.parser" level="debug"/>
 	<logger name="org.hibernate.tool.hbm2ddl.SchemaExport" level="debug"/>

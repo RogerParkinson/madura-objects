@@ -258,6 +258,15 @@
 	    <pluginManagement>
 	    	<plugins>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9.1</version>
+					<configuration>
+						<additionalparam>-Xdoclint:none</additionalparam>
+					</configuration>
+				</plugin>
+
+				<plugin>
 					<inherited>true</inherited>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>2.0.2</version>
@@ -490,5 +499,7 @@
 		<module>madura-objects-cdi</module>
 		<module>madura-objects-test-externals</module>
 		<module>madura-objects-tests</module>
+		<module>madura-rules-tests</module>
+		<module>madura-rules-tests2</module>
 	</modules>
 </project>

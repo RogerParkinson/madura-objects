@@ -133,8 +133,8 @@
 							<goal>testCompile</goal>
 						</goals>
 						<configuration>
-							<source>1.7</source>
-							<target>1.7</target>
+							<source>${java.version}</source>
+							<target>${java.version}</target>
 							<testIncludes>
 								<include>**/JAXBWrapperTest.java</include>
 							</testIncludes>
@@ -147,8 +147,8 @@
 							<goal>testCompile</goal>
 						</goals>
 						<configuration>
-							<source>1.7</source>
-							<target>1.7</target>
+							<source>${java.version}</source>
+							<target>${java.version}</target>
 							<testExcludes>
 								<exclude>**/JAXBWrapperTest.java</exclude>
 							</testExcludes>
@@ -161,15 +161,15 @@
 							<goal>compile</goal>
 						</goals>
 						<configuration>
-							<source>1.7</source>
-							<target>1.7</target>
+							<source>${java.version}</source>
+							<target>${java.version}</target>
 						</configuration>
 					</execution>
 				</executions>
 				<inherited>true</inherited>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -267,7 +267,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
