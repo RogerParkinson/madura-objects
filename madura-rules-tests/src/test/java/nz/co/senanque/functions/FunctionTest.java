@@ -35,7 +35,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 /**
- * Tests to verify that the XSD generated objects actually do serialise properly
+ * Tests to verify certain rule functions re working correctly, specifically addDays and daysSince.
  * 
  * @author Roger Parkinson
  * @version $Revision: 1.2 $

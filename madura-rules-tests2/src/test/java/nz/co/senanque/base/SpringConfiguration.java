@@ -28,6 +28,11 @@ import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
+ * Common configuration file. This demonstrates how simple the configuration
+ * files can get, though there is a small complication that needs an XML import
+ * because of the message source. The message source uses a custom message source here
+ * which reads from an XML file.
+ * 
  * @author Roger Parkinson
  *
  */
@@ -60,52 +65,6 @@ public class SpringConfiguration {
 		m_engine = engine;
 	}
 
-/*	@Bean
-	public MessageSource messageSource() {
-		XMLMessageSource messageSource = new XMLMessageSource();
-		messageSource.setResource(new ClassPathResource("/Messages.xml"));
-		ResourceBundleMessageSourceExt resourceBundleMessageSource = new ResourceBundleMessageSourceExt();
-		messageSource.setParentMessageSource(resourceBundleMessageSource);
-		resourceBundleMessageSource.init();
-//		resourceBundleMessageSource.setBasename("Messages");
-		return messageSource;
-	}
-	
-
-	@Bean
-	public DataSource dataSource() {
-		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-		return builder.setType(EmbeddedDatabaseType.H2).build();
-	}
-
-	@Bean
-	public EntityManagerFactory entityManagerFactory() {
-
-		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		vendorAdapter.setGenerateDdl(true);
-
-		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-		factory.setJpaVendorAdapter(vendorAdapter);
-		factory.setDataSource(dataSource());
-		factory.afterPropertiesSet();
-
-		return factory.getObject();
-	}
-
-	@Bean
-	public PlatformTransactionManager transactionManager() {
-
-		JpaTransactionManager txManager = new JpaTransactionManager();
-		txManager.setEntityManagerFactory(entityManagerFactory());
-		return txManager;
-	}
-	@Bean
-	public Marshaller getJaxb2Marshaller() {
-		Jaxb2Marshaller ret = new Jaxb2Marshaller();
-		ret.setContextPath("nz.co.senanque.base");
-		return ret;
-	}
-*/
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
 		return new PropertySourcesPlaceholderConfigurer();

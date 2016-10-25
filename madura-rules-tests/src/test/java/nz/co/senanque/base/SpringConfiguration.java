@@ -41,6 +41,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
+ * Common Spring configuration. This uses JPA/Hibernate/H2 to map the
+ * objects to a database and some of the tests verify that the serialisation
+ * to/from the database works correctly.
+ * 
  * @author Roger Parkinson
  *
  */

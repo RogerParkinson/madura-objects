@@ -34,7 +34,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 /**
- * Tests to verify that the XSD generated objects actually do serialise properly
+ * Tests the list functions: allTrue, anyTrue, countTrue and count.
  * 
  * @author Roger Parkinson
  * @version $Revision: 1.3 $

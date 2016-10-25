@@ -44,7 +44,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 /**
- * Tests to verify that the XSD generated objects actually do serialise properly
+ * Verifies the behaviour of a simple decision table. There are no rul rules in this.
  * 
  * @author Roger Parkinson
  * @version $Revision: 1.1 $

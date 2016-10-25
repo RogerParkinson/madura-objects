@@ -37,7 +37,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 /**
- * Tests to verify that the XSD generated objects actually do serialise properly
+ * More list testing such as clearing lists and repopulating them.
  * 
  * @author Roger Parkinson
  * @version $Revision: 1.3 $

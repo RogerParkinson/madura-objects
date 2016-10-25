@@ -46,7 +46,6 @@ import nz.co.senanque.validationengine.choicelists.ChoiceBase;
 
 import org.jdom.input.SAXBuilder;
 import org.jdom.transform.JDOMSource;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -60,7 +59,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 /**
- * Tests to verify that the XSD generated objects actually do serialise properly
+ * Tests to verify that the XSD generated objects actually do serialise properly.
+ * Various other rule derived values are tested for.
  * 
  * @author Roger Parkinson
  * @version $Revision: 1.8 $
@@ -324,30 +324,4 @@ public class ObjectTest
     }
 
     
-//org.hibernate.StaleObjectStateException: Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect): [nz.co.senanque.madura.sandbox.Customer#0]
-//at org.hibernate.persister.entity.AbstractEntityPersister.check(AbstractEntityPersister.java:1782)
-//at org.hibernate.persister.entity.AbstractEntityPersister.update(AbstractEntityPersister.java:2425)
-//at org.hibernate.persister.entity.AbstractEntityPersister.updateOrInsert(AbstractEntityPersister.java:2325)
-//at org.hibernate.persister.entity.AbstractEntityPersister.update(AbstractEntityPersister.java:2625)
-//at org.hibernate.action.EntityUpdateAction.execute(EntityUpdateAction.java:115)
-//at org.hibernate.engine.ActionQueue.execute(ActionQueue.java:279)
-//at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:263)
-//at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:168)
-//at org.hibernate.event.def.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:321)
-//at org.hibernate.event.def.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:50)
-//at org.hibernate.impl.SessionImpl.flush(SessionImpl.java:1028)
-//at nz.co.senanque.sandbox.CustomerDAOImpl.save(CustomerDAOImpl.java:65)
-    
-//    @Ignore("See above, but only happens if run w other tests")
-//    @Test
-//    public void testTransaction() throws Exception
-//    {
-//        Customer customer = m_customerDAO.createCustomer();
-//        customer.setName("aaaaaab");
-//        @SuppressWarnings("unused")
-//		final long id = m_customerDAO.save(customer);
-//        m_customerDAO.transactionTester();
-//    }
-
-
 }

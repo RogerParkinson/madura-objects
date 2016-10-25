@@ -37,6 +37,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
+/**
+ * Tries various options on the pizza order. Some of the options affect price and that is tested for.
+ * Other options affect what other options are available.
+ * We also test that clearing a previously selected option properly reverts everything it should.
+ * 
+ * @author Roger Parkinson
+ *
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration( classes = {SpringConfiguration.class,PizzaOrderConfiguration.class})
 public class PizzaOrderTest
