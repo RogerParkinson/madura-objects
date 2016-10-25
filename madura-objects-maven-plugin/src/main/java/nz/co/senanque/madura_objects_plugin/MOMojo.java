@@ -192,6 +192,7 @@ public class MOMojo
 		initialList.add("-XhashCode");
 		initialList.add("-Xhyperjaxb3-ejb");
 		initialList.add("-Xmadura-objects");
+		initialList.add("-Xvalidator");
 		return initialList;
 	}
 

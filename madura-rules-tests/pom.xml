@@ -145,111 +145,6 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.jvnet.jaxb2.maven2</groupId>
-				<artifactId>maven-jaxb2-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<configuration>
-							<schemaDirectory>src/main/resources/</schemaDirectory>
-							<schemaIncludes>
-								<include>Customer.xsd</include>
-							</schemaIncludes>
-							<generateDirectory>${basedir}/generated-sources/xjc</generateDirectory>
-						</configuration>
-					</execution>
-				</executions>
-					<dependencies>
-						<dependency>
-							<groupId>nz.co.senanque</groupId>
-							<artifactId>madura-objects</artifactId>
-							<version>${project.version}</version>
-						</dependency>
-						<dependency>
-							<groupId>org.jvnet.hyperjaxb3</groupId>
-							<artifactId>hyperjaxb3-ejb-runtime</artifactId>
-							<version>${hyperjaxb3-ejb-runtime.version}</version>
-							<exclusions>
-								<exclusion>
-									<groupId>commons-logging</groupId>
-									<artifactId>commons-logging</artifactId>
-								</exclusion>
-								<exclusion>
-									<groupId>org.jvnet.hyperjaxb3</groupId>
-									<artifactId>hyperjaxb3-ejb-roundtrip</artifactId>
-								</exclusion>
-								<exclusion>
-									<groupId>org.springframework</groupId>
-									<artifactId>spring</artifactId>
-								</exclusion>
-								<exclusion>
-									<groupId>org.slf4j</groupId>
-									<artifactId>slf4j-log4j12</artifactId>
-								</exclusion>
-							</exclusions>
-						</dependency>
-						<dependency>
-							<groupId>org.jvnet.hyperjaxb3</groupId>
-							<artifactId>hyperjaxb3-ejb-plugin</artifactId>
-							<version>${hyperjaxb3-ejb-runtime.version}</version>
-							<exclusions>
-								<exclusion>
-									<groupId>commons-logging</groupId>
-									<artifactId>commons-logging</artifactId>
-								</exclusion>
-								<exclusion>
-									<groupId>org.jvnet.hyperjaxb3</groupId>
-									<artifactId>hyperjaxb3-ejb-roundtrip</artifactId>
-								</exclusion>
-								<exclusion>
-									<groupId>org.springframework</groupId>
-									<artifactId>spring</artifactId>
-								</exclusion>
-								<exclusion>
-									<groupId>org.slf4j</groupId>
-									<artifactId>slf4j-log4j12</artifactId>
-								</exclusion>
-							</exclusions>
-						</dependency>
-						<dependency>
-							<groupId>com.sun.xml.bind</groupId>
-							<artifactId>jaxb-xjc</artifactId>
-							<version>${jaxb22.version}</version>
-						</dependency>
-						<dependency>
-							<groupId>com.pyx4j</groupId>
-							<artifactId>maven-plugin-log4j</artifactId>
-							<version>1.0.1</version>
-						</dependency>
-						<dependency>
-							<groupId>org.slf4j</groupId>
-							<artifactId>slf4j-log4j12</artifactId>
-							<version>1.7.5</version>
-						</dependency>
-					</dependencies>
-					<configuration>
-						<addTestCompileSourceRoot>true</addTestCompileSourceRoot>
-						<cleanPackageDirectories>false</cleanPackageDirectories>
-						<forceRegenerate>true</forceRegenerate>
-						<removeOldOutput>false</removeOldOutput>
-						<extension>true</extension>
-						<args>
-							<arg>-extension</arg>
-							<arg>-Xequals</arg>
-							<arg>-XtoString</arg>
-							<arg>-Xannotate</arg>
-							<arg>-XhashCode</arg>
-							<arg>-Xhyperjaxb3-ejb</arg>
-							<arg>-Xmadura-objects</arg>
-							<arg>-Xvalidator</arg>
-						</args>
-					</configuration>
-				</plugin>
-
-<!-- 
-			<plugin>
 				<groupId>nz.co.senanque</groupId>
 				<artifactId>madura-objects-maven-plugin</artifactId>
 				<executions>
@@ -267,7 +162,6 @@
 					</execution>
 				</executions>
 			</plugin>
- -->
 			<plugin>
 				<groupId>nz.co.senanque</groupId>
 				<artifactId>madura-rules-maven-plugin</artifactId>
