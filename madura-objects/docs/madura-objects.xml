@@ -369,72 +369,53 @@ public class CustomerJPAImpl implements CustomerDAO {
 		as dynamic metadata where required, just the same as ChoiceLists.</p>
 		<p>Note that if you do not add any validation or metadata information to the field then it will be ignored by Madura Objects.
 		This is allows you to optimise the validation engine a little, ie ignored fields have no overhead.</p>
-        <h2 t="Building with ANT">
-		<p>To invoke XJC from Ant use a command like this:</p>
-		<code><![CDATA[
-<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
-  <classpath>
-  	<fileset dir="${basedir}/temp/lib" includes="*.jar" />
-  </classpath>
-</taskdef>
-
-<target name="generateObjectsFromXSD">
-	<delete dir="${basedir}/generated" failonerror="false"/>
-	<mkdir dir="${basedir}/generated"/>
-	<xjc extension="true" destdir="${basedir}/generated">
-		<arg line="-verbose -Xequals -Xmadura-objects -XtoString -XhashCode -Xannotate -Xvalidator -Xhyperjaxb3-ejb"/>
-		<schema dir=".">
-		 	<include name="${xsdfile}"/>
-		</schema>
-	</xjc>
-</target>
-		]]></code>
-		<p>The taskdef needs to refer to the jar files that the CJC task depends on. These can be fetched using ivy, specifying
-		this dependency:</p>
+		<h2 t="JAXB the Simple way">
+		<p>Invoking the JAXB plugin from maven requires quite a bit of configuration which, since it is boilerplate stuff when using Madura Objects
+		we decided to simplify it. All you really need is this:</p>
 <code><![CDATA[
-<dependency org="nz.co.senanque" name="madura-objects" rev="1.0" conf="mygenerate->generate"/>
+<plugin>
+	<groupId>nz.co.senanque</groupId>
+	<artifactId>madura-objects-maven-plugin</artifactId>
+	<executions>
+		<execution>
+			<goals>
+				<goal>generate</goal>
+			</goals>
+			<configuration>
+				<schemaIncludes>
+					<include>PizzaOrder.xsd</include>
+				</schemaIncludes>
+			</configuration>
+		</execution>
+	</executions>
+</plugin>
 ]]></code>
-		<p>Adjust the rev and local config (mygenerate) as necessary.</p>
-		<p>The actual xjc command shown specifies the following plugins:</p>
-		<list>
-		<ll name="equals">Adds the equals() method to the generated objects.</ll>
-		<ll name="toString">Adds the toString() method to the generated objects.</ll>
-		<ll name="hashCode">Adds the hashCode() method to the generated objects.</ll>
-		<ll name="annotate">This is the annox plugin that copies annotations from the XSD file to the generated objects.</ll>
-		<ll name="validator">One of the Madura Objects plugins. This one identifies information in the 'restriction' tag
-		in the XSD and turns it into annotations.</ll>
-		<ll name="madura-objects">The main Madura Objects plugin. This is the one responsible for modifying the
-		getters and setters adding the metadata interface.</ll>
-		</list>
-        </h2>
-        <h2 t="Building with Maven">
-        <p>To invoke XJC from Maven you use the JAXB plugin, and to use Madura Objects you define it like this in your pom file:</p>
+		<p>You can add more configuration entries such as <courier>schemaDirectory</courier> which defaults to <courier>${basedir}/src/main/resources/</courier>
+		and <courier>generateDirectory</courier> which defaults to <courier>${basedir}/generated-sources/xjc</courier>. It also accepts <courier>args</courier>
+		in the same way the JAXB plugin does but any args specified here are added to the list specified in this plugin. It is just a jacket
+		that invokes the real JAXB plugin and specifies the dependencies and settings you need for Madura Objects.</p>
+		</h2>
+		<h2 t="JAXB the Harder Way">
+		<p>You can still invoke JAXB directly is you want to. What the <courier>madura-objects-maven-plugin</courier> does is this:</p>
 <code><![CDATA[
 <plugin>
     <!-- jaxb plugin -->
     <groupId>org.jvnet.jaxb2.maven2</groupId>
     <artifactId>maven-jaxb2-plugin</artifactId>
-    <version>0.8.3</version>
-    <dependencies>
-        <dependency>
-            <groupId>nz.co.senanque</groupId>
-            <artifactId>madura-objects</artifactId>
-            <version>2.2</version>
-        </dependency>
-        <!-- You may want to tweak the jaxb version -->
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-xjc</artifactId>
-            <version>2.2</version>
-        </dependency>
-        <!-- Use the logging implementation you prefer -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <type>jar</type>
-            <version>0.9.24</version>
-        </dependency>
-    </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>nz.co.senanque</groupId>
+			<artifactId>madura-objects</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jvnet.hyperjaxb3</groupId>
+			<artifactId>hyperjaxb3-ejb-runtime</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jvnet.hyperjaxb3</groupId>
+			<artifactId>hyperjaxb3-ejb-plugin</artifactId>
+		</dependency>
+	</dependencies>
     <executions>
         <execution>
             <goals>
@@ -468,26 +449,9 @@ public class CustomerJPAImpl implements CustomerDAO {
 ]]></code>
         <p>Most of this is the normal use of the JAXB plugin, but it is worth noting that we are using two plugins to
         JAXB: madura-objects and validator, these are both contained in the madura-objects dependency.</p>
-        <p>However that is all a bit huge so we simplified it with a wrapper plugin. All you really need is this:</p>
-<code><![CDATA[
-<plugin>
-	<groupId>nz.co.senanque</groupId>
-	<artifactId>madura-objects-maven-plugin</artifactId>
-	<executions>
-		<execution>
-			<goals>
-				<goal>generate</goal>
-			</goals>
-			<configuration>
-				<schemaIncludes>
-					<include>PizzaOrder.xsd</include>
-				</schemaIncludes>
-			</configuration>
-		</execution>
-	</executions>
-</plugin>
-]]></code>
-        <p>The JAXB plugin expects the schema file to be in the directory <courier>src/main/resources</courier></p>
+        <p>The JAXB plugin expects the schema file to be in the directory <courier>src/main/resources</courier> by default.</p>
+        </h2>
+        <h2 t="Generating the Database">
         <p>Since you probably want to use these generated classes in a database you may want to generate a database script from them. An
         easy way to do this is to use the SchemaTranslatorMavenPlugin<referenceLink t="SchemaTranslatorMavenPlugin"/> like this:</p>
 <code><![CDATA[
@@ -514,7 +478,6 @@ public class CustomerJPAImpl implements CustomerDAO {
 		<dependency>
 			<groupId>nz.co.senanque</groupId>
 			<artifactId>madura-objects</artifactId>
-			<version>2.2.2</version>
 		</dependency>
 	</dependencies>
 </plugin>
@@ -525,7 +488,7 @@ public class CustomerJPAImpl implements CustomerDAO {
 		persistent units in your project you may want to override the default name or location using destdir and destFile.</p>
 		<p>Finally the drop parameter, which defaults to false, can be used to include the drop statements in the
 		resulting sql file.</p>
-        </h2>
+		</h2>
 		</h1>
 		<h1 t="API">
 		<p>How much API did we see in the examples in <sectionLink t="Examples"/>? The validation engine object has a createSession method. 
@@ -851,7 +814,7 @@ nz.co.senanque.validationengine.cdi.ValidationEngineProducer.messages=MyMessages
 		problem than another, or had some facility required that the first one was missing. There is a down side to doing this. You will have to maintain two different
 		plugin configurations and there must be no intersection between the set of fields mapped to one rule engine and the set of fields mapped to another.</p>
 		<p>When considering constraint engine plugins we need to understand several concepts. Most rules/constraint engines come out of academic needs targeted at solving complex 
-		mathematical problems such as scheduling. They do a lot of interesting things that are not a much use to
+		mathematical problems such as scheduling. They do a lot of interesting things that are not much use to
 		what is essentially a complex validation exercise. For example they might emphasise developing specific constraints to solve a timetabling
 		problem which is run once and delivers several solutions. But for validation we need to develop one set of rules that will remain
 		stable over many similar problems and we only need one solution. In fact one of our primary goals is to reject new data that is inconsistent
@@ -869,6 +832,8 @@ nz.co.senanque.validationengine.cdi.ValidationEngineProducer.messages=MyMessages
 		list of available values on choice lists based on other values in the session.</p> 
 		</h1>
 		<h1 t="Implementing new Validators">
+		<p>Validators in this case are single field validators. There are a number of them already in place, but you can add
+		to that list.</p>
 		<p>To implement a new validator you need to first write an annotation. It ought to look something like this:</p>
 		<code><![CDATA[
 ...
@@ -1038,9 +1003,15 @@ public class MyChoiceListFactory implements ChoiceListFactory {
 			dependency, has a dual license arrangement to allow for GPL compatible projects and commercial projects.</p>
 		</a1>
 		<a1 t="Release Notes">
-		<note>You need Java 1.7 to compile this project.</note>
+		<note>You need Java 1.8 to compile this project.</note>
 		<table width="12cm">
 			<tw>12cm</tw>
+		<tr>
+			<th>3.1.0</th>
+		</tr>
+		<tr>
+            <td>Rebuilt under Java 1.8.</td>
+        </tr>
 		<tr>
 			<th>3.0.0</th>
 		</tr>

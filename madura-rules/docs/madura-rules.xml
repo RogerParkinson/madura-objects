@@ -748,7 +748,7 @@ RulesPlugin rulesPlugin = validationEngine.getPlugin(RulesPlugin.class);
 		<img width="250px" href="images/editor.png">Editor</img>
 		<p>To get the plugin use this update site:</p>
 		<p><courier>http://github.com/RogerParkinson/maduraeditors/raw/master/site/</courier></p>
-		<p>To use the plugin you need to be running Eclipse Kepler or later and Java 1.7 or later.</p>
+		<p>To use the plugin you need to be running Eclipse Kepler or later and Java 1.8 or later.</p>
 		</a1>
 		<a1 t="Licence">
 		<p>Madura Rules is licenced with the GPL V3 licence <referenceLink t="GPL V3 licence"/> by default. This means that any code
@@ -763,6 +763,12 @@ RulesPlugin rulesPlugin = validationEngine.getPlugin(RulesPlugin.class);
 		<a1 t="Release Notes">
 		<table width="12cm">
 			<tw>12cm</tw>
+		<tr>
+			<th>3.1.0</th>
+		</tr>
+		<tr>
+            <td>Rebuilt under Java 1.8.</td>
+        </tr>
 		<tr>
 			<th>3.0.0</th>
 		</tr>
