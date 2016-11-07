@@ -59,7 +59,7 @@ public class MOMojo
 	/**
 	 * schemadirectory
 	 * 
-	 * @parameter expression="src/main/resources/"
+	 * @parameter expression="${basedir}/src/main/resources/"
 	 * @required
 	 */
 	private File schemaDirectory;
