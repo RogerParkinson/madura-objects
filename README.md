@@ -9,5 +9,8 @@ This is the parent project for madura-objects. The details of just what madura-o
  * madura-objects-cdi: Provides a CDI wrapper for madura-objects.
  * madura-objects-maven-plugin: Maven plugin to generate madura objects.
  * madura-objects-test-externals: Assists with standard tests for adding external functions to Madura Rules.
- * madura-objects-tests: Implements various tests for Madura Objects mostly relating to configuration options..
+ * madura-objects-tests: Implements various tests for Madura Objects mostly relating to configuration options.
  * [madura-utils](./madura-utils/README.md): Some common library functions such as locking an parsing.
+ * madura-rules-tests: Implements various tests for Madura Rules.
+ * madura-rules-tests2: Second suite of tests for madura rules.
+ 
