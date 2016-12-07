@@ -1007,6 +1007,15 @@ public class MyChoiceListFactory implements ChoiceListFactory {
 		<table width="12cm">
 			<tw>12cm</tw>
 		<tr>
+			<th>3.2.0</th>
+		</tr>
+		<tr>
+            <td>Moved to later version of Spring.</td>
+        </tr>
+		<tr>
+            <td>Fixed bad reference to eclipse plugin.</td>
+        </tr>
+		<tr>
 			<th>3.1.0</th>
 		</tr>
 		<tr>
