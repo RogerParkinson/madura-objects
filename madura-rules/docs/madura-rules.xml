@@ -19,7 +19,7 @@
 			<reference t="Commercial Madura Rules Licence 1.0" url="http://www.madurasoftware.com/home/madura-rules/commercially-licensed-version-of-madura-rules/commercial-madura-rules-license-version-1"/>
 			<reference t="Apache Licence V2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
 			<reference t="eclipse" url="http://www.eclipse.org"/>
-			<reference t="madura-plugin" url="http://www.madurasoftware.com/madura-plugin"/>
+			<reference t="madura-eclipse" url="http://www.madurasoftware.com/madura-eclipse"/>
 			<reference t="Madura Objects" url="https://github.com/RogerParkinson/madura-objects-parent/tree/master/madura-objects"/>
 		</references>
 	</title>
@@ -729,7 +729,7 @@ RulesPlugin rulesPlugin = validationEngine.getPlugin(RulesPlugin.class);
 		<p>Then you can get at its methods. Naturally this also works for other plugins too.</p>
 		</h1>
 		<a1 t="Eclipse Plugin">
-		<p>The Eclipse<referenceLink t="eclipse"/> plugin<referenceLink t="madura-plugin"/> supports creating and editing rules files. There is a Wizard that creates
+		<p>The Eclipse<referenceLink t="eclipse"/> plugin<referenceLink t="madura-eclipse"/> supports creating and editing rules files. There is a Wizard that creates
 		new files under File&gt;New&gt;Other&gt;MaduraWizards...Rule File.</p>
 		<img width="250px" href="images/RuleWizard.png">Rule Wizard</img>
 		<p>It asks for:</p>
@@ -754,7 +754,7 @@ RulesPlugin rulesPlugin = validationEngine.getPlugin(RulesPlugin.class);
 		<p>When everything is in place you should be able to edit your rules file with the plugin editor. It supports context assistance and, from the outline, navigation.</p>
 		<img width="250px" href="images/editor.png">Editor</img>
 		<p>To get the plugin use this update site:</p>
-		<p><courier>http://www.madurasoftware.com/madura-plugin/</courier></p>
+		<p><courier>http://www.madurasoftware.com/madura-eclipse/</courier></p>
 		<p>To use the plugin you need to be running Eclipse Lunar or later and Java 1.8 or later.</p>
 		</a1>
 		<a1 t="Licence">
