@@ -27,6 +27,7 @@
 		items that <emph>might</emph> be locked across multiple threads and multiple JVMs, depending on the implementation.</le>
 		<le>Parser is a set of parsing tools which can be extended to support a specific grammar fairly simply.</le>
 		<le>Schemaparser is a reader of XSD files which creates an object structure which can be easily queried for class names and fields etc.</le>
+		<le>The spring package is a collection of useful stuff that assists when using Spring Frameworks.</le>
 		</list>
 		</h1>
 		
@@ -66,7 +67,7 @@ if (!lockTemplate.doAction()) {
         <h2 t="SQLLock">
         <p>This one keeps the locks on a database table so it requires a database and it does work across JVMs. This is the table definition required (for Oracle):</p>
         <code><![CDATA[
-CREATE TABLE SQL_LOCK
+CREATE TABLE SQLLOCK
 (
   lockName  VARCHAR(255)  NOT NULL,
   ownerName  VARCHAR(100)  NOT NULL,
@@ -105,6 +106,64 @@ CREATE TABLE SQL_LOCK
         <p>The <courier>MaduraAsserts</courier> class roughly mimics Junit's asserts but doesn't need the JUnit dependency in your production code.
         The asserts take optional format messages and even RuntimeExceptions if you want.</p>
         </h1>
+        <h1 t="Spring">
+        <p>The <courier>PropertiesMerger</courier> is for merging two or more properties sources into one.</p>
+        <code><![CDATA[
+<context:property-placeholder location="classpath:config.properties" />
+<util:properties id="xaProperties1">
+       <prop key="url">${database.url.prefix}workflow${database.url.suffix}</prop>
+       <prop key="user">${database.user}</prop>
+       <prop key="password">${database.password}</prop>
+</util:properties>
+<util:properties id="xaProperties2">
+       <prop key="pinGlobalTxToPhysicalConnection">true</prop>
+</util:properties>
+<bean id="xaProperties" class="nz.co.senanque.spring.PropertiesMerger">
+	<property name="list">
+		<list>
+			<ref bean="xaProperties1"/>
+			<ref bean="xaProperties2"/>
+		</list>
+	</property>
+</bean>
+        ]]></code>
+        <p>The resulting properties bean: <courier>xaProperties</courier> can be injected into some bean that requires the complete
+        list of properties. It is most helpful when you are configuring a datasource and you need to add extra properties to the basic list.
+        It is easy enough to provide <emph>different</emph> values as shown above, but to provide <emph>extra</emph> can be done like this:</p>
+        <code><![CDATA[
+<context:property-placeholder location="classpath:config.properties" />
+<util:properties id="xaProperties1">
+       <prop key="url">${database.url.prefix}workflow${database.url.suffix}</prop>
+       <prop key="user">${database.user}</prop>
+       <prop key="password">${database.password}</prop>
+</util:properties>
+<util:properties id="xaProperties2" location="classpath:xa-${database.type}.properties"/>
+<bean id="xaProperties" class="nz.co.senanque.spring.PropertiesMerger">
+	<property name="list">
+		<list>
+			<ref bean="xaProperties1"/>
+			<ref bean="xaProperties2"/>
+		</list>
+	</property>
+</bean>
+        ]]></code>
+        <p>In this case we have moved the xaProperties2 properties to an external file. and we qualify it with <courier>database.type</courier>. We
+        already loaded <courier>config.properties</courier> and that looks like this:</p>
+        <code><![CDATA[
+# Use these values for a MYSQL database on localhost
+database.dialect=org.hibernate.dialect.MySQL57InnoDBDialect
+database.datasource.class=com.mysql.jdbc.jdbc2.optional.MysqlXADataSource
+database.url.prefix=jdbc:mysql://localhost:3306/
+database.url.suffix=?autoReconnect=true&useSSL=false
+database.user=workflow
+database.password=workflow
+database.type=mysql
+        ]]></code>
+        <p>As long as we provide a file names <courier>xa-mysql.properties</courier> this will work. We need to provide a similar file for each
+        database variation we hope to use. We can move some of these properties to the appropriate xa file, but the goal is to have just one file
+        that needs to be edited so don't move the user, password or url properties because those might need to be changed regardless of what database
+        platform is slected.</p>
+        </h1>
 		<a1 t="License">
 			<p>The code specific to MaduraUtils is licensed under the Apache Licence 2.0 <referenceLink t="Apache Licence 2.0"/>.</p>
 			<p>The dependent products have compatible licenses as specified in their pom files.</p>
@@ -112,6 +171,12 @@ CREATE TABLE SQL_LOCK
 		<a1 t="Release Notes">
 			<table width="12cm">
 				<tw>12cm</tw>
+				<tr>
+					<th>3.2.0</th>
+				</tr>
+				<tr>
+					<td>Changed lock table name to SQLLOCK.</td>
+				</tr>
 				<tr>
 					<th>3.0.1</th>
 				</tr>
