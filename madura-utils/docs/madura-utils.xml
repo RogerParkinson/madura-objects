@@ -67,17 +67,22 @@ if (!lockTemplate.doAction()) {
         <h2 t="SQLLock">
         <p>This one keeps the locks on a database table so it requires a database and it does work across JVMs. This is the table definition required (for Oracle):</p>
         <code><![CDATA[
-CREATE TABLE SQLLOCK
+CREATE TABLE SQL_LOCK
 (
-  lockName  VARCHAR(255)  NOT NULL,
+  lockName  VARCHAR(100) PRIMARY KEY NOT NULL,
   ownerName  VARCHAR(100)  NOT NULL,
   started  VARCHAR(255)  NOT NULL,
   comments  VARCHAR(255),
-  hostAddress  VARCHAR(100) NOT NULL,
-    CONSTRAINT sql_lock_name PRIMARY KEY (lockName)
+  hostAddress  VARCHAR(100) NOT NULL
 );
         ]]></code>
-        <p>The configuration looks like this:</p>
+        <p>If the table is not already there the lock factory will attempt to create it. Two points to note about that:</p>
+        <p>First, this is a generic table creation script. You might have something more specific needed for your database. Put
+        your modified script into a file name <courier>sql_locks-XXX.sql</courier> where XXX is your database product name (as returned by
+        <courier>getDatabaseProductName()</courier> from <courier>java.sql.DatabaseMetaData</courier>).</p>
+        <p>The second point is that most DBAs configure production databases so that ordinary users do not have enough privilege to create
+        tables, in which case you need to get the DBA to run the script manually.</p>
+        <p>The Spring configuration looks like this:</p>
         <code><![CDATA[
 <bean id="lockFactory" class="nz.co.senanque.locking.sql.SQLLockFactory">
     <property name="datasource" ref="datasource"/>
@@ -91,7 +96,14 @@ CREATE TABLE SQLLOCK
         prefixes on each allows the lock manager to know which JVM owns which lock.</p>
         <p>The maxRetries and sleepTime defines how many times to keep retrying the lock if we are locked out (-1 means infinite) and
         the sleep time is how long to wait between each try in milliseconds.</p>
-        </h2>
+		<p>The SQLLockFactory is exposed to JMX for several operations, notably forcing it to release specific locks. Details of
+		configuring a JMX in an application is beyond the scope of this document but you mostly need to just add the following
+		to your Spring context:</p>
+		<code><![CDATA[
+<bean id="mbeanServer" class="java.lang.management.ManagementFactory" lazy-init="false" factory-method="getPlatformMBeanServer"/>
+<context:mbean-export server="mbeanServer"/>
+		]]></code>
+		</h2>
         <h2 t="Other Locking Mechanisms">
         <p>The obvious one to implement is Hazelcast<referenceLink t="Hazelcast"/> which supports the <courier>java.util.concurrent.locks.Lock</courier> interface already so
         a simple factory that delivers a Hazelcast implementation would be easy to build. Terracotta<referenceLink t="Terracotta"/> can manage distributed locks as well.</p>
@@ -175,7 +187,10 @@ database.type=mysql
 					<th>3.2.0</th>
 				</tr>
 				<tr>
-					<td>Changed lock table name to SQLLOCK.</td>
+					<td>Added JMX.</td>
+				</tr>
+				<tr>
+					<td>Added PropertiesMerger.</td>
 				</tr>
 				<tr>
 					<th>3.0.1</th>

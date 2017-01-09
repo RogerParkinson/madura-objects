@@ -50,17 +50,17 @@ public interface LockFactory {
 	 */
 	void clearCurrentLocks();
 	
-	/**
-	 * Count the number of locks currently locked by all lockers
-	 * @return number of active locks
-	 */
-	long countAllLocks();
-	
-	/**
-	 * Count the locks currently locked by all lockers
-	 * String representation to avoid dependence on internal lock structures.
-	 * @return the names of all the currently active locks
-	 */
-	List<String> getAllLocks();
+//	/**
+//	 * Count the number of locks currently locked by all lockers
+//	 * @return number of active locks
+//	 */
+//	long countAllLocks();
+//	
+//	/**
+//	 * Get the locks currently locked by all lockers
+//	 * String representation to avoid dependence on internal lock structures.
+//	 * @return the names of all the currently active locks
+//	 */
+//	List<String> getAllLocks();
 
 }

@@ -49,6 +49,14 @@ public class LockedObject implements Comparable<LockedObject> {
 		m_comment = comment;
 	}
 	
+	protected LockedObject(String objectName, String ownerName, String comment, Timestamp timeStamp)
+	{
+		m_objectName = objectName;
+		m_ownerName = ownerName;
+		m_timestamp = timeStamp;
+		m_comment = comment;
+	}
+	
 	public String toString()
 	{
 		return m_objectName + " " + m_ownerName + " "+m_comment + " " + m_timestamp;
