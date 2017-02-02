@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nz.co.senanque</groupId>
 	<artifactId>madura-objects-parent</artifactId>
-	<version>3.2.0-SNAPSHOT</version>
+	<version>3.2.0</version>
 	<name>Madura Objects Parent Project</name>
 	<packaging>pom</packaging>
 	<url>www.madurasoftware.com</url>
@@ -73,7 +73,7 @@
 			<dependency>
 				<groupId>nz.co.senanque</groupId>
 				<artifactId>madura-resource-loader</artifactId>
-				<version>1.3.0-SNAPSHOT</version>
+				<version>1.3.0</version>
 			</dependency>
 			<dependency>
 				<groupId>ch.qos.logback</groupId>
