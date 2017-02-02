@@ -1010,6 +1010,9 @@ public class MyChoiceListFactory implements ChoiceListFactory {
 			<th>3.2.0</th>
 		</tr>
 		<tr>
+            <td>Added JMX to SQL Locks.</td>
+        </tr>
+		<tr>
             <td>Moved to later version of Spring.</td>
         </tr>
 		<tr>
