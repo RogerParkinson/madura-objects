@@ -2,6 +2,10 @@
 madura-objects
 ==
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/nz.co.senanque/madura-objects-parent/badge.svg)](http://mvnrepository.com/artifact/nz.co.senanque/madura-objects-parent)
+
+[![build_status](https://travis-ci.org/RogerParkinson/madura-objects-parent.svg?branch=master)](https://travis-ci.org/RogerParkinson/madura-objects-parent)
+
 A more detailed document can be found at [Madura Objects (PDF)](http://www.madurasoftware.com/madura-objects.pdf) 
 
 Business Objects

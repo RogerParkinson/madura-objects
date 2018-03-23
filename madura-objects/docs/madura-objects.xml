@@ -396,7 +396,7 @@ public class CustomerJPAImpl implements CustomerDAO {
 		that invokes the real JAXB plugin and specifies the dependencies and settings you need for Madura Objects.</p>
 		</h2>
 		<h2 t="JAXB the Harder Way">
-		<p>You can still invoke JAXB directly is you want to. What the <courier>madura-objects-maven-plugin</courier> does is this:</p>
+		<p>You can still invoke JAXB directly if you want to. What the <courier>madura-objects-maven-plugin</courier> does is this:</p>
 <code><![CDATA[
 <plugin>
     <!-- jaxb plugin -->
@@ -1006,6 +1006,12 @@ public class MyChoiceListFactory implements ChoiceListFactory {
 		<note>You need Java 1.8 to compile this project.</note>
 		<table width="12cm">
 			<tw>12cm</tw>
+		<tr>
+			<th>3.3.0</th>
+		</tr>
+		<tr>
+            <td>Added Travis CI.</td>
+        </tr>
 		<tr>
 			<th>3.2.0</th>
 		</tr>
