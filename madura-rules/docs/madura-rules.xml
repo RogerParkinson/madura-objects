@@ -771,6 +771,15 @@ RulesPlugin rulesPlugin = validationEngine.getPlugin(RulesPlugin.class);
 		<table width="12cm">
 			<tw>12cm</tw>
 		<tr>
+			<th>3.3.0</th>
+		</tr>
+		<tr>
+            <td>Added Travis CI.</td>
+        </tr>
+		<tr>
+            <td>Align version number with Madura Objects</td>
+        </tr>
+		<tr>
 			<th>3.1.0</th>
 		</tr>
 		<tr>

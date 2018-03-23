@@ -1,6 +1,10 @@
 madura-objects-parent
 =====================
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/nz.co.senanque/madura-objects-parent/badge.svg)](http://mvnrepository.com/artifact/nz.co.senanque/madura-objects-parent)
+
+[![build_status](https://travis-ci.org/RogerParkinson/madura-objects-parent.svg?branch=master)](https://travis-ci.org/RogerParkinson/madura-objects-parent)
+
 This is the parent project for madura-objects. The details of just what madura-objects does is in the first sub-project link below. The other projects are add-ons and supporting libraries and tools.
 	
  * [madura-objects](./madura-objects/README.md): This is the core project and most of the docs are in here.

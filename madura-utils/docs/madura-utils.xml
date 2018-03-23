@@ -184,6 +184,12 @@ database.type=mysql
 			<table width="12cm">
 				<tw>12cm</tw>
 				<tr>
+					<th>3.3.0</th>
+				</tr>
+				<tr>
+		            <td>Added Travis CI.</td>
+		        </tr>
+				<tr>
 					<th>3.2.0</th>
 				</tr>
 				<tr>
