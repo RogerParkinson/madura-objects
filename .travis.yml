@@ -11,6 +11,6 @@ install: mvn --settings travis/settings.xml install -Dgpg.skip -Dmaven.javadoc.s
 
 deploy:
   provider: script
-  script: "mvn versions:set -DnewVersion=${TRAVIS_TAG} && mvn clean deploy -DskipTests=true -B -U -P release --settings travis/settings.xml"
+  script: "mvn versions:set -DnewVersion=${TRAVIS_TAG} && mvn clean deploy -B -U -P release --settings travis/settings.xml"
   on:
     tags: true
