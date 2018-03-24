@@ -7,7 +7,7 @@
 	</encoder>
 	</appender>
 	
-	<logger name="nz.co.senanque" level="debug"/>
+	<logger name="nz.co.senanque" level="warn"/>
 
   <root level="warn">
     <appender-ref ref="STDOUT" />

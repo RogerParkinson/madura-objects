@@ -5,9 +5,9 @@
 	</encoder>
 	</appender>
 	    
-	<logger name="nz.co.senanque.schemaparser" level="debug"/>
-	<logger name="nz.co.senanque.parser" level="debug"/>
-	<logger name="nz.co.senanque.locking.sql.SQLLockFactory" level="debug"/>
+	<logger name="nz.co.senanque.schemaparser" level="warn"/>
+	<logger name="nz.co.senanque.parser" level="warn"/>
+	<logger name="nz.co.senanque.locking.sql.SQLLockFactory" level="warn"/>
 
   <root level="warn">
     <appender-ref ref="STDOUT" />
