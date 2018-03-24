@@ -5,11 +5,11 @@
 	</encoder>
 	</appender>
 	    
-	<logger name="nz.co.senanque.schemaparser" level="warn"/>
-	<logger name="nz.co.senanque.parser" level="warn"/>
-	<logger name="nz.co.senanque.locking.sql.SQLLockFactory" level="warn"/>
+	<logger name="nz.co.senanque.schemaparser" level="OFF"/>
+	<logger name="nz.co.senanque.parser" level="OFF"/>
+	<logger name="nz.co.senanque.locking.sql.SQLLockFactory" level="OFF"/>
 
-  <root level="warn">
+  <root level="OFF">
     <appender-ref ref="STDOUT" />
   </root>
 </configuration>

@@ -10,7 +10,7 @@
 	<logger name="nz.co.senanque.sandbox.HeapTest" level="warn"/>
 	<logger name="nz.co.senanque.validationengine.metadata.AnnotationsMetadataFactoryTest" level="warn"/>
 <!-- 	<logger name="org.hibernate.tool.hbm2ddl" level="debug"/> -->
-  <root level="warn">
+  <root level="OFF">
     <appender-ref ref="STDOUT" />
   </root>
 </configuration>

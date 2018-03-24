@@ -101,7 +101,7 @@ public class SchemaParserTest {
 		
         OutputFormat format = OutputFormat.createPrettyPrint();
         XMLWriter writer = new XMLWriter( System.out, format );
-        writer.write( visitor.getDocument() );
+//        writer.write( visitor.getDocument() );
 	}
 	@Test
 	public void testParse4() throws Exception {
@@ -117,7 +117,7 @@ public class SchemaParserTest {
 		schemaParser.traverse(visitor);
 		
 		XMLOutputter fmt = new XMLOutputter(Format.getPrettyFormat());
-		fmt.output(visitor.getDocument(), System.out);
+//		fmt.output(visitor.getDocument(), System.out);
 		
 		FieldDescriptor fd = schemaParser.findOperandInScope("Order", "age");
 		List<Restriction> restrictions = fd.getRestrictions();

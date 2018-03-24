@@ -171,10 +171,10 @@ public class ObjectTest
         choices2 = metadata.getFieldMetadata(Customer.CUSTOMERTYPE).getChoiceList();
 //        assertEquals(1,choices2.size());
         
-        for (ChoiceBase choice: choices2)
-        {
-            System.out.println(choice.getDescription());
-        }
+//        for (ChoiceBase choice: choices2)
+//        {
+//            System.out.println(choice.getDescription());
+//        }
         
         customer.setName("aab");
         choices2 = metadata.getFieldMetadata(Customer.CUSTOMERTYPE).getChoiceList();
