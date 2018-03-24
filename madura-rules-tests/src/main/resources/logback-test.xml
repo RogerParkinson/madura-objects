@@ -6,7 +6,7 @@
 		<pattern>%-35(%d{HH:mm:ss.SSS} [%thread]) %-5level %logger{35} - %F:%L %msg%n</pattern>
 	</encoder>
 	</appender>
-	<logger name="nz.co.senanque.performance" level="info"/>
+	<logger name="nz.co.senanque.performance" level="OFF"/>
 <!--
 	<logger name="nz.co.senanque.rulesparser.FunctionDescriptorFactory" level="debug"/>
 	<logger name="nz.co.senanque.rulesparser.ParsePackageTest" level="debug"/>
@@ -15,7 +15,7 @@
 	<logger name="nz.co.senanque.parser" level="debug"/>
 	<logger name="org.hibernate.tool.hbm2ddl.SchemaExport" level="debug"/>
 -->
-  <root level="warn">
+  <root level="OFF">
     <appender-ref ref="STDOUT" />
   </root>
 </configuration>
