@@ -17,6 +17,7 @@ package nz.co.senanque.functions;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import nz.co.senanque.base.Customer;
@@ -70,7 +71,9 @@ public class FunctionTest
         assertEquals(3834L,days);
         
         Date revisedDate = invoice.getRevisedDate();
-        assertEquals("Mon Apr 24 00:00:00 NZST 2000",revisedDate.toString());
+        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy:HH:mm:SS");
+        String ss = DATE_FORMAT.format(revisedDate);
+        assertEquals("24-04-2000:00:00:00",ss);
         
     }
 
