@@ -201,25 +201,6 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.kuali.maven.plugins</groupId>
-				<artifactId>properties-maven-plugin</artifactId>
-				<version>1.1.9</version>
-				<executions>
-					<execution>
-						<phase>initialize</phase>
-						<goals>
-							<goal>read-project-properties</goal>
-						</goals>
-						<configuration>
-							<locations>
-								<location>${HOME}/madura.properties</location>
-							</locations>
-							<quiet>true</quiet>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 			    <groupId>org.codehaus.mojo</groupId>
 			    <artifactId>build-helper-maven-plugin</artifactId>
 			    <version>1.5</version>
@@ -240,4 +221,38 @@
 			</plugin>
 		</plugins>
   	</build>
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.5</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.3</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
