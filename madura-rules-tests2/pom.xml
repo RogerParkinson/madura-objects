@@ -3,7 +3,7 @@
   <parent>
     <groupId>nz.co.senanque</groupId>
     <artifactId>madura-objects-parent</artifactId>
-    <version>3.3.4-SNAPSHOT</version>
+    <version>3.3.4</version>
   </parent>
   <artifactId>madura-rules-tests2</artifactId>
   <name>madura-rules-tests2</name>
