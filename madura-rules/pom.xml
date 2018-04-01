@@ -3,7 +3,7 @@
   <parent>
     <groupId>nz.co.senanque</groupId>
     <artifactId>madura-objects-parent</artifactId>
-    <version>3.3.4</version>
+    <version>3.3.5-SNAPSHOT</version>
   </parent>
   <artifactId>madura-rules</artifactId>
   <name>Madura Rules</name>
@@ -334,6 +334,9 @@ That means you can change rules without having to go back to your Java code, and
 							</goals>
 						</execution>
 					</executions>
+					<configuration>
+						<subprojectDir>madura-rules</subprojectDir>
+					</configuration>
 				</plugin>
 
 		</plugins>
