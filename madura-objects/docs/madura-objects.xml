@@ -1007,7 +1007,13 @@ public class MyChoiceListFactory implements ChoiceListFactory {
 		<table width="12cm">
 			<tw>12cm</tw>
 		<tr>
-			<th>3.3.0</th>
+			<th>3.3.5</th>
+		</tr>
+		<tr>
+            <td>Using new Maduradocs which generates better change log.</td>
+        </tr>
+		<tr>
+			<th>3.3.0...</th>
 		</tr>
 		<tr>
             <td>Added Travis CI.</td>
